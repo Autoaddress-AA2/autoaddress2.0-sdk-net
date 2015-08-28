@@ -1,5 +1,4 @@
 ﻿using Autoaddress.Autoaddress2_0.Model;
-using Autoaddress.Autoaddress2_0.Model.FindAddress;
 using NUnit.Framework;
 
 namespace Autoaddress.Autoaddress2_0.Test.Integration
@@ -12,12 +11,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
             
             var response = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(response);
-            Assert.AreEqual(ReturnCode.PostcodeAppended, response.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
             Assert.AreEqual("A86VC04", response.Postcode);
         }
 
@@ -26,12 +25,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "8 Silver Birches, Dunboyne, A86VC04";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
 
             var response = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(response);
-            Assert.AreEqual(ReturnCode.PostcodeValidated, response.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeValidated, response.Result);
             Assert.AreEqual("A86VC04", response.Postcode);
         }
 
@@ -40,12 +39,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "8 Silver Birches, Dunboyne, A86VC05";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
 
             var response = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(response);
-            Assert.AreEqual(ReturnCode.PostcodeAmended, response.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAmended, response.Result);
             Assert.AreEqual("A86VC04", response.Postcode);
         }
 
@@ -54,12 +53,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "9 Silver Birches, Dunboyne, A86VC04";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
 
             var response = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(response);
-            Assert.AreEqual(ReturnCode.AddressAmendedToMatchPostcode, response.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.AddressAmendedToMatchPostcode, response.Result);
             Assert.AreEqual("A86VC04", response.Postcode);
         }
 
@@ -69,7 +68,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             const string licenceKey = "InvalidLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient(licenceKey);
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             AutoaddressException autoaddressException = Assert.Throws<AutoaddressException>(() => autoaddressClient.FindAddress(request));
             Assert.AreEqual(ErrorType.InvalidLicenceKey, autoaddressException.ErrorType);
@@ -80,12 +79,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             var response = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(response);
-            Assert.AreEqual(ReturnCode.PostcodeAppended, response.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
             Assert.AreEqual("A86VC04", response.Postcode);
         }
 
@@ -94,7 +93,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             var response = autoaddressClient.FindAddress(request);
 
@@ -107,19 +106,19 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             var firstResponse = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(firstResponse);
-            Assert.AreEqual(ReturnCode.IncompleteAddressEntered, firstResponse.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.IncompleteAddressEntered, firstResponse.Result);
             Assert.NotNull(firstResponse.Options);
             var option = firstResponse.Options[0];
             var link = option.Links[0];
             
             var secondResponse = autoaddressClient.FindAddress(link);
             Assert.NotNull(secondResponse);
-            Assert.AreEqual(ReturnCode.IncompleteAddressEntered, secondResponse.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.IncompleteAddressEntered, secondResponse.Result);
             Assert.NotNull(secondResponse.Options);
         }
 
@@ -128,7 +127,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             var firstResponse = autoaddressClient.FindAddress(request);
 
@@ -149,12 +148,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             var response = await autoaddressClient.FindAddressAsync(request);
 
             Assert.NotNull(response);
-            Assert.AreEqual(ReturnCode.PostcodeAppended, response.Result);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
             Assert.AreEqual("A86VC04", response.Postcode);
         }
 
@@ -164,7 +163,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             const string licenceKey = "InvalidLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient(licenceKey);
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             Assert.Throws<AutoaddressException>(async () => await autoaddressClient.FindAddressAsync(request));
         }
@@ -174,7 +173,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(address, Language.EN, Country.IE, 20, false, null);
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address, Language.EN, Country.IE, 20, false, null);
 
             var response = await autoaddressClient.FindAddressAsync(request);
 
@@ -512,6 +511,132 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
             Assert.AreEqual(ecadId, response.EcadId);
+        }
+
+        [Test]
+        public void AutoComplete_SilverBirchesDunboyne_ReturnsValidResponse()
+        {
+            const string address = "Silver Birches, Dunboyne";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = autoaddressClient.AutoComplete(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Options);
+            Assert.AreEqual(1, response.Options.Length);
+            Assert.AreEqual("SILVER BIRCHES, MILLFARM, DUNBOYNE, CO. MEATH", response.Options[0].DisplayName);
+        }
+
+        [Test]
+        public async void AutoCompleteAsync_SilverBirchesDunboyne_ReturnsValidResponse()
+        {
+            const string address = "Silver Birches, Dunboyne";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = await autoaddressClient.AutoCompleteAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Options);
+            Assert.AreEqual(1, response.Options.Length);
+            Assert.AreEqual("SILVER BIRCHES, MILLFARM, DUNBOYNE, CO. MEATH", response.Options[0].DisplayName);
+        }
+
+        [Test]
+        public void AutoComplete_D08XY00_ReturnsValidResponse()
+        {
+            const string eircode = "D08XY00";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = autoaddressClient.AutoComplete(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Options);
+            Assert.AreEqual(3, response.Options.Length);
+            Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
+            Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
+        }
+
+        [Test]
+        public async void AutoCompleteAsync_D08XY00_ReturnsValidResponse()
+        {
+            const string eircode = "D08XY00";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = await autoaddressClient.AutoCompleteAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Options);
+            Assert.AreEqual(3, response.Options.Length);
+            Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
+            Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
+        }
+
+        [Test]
+        public void AutoCompleteThenFindAddress_D08XY00_ReturnsValidResponse()
+        {
+            const string eircode = "D08XY00";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var autoCompleteResponse = autoaddressClient.AutoComplete(request);
+
+            Assert.NotNull(autoCompleteResponse);
+            Assert.NotNull(autoCompleteResponse.Options);
+            Assert.AreEqual(3, autoCompleteResponse.Options.Length);
+            Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[0].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[1].DisplayName);
+            Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[2].DisplayName);
+
+            var link = autoCompleteResponse.Options[1].Links[0];
+
+            var findAddressResponse = autoaddressClient.FindAddress(link);
+            
+            Assert.NotNull(findAddressResponse);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, findAddressResponse.Result);
+            Assert.AreEqual(eircode, findAddressResponse.Postcode);
+            Assert.NotNull(findAddressResponse.PostalAddress);
+            Assert.AreEqual(4, findAddressResponse.PostalAddress.Length);
+            Assert.AreEqual("AUTOADDRESS", findAddressResponse.PostalAddress[0]);
+            Assert.AreEqual("4 INNS COURT", findAddressResponse.PostalAddress[1]);
+            Assert.AreEqual("WINETAVERN STREET", findAddressResponse.PostalAddress[2]);
+            Assert.AreEqual("DUBLIN 8", findAddressResponse.PostalAddress[3]);
+        }
+
+        [Test]
+        public async void AutoCompleteAsyncThenFindAddressAsync_D08XY00_ReturnsValidResponse()
+        {
+            const string eircode = "D08XY00";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var autoCompleteResponse = await autoaddressClient.AutoCompleteAsync(request);
+
+            Assert.NotNull(autoCompleteResponse);
+            Assert.NotNull(autoCompleteResponse.Options);
+            Assert.AreEqual(3, autoCompleteResponse.Options.Length);
+            Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[0].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[1].DisplayName);
+            Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[2].DisplayName);
+
+            var link = autoCompleteResponse.Options[1].Links[0];
+
+            var findAddressResponse = await autoaddressClient.FindAddressAsync(link);
+            
+            Assert.NotNull(findAddressResponse);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, findAddressResponse.Result);
+            Assert.AreEqual(eircode, findAddressResponse.Postcode);
+            Assert.NotNull(findAddressResponse.PostalAddress);
+            Assert.AreEqual(4, findAddressResponse.PostalAddress.Length);
+            Assert.AreEqual("AUTOADDRESS", findAddressResponse.PostalAddress[0]);
+            Assert.AreEqual("4 INNS COURT", findAddressResponse.PostalAddress[1]);
+            Assert.AreEqual("WINETAVERN STREET", findAddressResponse.PostalAddress[2]);
+            Assert.AreEqual("DUBLIN 8", findAddressResponse.PostalAddress[3]);
         }
     }
 }

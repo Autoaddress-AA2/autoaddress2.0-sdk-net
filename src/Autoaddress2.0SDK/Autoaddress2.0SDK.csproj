@@ -57,6 +57,10 @@
     <Compile Include="Helpers\HttpRequestHelper.cs" />
     <Compile Include="AutoaddressClient.cs" />
     <Compile Include="IAutoaddress.cs" />
+    <Compile Include="Model\AutoComplete\Link.cs" />
+    <Compile Include="Model\AutoComplete\Option.cs" />
+    <Compile Include="Model\AutoComplete\Request.cs" />
+    <Compile Include="Model\AutoComplete\Response.cs" />
     <Compile Include="Model\Country.cs" />
     <Compile Include="Model\ErrorType.cs" />
     <Compile Include="Model\FindAddress\Link.cs" />

@@ -22,6 +22,13 @@ namespace Autoaddress.Autoaddress2_0
         Model.FindAddress.Response FindAddress(Model.FindAddress.Link link);
 
         /// <summary>
+        /// Lookup a Postcode or Address. Returns all available data if found.
+        /// </summary>
+        /// <param name="link">A link returned in a AutoComplete response.</param>
+        /// <returns>FindAddress response.</returns>
+        Model.FindAddress.Response FindAddress(Model.AutoComplete.Link link);
+
+        /// <summary>
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>
@@ -118,5 +125,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <param name="link">A link returned in a GetEcadData response.</param>
         /// <returns>GetEcadData response.</returns>
         Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Link link);
+
+        /// <summary>
+        /// Lookup a Postcode or Address auto complete options. Returns all available data if found.
+        /// </summary>
+        /// <param name="request">AutoComplete request.</param>
+        /// <returns>AutoComplete response.</returns>
+        Model.AutoComplete.Response AutoComplete(Model.AutoComplete.Request request);
+
+        /// <summary>
+        /// Lookup a Postcode or Address auto complete options as an asynchronous operation. Returns all available data if found.
+        /// </summary>
+        /// <param name="request">AutoComplete request.</param>
+        /// <returns>AutoComplete response.</returns>
+        Task<Model.AutoComplete.Response> AutoCompleteAsync(Model.AutoComplete.Request request);
     }
 }

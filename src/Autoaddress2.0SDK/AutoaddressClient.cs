@@ -30,6 +30,7 @@ namespace Autoaddress.Autoaddress2_0
         private const string PostcodeLookupMethod = "PostcodeLookup";
         private const string VerifyAddressMethod = "VerifyAddress";
         private const string GetEcadDataMethod = "GetEcadData";
+        private const string AutoCompleteMethod = "AutoComplete";
         private const string JsonContentType = "application/json";
 
         private readonly AutoaddressConfig _autoaddressConfig;
@@ -150,6 +151,21 @@ namespace Autoaddress.Autoaddress2_0
         }
 
         /// <summary>
+        /// Lookup a Postcode or Address. Returns all available data if found.
+        /// </summary>
+        /// <param name="link">A link returned in a AutoComplete response.</param>
+        /// <returns>FindAddress response.</returns>
+        public Model.FindAddress.Response FindAddress(Model.AutoComplete.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
+        }
+
+        /// <summary>
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>
@@ -178,6 +194,21 @@ namespace Autoaddress.Autoaddress2_0
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientFindAddressAsyncLinkExample1.cs" language="cs" />
         /// </example>
         public async Task<Model.FindAddress.Response> FindAddressAsync(Model.FindAddress.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
+        }
+
+        /// <summary>
+        /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
+        /// </summary>
+        /// <param name="link">A link returned in a AutoComplete response.</param>
+        /// <returns>FindAddress response.</returns>
+        public async Task<Model.FindAddress.Response> FindAddressAsync(Model.AutoComplete.Link link)
         {
             if (link == null) throw new ArgumentNullException("link");
 
@@ -397,6 +428,36 @@ namespace Autoaddress.Autoaddress2_0
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
+        }
+
+        /// <summary>
+        /// Lookup a Postcode or Address auto complete options. Returns all available data if found.
+        /// </summary>
+        /// <param name="request">AutoComplete request.</param>
+        /// <returns>AutoComplete response.</returns>
+        public Model.AutoComplete.Response AutoComplete(Model.AutoComplete.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
+        }
+
+        /// <summary>
+        /// Lookup a Postcode or Address auto complete options as an asynchronous operation. Returns all available data if found.
+        /// </summary>
+        /// <param name="request">AutoComplete request.</param>
+        /// <returns>AutoComplete response.</returns>
+        public async Task<Model.AutoComplete.Response> AutoCompleteAsync(Model.AutoComplete.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
         }
 
         private static Uri GetRequestUri(string licenceKey, string baseAddress, string version, string method, object inputParam)
