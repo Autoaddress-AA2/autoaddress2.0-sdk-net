@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace Autoaddress.Autoaddress2_0
 {
     /// <summary>
-    /// Client for accessing the Autoaddress 2 service.
+    /// Client for accessing the Autoaddress 2.0 service.
     /// </summary>
     /// <remarks>
     /// The AutoaddressClient provides methods for calling the various Autoaddress 2.0 service methods.
