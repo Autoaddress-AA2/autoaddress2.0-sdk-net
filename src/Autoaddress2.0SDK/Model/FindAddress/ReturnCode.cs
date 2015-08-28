@@ -9,7 +9,7 @@
         PostcodeAppended = 100,
         PostcodeValidated = 110,
         PostcodeAmended = 120,
-        AddressAmendedToMatchEircode = 130,
+        AddressAmendedToMatchPostcode = 130,
         PostcodeAndAddressAmended = 140,
         PostcodeNotAvailable = 200,
         NonUniqueAddress = 300,
