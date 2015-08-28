@@ -22,6 +22,48 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
+        public void FindAddress_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        {
+            const string address = "8 Silver Birches, Dunboyne, A86VC04";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = autoaddressClient.FindAddress(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(ReturnCode.PostcodeValidated, response.Result);
+            Assert.AreEqual("A86VC04", response.Postcode);
+        }
+
+        [Test]
+        public void FindAddress_8SilverBirchesDunboyneA86VC05_ReturnsValidResponse()
+        {
+            const string address = "8 Silver Birches, Dunboyne, A86VC05";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = autoaddressClient.FindAddress(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(ReturnCode.PostcodeAmended, response.Result);
+            Assert.AreEqual("A86VC04", response.Postcode);
+        }
+
+        [Test]
+        public void FindAddress_9SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        {
+            const string address = "9 Silver Birches, Dunboyne, A86VC04";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = autoaddressClient.FindAddress(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(ReturnCode.AddressAmendedToMatchPostcode, response.Result);
+            Assert.AreEqual("A86VC04", response.Postcode);
+        }
+
+        [Test]
         public void FindAddress_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
         {
             const string licenceKey = "InvalidLicenceKey";
@@ -201,7 +243,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.IsNotNull(response.Options);
             Assert.AreEqual(3, response.Options.Length);
             Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
-            Assert.AreEqual("BIZMAPS LIMITED, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
             Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
         }
 
@@ -225,7 +267,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.IsNotNull(firstResponse.Options);
             Assert.AreEqual(3, firstResponse.Options.Length);
             Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[0].DisplayName);
-            Assert.AreEqual("BIZMAPS LIMITED, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[1].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[1].DisplayName);
             Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[2].DisplayName);
             Assert.NotNull(firstResponse.Options[2].Links);
             Assert.Greater(firstResponse.Options[2].Links.Length, 0);
@@ -277,7 +319,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.IsNotNull(response.Options);
             Assert.AreEqual(3, response.Options.Length);
             Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
-            Assert.AreEqual("BIZMAPS LIMITED, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
             Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
         }
 
@@ -301,7 +343,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.IsNotNull(firstResponse.Options);
             Assert.AreEqual(3, firstResponse.Options.Length);
             Assert.AreEqual("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[0].DisplayName);
-            Assert.AreEqual("BIZMAPS LIMITED, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[1].DisplayName);
+            Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[1].DisplayName);
             Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[2].DisplayName);
             Assert.NotNull(firstResponse.Options[2].Links);
             Assert.Greater(firstResponse.Options[2].Links.Length, 0);
