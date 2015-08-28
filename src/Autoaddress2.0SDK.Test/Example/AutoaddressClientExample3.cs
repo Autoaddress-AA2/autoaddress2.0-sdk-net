@@ -8,7 +8,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
     {
         public static void Main()
         {
-            const string apiBaseAddress = "http://aa2-demo.autoaddress.ie";
+            const string apiBaseAddress = "https://api.autoaddress.ie";
             const int requestTimeoutMilliseconds = 5000;
             const string licenceKey = "TheLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";
