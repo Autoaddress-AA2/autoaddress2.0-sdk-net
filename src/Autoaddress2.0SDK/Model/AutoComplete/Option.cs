@@ -13,7 +13,7 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
     public class Option
     {
         [JsonConstructor]
-        internal Option(string displayName, int addressId, AddressType? addressType, Link[] links)
+        internal Option(string displayName, int addressId, AddressType? addressType, FindAddress.Link[] links)
         {
             if (string.IsNullOrWhiteSpace(displayName)) throw new ArgumentNullException("displayName");
             if (links == null) throw new ArgumentNullException("links");
@@ -42,6 +42,6 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
         /// <summary>
         /// Gets the links.
         /// </summary>
-        public Link[] Links { get; set; }
+        public FindAddress.Link[] Links { get; set; }
     }
 }

@@ -151,21 +151,6 @@ namespace Autoaddress.Autoaddress2_0
         }
 
         /// <summary>
-        /// Lookup a Postcode or Address. Returns all available data if found.
-        /// </summary>
-        /// <param name="link">A link returned in a AutoComplete response.</param>
-        /// <returns>FindAddress response.</returns>
-        public Model.FindAddress.Response FindAddress(Model.AutoComplete.Link link)
-        {
-            if (link == null) throw new ArgumentNullException("link");
-
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
-        }
-
-        /// <summary>
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>
@@ -194,21 +179,6 @@ namespace Autoaddress.Autoaddress2_0
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientFindAddressAsyncLinkExample1.cs" language="cs" />
         /// </example>
         public async Task<Model.FindAddress.Response> FindAddressAsync(Model.FindAddress.Link link)
-        {
-            if (link == null) throw new ArgumentNullException("link");
-
-            Uri requestUri = link.Href;
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
-        }
-
-        /// <summary>
-        /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
-        /// </summary>
-        /// <param name="link">A link returned in a AutoComplete response.</param>
-        /// <returns>FindAddress response.</returns>
-        public async Task<Model.FindAddress.Response> FindAddressAsync(Model.AutoComplete.Link link)
         {
             if (link == null) throw new ArgumentNullException("link");
 

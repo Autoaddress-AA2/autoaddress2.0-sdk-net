@@ -22,13 +22,6 @@ namespace Autoaddress.Autoaddress2_0
         Model.FindAddress.Response FindAddress(Model.FindAddress.Link link);
 
         /// <summary>
-        /// Lookup a Postcode or Address. Returns all available data if found.
-        /// </summary>
-        /// <param name="link">A link returned in a AutoComplete response.</param>
-        /// <returns>FindAddress response.</returns>
-        Model.FindAddress.Response FindAddress(Model.AutoComplete.Link link);
-
-        /// <summary>
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>
