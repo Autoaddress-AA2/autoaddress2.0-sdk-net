@@ -154,7 +154,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>
-        /// <returns>FindAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls FindAddressAsync with a request.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientFindAddressAsyncRequestExample1.cs" language="cs" />
@@ -173,7 +173,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="link">A link returned in a FindAddress response.</param>
-        /// <returns>FindAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls FindAddressAsync then calls FindAddressAsync again with an option link.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientFindAddressAsyncLinkExample1.cs" language="cs" />
@@ -230,7 +230,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">PostcodeLookup request.</param>
-        /// <returns>PostcodeLookup response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls PostcodeLookupAsync with a request.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientPostcodeLookupAsyncRequestExample1.cs" language="cs" />
@@ -249,7 +249,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="link">A link returned in a PostcodeLookup response.</param>
-        /// <returns>PostcodeLookup response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls PostcodeLookupAsync with a request then calls PostcodeLookupAsync again with one of the option links.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientPostcodeLookupAsyncLinkExample1.cs" language="cs" />
@@ -302,7 +302,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Verify that the address supplied matches the Eircode supplied as an asynchronous operation.
         /// </summary>
         /// <param name="request">VerifyAddress request.</param>
-        /// <returns>VerifyAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls VerifyAddressAsync with a request.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientVerifyAddressAsyncRequestExample1.cs" language="cs" />
@@ -321,7 +321,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Verify that the address supplied matches the Eircode supplied as an asynchronous operation.
         /// </summary>
         /// <param name="link">A link returned in a VerifyAddress response.</param>
-        /// <returns>VerifyAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.VerifyAddress.Response> VerifyAddressAsync(Model.VerifyAddress.Link link)
         {
             if (link == null) throw new ArgumentNullException("link");
@@ -370,7 +370,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Return all the available data from the ECAD for the supplied ECAD Id as an asynchronous operation.
         /// </summary>
         /// <param name="request">GetEcadData request.</param>
-        /// <returns>GetEcadData response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls GetEcadData with a request.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientGetEcadDataAsyncRequestExample1.cs" language="cs" />
@@ -389,7 +389,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Return all the available data from the ECAD for the supplied ECAD Id as an asynchronous operation.
         /// </summary>
         /// <param name="link">A link returned in a GetEcadData response.</param>
-        /// <returns>GetEcadData response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Link link)
         {
             if (link == null) throw new ArgumentNullException("link");
@@ -423,7 +423,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode or Address auto complete options as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">AutoComplete request.</param>
-        /// <returns>AutoComplete response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
         /// The following code example creates an AutoaddressClient and calls AutoCompleteAsync with a request.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientAutoCompleteAsyncRequestExample1.cs" language="cs" />

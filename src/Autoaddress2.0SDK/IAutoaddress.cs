@@ -25,14 +25,14 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>
-        /// <returns>FindAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.FindAddress.Response> FindAddressAsync(Model.FindAddress.Request request);
 
         /// <summary>
         /// Lookup a Postcode or Address as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="link">A link returned in a FindAddress response.</param>
-        /// <returns>FindAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.FindAddress.Response> FindAddressAsync(Model.FindAddress.Link link);
 
         /// <summary>
@@ -53,14 +53,14 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">PostcodeLookup request.</param>
-        /// <returns>PostcodeLookup response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.PostcodeLookup.Response> PostcodeLookupAsync(Model.PostcodeLookup.Request request);
 
         /// <summary>
         /// Lookup a Postcode as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="link">A link returned in a PostcodeLookup response.</param>
-        /// <returns>PostcodeLookup response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.PostcodeLookup.Response> PostcodeLookupAsync(Model.PostcodeLookup.Link link);
         
         /// <summary>
@@ -81,14 +81,14 @@ namespace Autoaddress.Autoaddress2_0
         /// Verify that the address supplied matches the Eircode supplied as an asynchronous operation.
         /// </summary>
         /// <param name="request">VerifyAddress request.</param>
-        /// <returns>VerifyAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.VerifyAddress.Response> VerifyAddressAsync(Model.VerifyAddress.Request request);
         
         /// <summary>
         /// Verify that the address supplied matches the Eircode supplied as an asynchronous operation.
         /// </summary>
         /// <param name="link">A link returned in a VerifyAddress response.</param>
-        /// <returns>VerifyAddress response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.VerifyAddress.Response> VerifyAddressAsync(Model.VerifyAddress.Link link);
 
         /// <summary>
@@ -109,14 +109,14 @@ namespace Autoaddress.Autoaddress2_0
         /// Return all the available data from the ECAD for the supplied ECAD Id as an asynchronous operation.
         /// </summary>
         /// <param name="request">GetEcadData request.</param>
-        /// <returns>GetEcadData response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Request request);
         
         /// <summary>
         /// Return all the available data from the ECAD for the supplied ECAD Id as an asynchronous operation.
         /// </summary>
         /// <param name="link">A link returned in a GetEcadData response.</param>
-        /// <returns>GetEcadData response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Link link);
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Autoaddress.Autoaddress2_0
         /// Lookup a Postcode or Address auto complete options as an asynchronous operation. Returns all available data if found.
         /// </summary>
         /// <param name="request">AutoComplete request.</param>
-        /// <returns>AutoComplete response.</returns>
+        /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.AutoComplete.Response> AutoCompleteAsync(Model.AutoComplete.Request request);
     }
 }
