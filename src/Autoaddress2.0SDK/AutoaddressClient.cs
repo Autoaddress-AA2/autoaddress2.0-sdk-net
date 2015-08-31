@@ -405,6 +405,10 @@ namespace Autoaddress.Autoaddress2_0
         /// </summary>
         /// <param name="request">AutoComplete request.</param>
         /// <returns>AutoComplete response.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls AutoComplete with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientAutoCompleteRequestExample1.cs" language="cs" />
+        /// </example>
         public Model.AutoComplete.Response AutoComplete(Model.AutoComplete.Request request)
         {
             if (request == null) throw new ArgumentNullException("request");
@@ -420,6 +424,10 @@ namespace Autoaddress.Autoaddress2_0
         /// </summary>
         /// <param name="request">AutoComplete request.</param>
         /// <returns>AutoComplete response.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls AutoCompleteAsync with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientAutoCompleteAsyncRequestExample1.cs" language="cs" />
+        /// </example>
         public async Task<Model.AutoComplete.Response> AutoCompleteAsync(Model.AutoComplete.Request request)
         {
             if (request == null) throw new ArgumentNullException("request");

@@ -51,6 +51,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Example\AutoaddressClientAutoCompleteAsyncRequestExample1.cs" />
     <Compile Include="Example\AutoaddressClientExample1.cs" />
     <Compile Include="Example\AutoaddressClientExample2.cs" />
     <Compile Include="Example\AutoaddressClientExample3.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Example\AutoaddressClientGetEcadDataAsyncRequestExample1.cs" />
     <Compile Include="Example\AutoaddressClientPostcodeLookupAsyncRequestExample1.cs" />
     <Compile Include="Example\AutoaddressClientPostcodeLookupAsyncLinkExample1.cs" />
+    <Compile Include="Example\AutoaddressClientAutoCompleteRequestExample1.cs" />
     <Compile Include="Integration\AutoaddressClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\AutoaddressClientTest.cs" />
