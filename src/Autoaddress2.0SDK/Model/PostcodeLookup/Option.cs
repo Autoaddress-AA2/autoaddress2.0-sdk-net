@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
@@ -9,14 +10,35 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
     public class Option
     {
         [JsonConstructor]
-        internal Option(string displayName, int addressId, AddressType? addressType, Link[] links)
+        internal Option(string displayName, int addressId, AddressType? addressType, Model.Link[] links)
         {
             if (string.IsNullOrWhiteSpace(displayName)) throw new ArgumentNullException("displayName");
-            
+            if (links == null) throw new ArgumentNullException("links");
+
             DisplayName = displayName;
             AddressId = addressId;
             AddressType = addressType;
-            Links = links;
+            
+            var newLinks = new List<Model.Link>();
+
+            foreach (Model.Link link in links)
+            {
+                Model.Link newLink;
+
+                switch (link.Rel)
+                {
+                    case "next":
+                        newLink = new Model.PostcodeLookup.Link(link.Rel, link.Href);
+                        break;
+                    default:
+                        newLink = link;
+                        break;
+                }
+
+                newLinks.Add(newLink);
+            }
+
+            Links = newLinks.ToArray();
         }
 
         /// <summary>
@@ -37,6 +59,6 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// <summary>
         /// An array of Link objects.
         /// </summary>
-        public Link[] Links { get; private set; }
+        public Model.Link[] Links { get; private set; }
     }
 }

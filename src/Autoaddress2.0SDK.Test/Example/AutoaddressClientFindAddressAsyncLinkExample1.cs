@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Autoaddress.Autoaddress2_0.Model;
 using Autoaddress.Autoaddress2_0.Model.FindAddress;
 
@@ -19,7 +20,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             Console.WriteLine("response1.PostalAddress = {0}", string.Join(",", response1.PostalAddress));
             Console.WriteLine("response1.Options[1].DisplayName = {0}", response1.Options[1].DisplayName);
 
-            var response2 = await autoaddressClient.FindAddressAsync(response1.Options[1].Links[0]);
+            var nextLink = response1.Options[1].Links.OfType<Model.FindAddress.Link>().First();
+            var response2 = await autoaddressClient.FindAddressAsync(nextLink);
             
             Console.WriteLine("response2.Result = {0}", response2.Result);
             Console.WriteLine("response2.AddressId = {0}", response2.AddressId);

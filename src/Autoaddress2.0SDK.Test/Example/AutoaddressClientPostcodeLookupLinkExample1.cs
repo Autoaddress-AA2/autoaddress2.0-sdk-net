@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Autoaddress.Autoaddress2_0.Model;
 using Autoaddress.Autoaddress2_0.Model.PostcodeLookup;
 
@@ -24,7 +25,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             Console.WriteLine("response1.Options[1].DisplayName = {0}", response1.Options[1].DisplayName);
             Console.WriteLine("response1.Options[2].DisplayName = {0}", response1.Options[2].DisplayName);
 
-            var response2 = autoaddressClient.PostcodeLookup(response1.Options[2].Links[0]);
+            var response2 = autoaddressClient.PostcodeLookup(response1.Options[2].Links.OfType<Model.PostcodeLookup.Link>().First());
             
             Console.WriteLine("response2.Result = {0}", response2.Result);
             Console.WriteLine("response2.MatchLevel = {0}", response2.MatchLevel);

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
 {
@@ -9,16 +11,18 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
     {
         [JsonConstructor]
         internal Response(ReturnCode result,
-                        int? ecadId,
-                        int? addressTypeId,
-                        PostalAddress postalAddress,
-                        AdministrativeInfo administrativeInfo,
-                        BuildingInfo buildingInfo,
-                        OrganisationInfo organisationInfo,
-                        SpatialInfo spatialInfo,
-                        Request input,
-                        Link[] links)
+                          int? ecadId,
+                          int? addressTypeId,
+                          PostalAddress postalAddress,
+                          AdministrativeInfo administrativeInfo,
+                          BuildingInfo buildingInfo,
+                          OrganisationInfo organisationInfo,
+                          SpatialInfo spatialInfo,
+                          Request input,
+                          Model.Link[] links)
         {
+            if (links == null) throw new ArgumentNullException("links");
+
             Result = result;
             EcadId = ecadId;
             AddressTypeId = addressTypeId;
@@ -28,7 +32,27 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
             OrganisationInfo = organisationInfo;
             SpatialInfo = spatialInfo;
             Input = input;
-            Links = links;
+            
+            var newLinks = new List<Model.Link>();
+
+            foreach (Model.Link link in links)
+            {
+                Model.Link newLink;
+
+                switch (link.Rel)
+                {
+                    case "self":
+                        newLink = new Model.GetEcadData.Link(link.Rel, link.Href);
+                        break;
+                    default:
+                        newLink = link;
+                        break;
+                }
+
+                newLinks.Add(newLink);
+            }
+
+            Links = newLinks.ToArray();
         }
 
         /// <summary>
@@ -79,6 +103,6 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// <summary>
         /// Gets an array of Link objects.
         /// </summary>
-        public Link[] Links { get; set; }
+        public Model.Link[] Links { get; set; }
     }
 }

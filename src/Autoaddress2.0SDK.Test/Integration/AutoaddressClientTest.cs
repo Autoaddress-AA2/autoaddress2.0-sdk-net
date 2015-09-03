@@ -1,4 +1,5 @@
-﻿using Autoaddress.Autoaddress2_0.Model;
+﻿using System.Linq;
+using Autoaddress.Autoaddress2_0.Model;
 using NUnit.Framework;
 
 namespace Autoaddress.Autoaddress2_0.Test.Integration
@@ -114,9 +115,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.IncompleteAddressEntered, firstResponse.Result);
             Assert.NotNull(firstResponse.Options);
             var option = firstResponse.Options[0];
-            var link = option.Links[0];
-            
-            var secondResponse = autoaddressClient.FindAddress(link);
+            var nextLink = option.Links.OfType<Model.FindAddress.Link>().First();
+
+            var secondResponse = autoaddressClient.FindAddress(nextLink);
             Assert.NotNull(secondResponse);
             Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.IncompleteAddressEntered, secondResponse.Result);
             Assert.NotNull(secondResponse.Options);
@@ -134,7 +135,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(firstResponse);
             Assert.NotNull(firstResponse.Links);
             Assert.Greater(firstResponse.Links.Length, 0);
-            var link = firstResponse.Links[0];
+            var link = firstResponse.Links.OfType<Model.FindAddress.Link>().First();
 
             var secondResponse = autoaddressClient.FindAddress(link);
 
@@ -213,7 +214,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(firstResponse);
             Assert.NotNull(firstResponse.Links);
             Assert.Greater(firstResponse.Links.Length, 0);
-            var link = firstResponse.Links[0];
+            var link = firstResponse.Links.OfType<Model.PostcodeLookup.Link>().First();
 
             var secondResponse = autoaddressClient.PostcodeLookup(link);
 
@@ -272,7 +273,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Greater(firstResponse.Options[2].Links.Length, 0);
             Assert.NotNull(firstResponse.Options[2].Links[0]);
 
-            var secondResponse = autoaddressClient.PostcodeLookup(firstResponse.Options[2].Links[0]);
+            var secondResponse = autoaddressClient.PostcodeLookup(firstResponse.Options[2].Links.OfType<Model.PostcodeLookup.Link>().First());
             Assert.AreEqual(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, firstResponse.Result);
             Assert.AreEqual(postcode, firstResponse.Postcode);
             Assert.AreEqual(AddressType.Organisation, secondResponse.AddressType);
@@ -348,7 +349,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Greater(firstResponse.Options[2].Links.Length, 0);
             Assert.NotNull(firstResponse.Options[2].Links[0]);
 
-            var secondResponse = await autoaddressClient.PostcodeLookupAsync(firstResponse.Options[2].Links[0]);
+            var secondResponse = await autoaddressClient.PostcodeLookupAsync(firstResponse.Options[2].Links.OfType<Model.PostcodeLookup.Link>().First());
             Assert.AreEqual(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, firstResponse.Result);
             Assert.AreEqual(postcode, firstResponse.Postcode);
             Assert.AreEqual(AddressType.Organisation, secondResponse.AddressType);
@@ -388,7 +389,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(firstResponse);
             Assert.NotNull(firstResponse.Links);
             Assert.Greater(firstResponse.Links.Length, 0);
-            var link = firstResponse.Links[0];
+            var link = firstResponse.Links.OfType<Model.VerifyAddress.Link>().First();
 
             var secondResponse = autoaddressClient.VerifyAddress(link);
 
@@ -444,7 +445,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(firstResponse);
             Assert.NotNull(firstResponse.Links);
             Assert.Greater(firstResponse.Links.Length, 0);
-            var link = firstResponse.Links[0];
+            var link = firstResponse.Links.OfType<Model.GetEcadData.Link>().First();
 
             var secondResponse = autoaddressClient.GetEcadData(link);
 
@@ -593,7 +594,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[1].DisplayName);
             Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[2].DisplayName);
 
-            var link = autoCompleteResponse.Options[1].Links[0];
+            var link = autoCompleteResponse.Options[1].Links.OfType<Model.FindAddress.Link>().First();
 
             var findAddressResponse = autoaddressClient.FindAddress(link);
             
@@ -624,7 +625,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[1].DisplayName);
             Assert.AreEqual("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[2].DisplayName);
 
-            var link = autoCompleteResponse.Options[1].Links[0];
+            var link = autoCompleteResponse.Options[1].Links.OfType<Model.FindAddress.Link>().First();
 
             var findAddressResponse = await autoaddressClient.FindAddressAsync(link);
             

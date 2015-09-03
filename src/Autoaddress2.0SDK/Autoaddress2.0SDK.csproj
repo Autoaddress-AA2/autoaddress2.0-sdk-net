@@ -78,6 +78,7 @@
     <Compile Include="Model\GetEcadData\Request.cs" />
     <Compile Include="Model\GetEcadData\ReturnCode.cs" />
     <Compile Include="Model\Language.cs" />
+    <Compile Include="Model\Link.cs" />
     <Compile Include="Model\PostcodeLookup\Option.cs" />
     <Compile Include="Model\PostcodeLookup\Link.cs" />
     <Compile Include="Model\PostcodeLookup\Request.cs" />

@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Autoaddress.Autoaddress2_0.Model.FindAddress
 {
@@ -9,19 +11,21 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
     {
         [JsonConstructor]
         internal Response(ReturnCode result,
-                        string postcode,
-                        int? addressId,
-                        AddressType? addressType,
-                        MatchLevel matchLevel,
-                        string[] unmatched,
-                        string[] postalAddress,
-                        string[] vanityAddress,
-                        string[] reformattedAddress,
-                        int totalOptions,
-                        Option[] options,
-                        Request input,
-                        Link[] links)
+                          string postcode,
+                          int? addressId,
+                          AddressType? addressType,
+                          MatchLevel matchLevel,
+                          string[] unmatched,
+                          string[] postalAddress,
+                          string[] vanityAddress,
+                          string[] reformattedAddress,
+                          int totalOptions,
+                          Option[] options,
+                          Request input,
+                          Model.Link[] links)
         {
+            if (links == null) throw new ArgumentNullException("links");
+
             Result = result;
             Postcode = postcode;
             AddressId = addressId;
@@ -34,7 +38,27 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
             TotalOptions = totalOptions;
             Options = options;
             Input = input;
-            Links = links;
+            
+            var newLinks = new List<Model.Link>();
+
+            foreach (Model.Link link in links)
+            {
+                Model.Link newLink;
+
+                switch (link.Rel)
+                {
+                    case "self":
+                        newLink = new Model.FindAddress.Link(link.Rel, link.Href);
+                        break;
+                    default:
+                        newLink = link;
+                        break;
+                }
+
+                newLinks.Add(newLink);
+            }
+
+            Links = newLinks.ToArray();
         }
 
         /// <summary>
@@ -100,6 +124,6 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
         /// <summary>
         /// Gets an array of Link objects.
         /// </summary>
-        public Link[] Links { get; private set; }
+        public Model.Link[] Links { get; private set; }
     }
 }

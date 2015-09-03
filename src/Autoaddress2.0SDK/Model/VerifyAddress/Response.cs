@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
 {
@@ -9,14 +11,16 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
     {
         [JsonConstructor]
         internal Response(ReturnCode result,
-                        string[] postalAddress,
-                        string postcode,
-                        int? addressId,
-                        AddressType? addressType,
-                        MatchLevel? matchLevel,
-                        Request input,
-                        Link[] links)
+                          string[] postalAddress,
+                          string postcode,
+                          int? addressId,
+                          AddressType? addressType,
+                          MatchLevel? matchLevel,
+                          Request input,
+                          Model.Link[] links)
         {
+            if (links == null) throw new ArgumentNullException("links");
+
             Result = result;
             PostalAddress = postalAddress;
             Postcode = postcode;
@@ -24,7 +28,27 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
             AddressType = addressType;
             MatchLevel = matchLevel;
             Input = input;
-            Links = links;
+            
+            var newLinks = new List<Model.Link>();
+
+            foreach (Model.Link link in links)
+            {
+                Model.Link newLink;
+
+                switch (link.Rel)
+                {
+                    case "self":
+                        newLink = new Model.VerifyAddress.Link(link.Rel, link.Href);
+                        break;
+                    default:
+                        newLink = link;
+                        break;
+                }
+
+                newLinks.Add(newLink);
+            }
+
+            Links = newLinks.ToArray();
         }
 
         /// <summary>
@@ -65,6 +89,6 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         /// <summary>
         /// Gets an array of Link objects.
         /// </summary>
-        public Link[] Links { get; private set; }
+        public Model.Link[] Links { get; private set; }
     }
 }

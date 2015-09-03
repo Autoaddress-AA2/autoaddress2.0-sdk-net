@@ -13,12 +13,34 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
     public class Response
     {
         [JsonConstructor]
-        internal Response(int totalOptions, Option[] options, Request input, Link[] links)
+        internal Response(int totalOptions, Option[] options, Request input, Model.Link[] links)
         {
+            if (links == null) throw new ArgumentNullException("links");
+
             TotalOptions = totalOptions;
             Options = options;
             Input = input;
-            Links = links;
+            
+            var newLinks = new List<Model.Link>();
+
+            foreach (Model.Link link in links)
+            {
+                Model.Link newLink;
+
+                switch (link.Rel)
+                {
+                    case "self":
+                        newLink = new Model.AutoComplete.Link(link.Rel, link.Href);
+                        break;
+                    default:
+                        newLink = link;
+                        break;
+                }
+
+                newLinks.Add(newLink);
+            }
+
+            Links = newLinks.ToArray();
         }
 
         /// <summary>
@@ -39,6 +61,6 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
         /// <summary>
         /// Gets an array of Link objects.
         /// </summary>
-        public Link[] Links { get; set; }
+        public Model.Link[] Links { get; set; }
     }
 }
