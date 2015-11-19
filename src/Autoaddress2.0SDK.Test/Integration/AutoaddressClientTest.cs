@@ -280,6 +280,24 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
+        public void FindAddress_NI_9AvocaCloseBelfast_ReturnsValidResponse()
+        {
+            const string address = "9 Avoca Close, Belfast";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.NI, limit: 20, isVanityMode: false, addressProfileName: null);
+
+            var response = autoaddressClient.FindAddress(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.AreEqual("BT11 8QT", response.Postcode);
+            Assert.NotNull(response.PostalAddress);
+            Assert.AreEqual(2, response.PostalAddress.Length);
+            Assert.AreEqual("9 AVOCA CLOSE", response.PostalAddress[0]);
+            Assert.AreEqual("BELFAST", response.PostalAddress[1]);
+        }
+
+        [Test]
         public async void PostcodeLookupAsync_IE_A86VC04_ReturnsValidResponse()
         {
             const string postcode = "A86VC04";
