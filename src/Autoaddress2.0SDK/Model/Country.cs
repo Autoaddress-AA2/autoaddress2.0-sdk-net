@@ -11,6 +11,10 @@
         /// </summary>
         IE,
         /// <summary>
+        /// Northern Ireland
+        /// </summary>
+        NI,
+        /// <summary>
         /// United Kingdom
         /// </summary>
         GB
