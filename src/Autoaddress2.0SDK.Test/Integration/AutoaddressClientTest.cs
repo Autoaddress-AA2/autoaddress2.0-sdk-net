@@ -8,7 +8,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
     public class AutoaddressClientTest
     {
         [Test]
-        public void FindAddress_8SilverBirchesDunboyne_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -22,7 +22,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne, A86VC04";
             var autoaddressClient = new AutoaddressClient();
@@ -36,7 +36,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_8SilverBirchesDunboyneA86VC05_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyneA86VC05_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne, A86VC05";
             var autoaddressClient = new AutoaddressClient();
@@ -50,7 +50,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_9SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public void FindAddress_IE_9SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
         {
             const string address = "9 Silver Birches, Dunboyne, A86VC04";
             var autoaddressClient = new AutoaddressClient();
@@ -64,7 +64,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
+        public void FindAddress_IE_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
         {
             const string licenceKey = "InvalidLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";
@@ -76,7 +76,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_8SilverBirchesDunboyneUseKeyFromAppConfig_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyneUseKeyFromAppConfig_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -90,7 +90,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_SilverBirchesDunboyne_ReturnsValidResponse()
+        public void FindAddress_IE_SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -103,7 +103,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_SilverBirchesDunboyneThenSelectFirstOption_ReturnsValidResponses()
+        public void FindAddress_IE_SilverBirchesDunboyneThenSelectFirstOption_ReturnsValidResponses()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -124,7 +124,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_SilverBirchesDunboyneThenSelectSelfLink_ReturnsValidResponses()
+        public void FindAddress_IE_SilverBirchesDunboyneThenSelectSelfLink_ReturnsValidResponses()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -145,7 +145,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void FindAddressAsync_8SilverBirchesDunboyne_ReturnsValidResponse()
+        public async void FindAddressAsync_IE_8SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -159,7 +159,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddressAsync_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
+        public void FindAddressAsync_IE_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
         {
             const string licenceKey = "InvalidLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";
@@ -170,7 +170,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void FindAddressAsync_SilverBirchesDunboyne_ReturnsValidResponse()
+        public async void FindAddressAsync_IE_SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -183,7 +183,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void PostcodeLookup_A86VC04_ReturnsValidResponse()
+        public void PostcodeLookup_IE_A86VC04_ReturnsValidResponse()
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
@@ -203,7 +203,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void PostcodeLookup_A86VC04ThenSelectSelfLink_ReturnsValidResponse()
+        public void PostcodeLookup_IE_A86VC04ThenSelectSelfLink_ReturnsValidResponse()
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
@@ -224,7 +224,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void PostcodeLookup_D08XY00_ReturnsValidResponse()
+        public void PostcodeLookup_IE_D08XY00_ReturnsValidResponse()
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -248,7 +248,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void PostcodeLookup_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
+        public void PostcodeLookup_IE_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -280,7 +280,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void PostcodeLookupAsync_A86VC04_ReturnsValidResponse()
+        public async void PostcodeLookupAsync_IE_A86VC04_ReturnsValidResponse()
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
@@ -300,7 +300,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void PostcodeLookupAsync_D08XY00_ReturnsValidResponse()
+        public async void PostcodeLookupAsync_IE_D08XY00_ReturnsValidResponse()
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -324,7 +324,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void PostcodeLookupAsync_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
+        public async void PostcodeLookupAsync_IE_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -356,7 +356,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void VerifyAddress_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public void VerifyAddress_IE_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             const string postcode = "A86VC04";
@@ -377,7 +377,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void VerifyAddress_8SilverBirchesDunboyneA86VC04ThenSelectSelfLink_ReturnsValidResponse()
+        public void VerifyAddress_IE_8SilverBirchesDunboyneA86VC04ThenSelectSelfLink_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             const string postcode = "A86VC04";
@@ -399,7 +399,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void VerifyAddressAsync_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public async void VerifyAddressAsync_IE_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             const string postcode = "A86VC04";
@@ -515,7 +515,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void AutoComplete_SilverBirchesDunboyne_ReturnsValidResponse()
+        public void AutoComplete_IE_SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -530,7 +530,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void AutoCompleteAsync_SilverBirchesDunboyne_ReturnsValidResponse()
+        public async void AutoCompleteAsync_IE_SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -545,7 +545,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void AutoComplete_D08XY00_ReturnsValidResponse()
+        public void AutoComplete_IE_D08XY00_ReturnsValidResponse()
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -562,7 +562,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void AutoCompleteAsync_D08XY00_ReturnsValidResponse()
+        public async void AutoCompleteAsync_IE_D08XY00_ReturnsValidResponse()
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -579,7 +579,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void AutoCompleteThenFindAddress_D08XY00_ReturnsValidResponse()
+        public void AutoCompleteThenFindAddress_IE_D08XY00_ReturnsValidResponse()
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -610,7 +610,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void AutoCompleteAsyncThenFindAddressAsync_D08XY00_ReturnsValidResponse()
+        public async void AutoCompleteAsyncThenFindAddressAsync_IE_D08XY00_ReturnsValidResponse()
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
