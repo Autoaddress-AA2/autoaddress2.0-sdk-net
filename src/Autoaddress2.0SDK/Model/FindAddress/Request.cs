@@ -53,7 +53,7 @@
         public bool VanityMode { get; private set; }
 
         /// <summary>
-        /// Gets AddressElements.
+        /// Gets address elements.
         /// </summary>
         public bool AddressElements { get; private set; }
 
