@@ -589,7 +589,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = autoaddressClient.AutoComplete(request);
 
@@ -604,7 +604,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = await autoaddressClient.AutoCompleteAsync(request);
 
@@ -619,7 +619,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = autoaddressClient.AutoComplete(request);
 
@@ -636,7 +636,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = await autoaddressClient.AutoCompleteAsync(request);
 
@@ -653,7 +653,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var autoCompleteResponse = autoaddressClient.AutoComplete(request);
 
@@ -684,7 +684,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var autoCompleteResponse = await autoaddressClient.AutoCompleteAsync(request);
 
