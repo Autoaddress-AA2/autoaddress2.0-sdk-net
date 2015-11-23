@@ -239,7 +239,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = autoaddressClient.PostcodeLookup(request);
 
@@ -259,7 +259,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var firstResponse = autoaddressClient.PostcodeLookup(request);
             
@@ -280,7 +280,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = autoaddressClient.PostcodeLookup(request);
 
@@ -304,7 +304,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var firstResponse = autoaddressClient.PostcodeLookup(request);
 
@@ -354,7 +354,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = await autoaddressClient.PostcodeLookupAsync(request);
 
@@ -374,7 +374,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = await autoaddressClient.PostcodeLookupAsync(request);
 
@@ -398,7 +398,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode, Language.EN, Country.IE, 20);
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var firstResponse = await autoaddressClient.PostcodeLookupAsync(request);
 
