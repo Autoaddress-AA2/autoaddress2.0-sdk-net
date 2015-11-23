@@ -16,8 +16,11 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
                           AddressType? addressType,
                           MatchLevel matchLevel,
                           string[] unmatched,
+                          AddressElement[] unmatchedAddressElements,
                           string[] postalAddress,
+                          AddressElement[] postalAddressElements,
                           string[] vanityAddress,
+                          AddressElement[] vanityAddressElements,
                           string[] reformattedAddress,
                           int totalOptions,
                           Option[] options,
@@ -32,9 +35,12 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
             AddressType = addressType;
             MatchLevel = matchLevel;
             PostalAddress = postalAddress;
+            PostalAddressElements = postalAddressElements;
             VanityAddress = vanityAddress;
+            VanityAddressElements = vanityAddressElements;
             ReformattedAddress = reformattedAddress;
             Unmatched = unmatched;
+            UnmatchedAddressElements = unmatchedAddressElements;
             TotalOptions = totalOptions;
             Options = options;
             Input = input;
@@ -90,16 +96,31 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
         /// Gets the part of the input address that could not be matched.
         /// </summary>
         public string[] Unmatched { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the unmatched address elements.
+        /// </summary>
+        public AddressElement[] UnmatchedAddressElements { get; private set; }
+
         /// <summary>
         /// Gets the postal address in requested language for the input address.
         /// </summary>
         public string[] PostalAddress { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the postal address elements.
+        /// </summary>
+        public AddressElement[] PostalAddressElements { get; private set; }
+
         /// <summary>
         /// Gets the vanity address (if requested).
         /// </summary>
         public string[] VanityAddress { get; private set; }
+
+        /// <summary>
+        /// Gets the vanity address elements.
+        /// </summary>
+        public AddressElement[] VanityAddressElements { get; private set; }
 
         /// <summary>
         /// Gets the address reformatted (if an address profile name supplied in request).

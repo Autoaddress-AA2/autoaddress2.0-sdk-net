@@ -18,15 +18,15 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
         /// <param name="language">Language for returned address.</param>
         /// <param name="country">Country the address should be searched in.</param>
         /// <param name="limit">An upper limit on the number of options that may be returned.</param>
-        /// <param name="isVanityMode">Return vanity address format, if it exists.</param>
+        /// <param name="vanityMode">Return vanity address format, if it exists.</param>
         /// <param name="addressProfileName">If supplied, a reformatted address (according to profile rules) is returned in the response.</param>
-        public Request(string address, Language language, Country country, int limit, bool isVanityMode, string addressProfileName)
+        public Request(string address, Language language, Country country, int limit, bool vanityMode, string addressProfileName)
         {
             Address = address;
             Language = language;
             Country = country;
             Limit = limit;
-            IsVanityMode = isVanityMode;
+            VanityMode = vanityMode;
             AddressProfileName = addressProfileName;
         }
 
@@ -51,9 +51,9 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
         public int Limit { get; private set; }
 
         /// <summary>
-        /// Gets IsVanityMode.
+        /// Gets vanity mode.
         /// </summary>
-        public bool IsVanityMode { get; private set; }
+        public bool VanityMode { get; private set; }
 
         /// <summary>
         /// Gets the address profile name.

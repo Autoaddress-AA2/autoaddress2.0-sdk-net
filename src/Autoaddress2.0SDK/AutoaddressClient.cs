@@ -440,9 +440,9 @@ namespace Autoaddress.Autoaddress2_0
 
         private static Uri GetRequestUri(string licenceKey, string baseAddress, string version, string method, object inputParam)
         {
-            string requestUri = String.Format("{0}/{1}/{2}", baseAddress, version, method);
+            string requestUri = string.Format("{0}/{1}/{2}", baseAddress, version, method);
             string parameters = string.Format("Key={0}&{1}", licenceKey, inputParam.ToQueryString());
-            requestUri = String.Format("{0}{1}{2}", requestUri, "?", parameters);
+            requestUri = string.Format("{0}{1}{2}", requestUri, "?", parameters);
             return new Uri(requestUri);
         }
 
@@ -455,6 +455,39 @@ namespace Autoaddress.Autoaddress2_0
 
             if (code["addressType"] != null && code["addressType"]["code"] != null)
                 code["addressType"] = (string) code["addressType"]["code"];
+
+            if (code["unmatchedAddressElements"] != null && code["unmatchedAddressElements"].Children().Any())
+            {
+                foreach (JToken unmatchedAddressElement in code["unmatchedAddressElements"])
+                {
+                    if (unmatchedAddressElement["type"] != null && unmatchedAddressElement["type"]["code"] != null)
+                    {
+                        unmatchedAddressElement["type"] = (string)unmatchedAddressElement["type"]["code"];
+                    }
+                }
+            }
+
+            if (code["postalAddressElements"] != null && code["postalAddressElements"].Children().Any())
+            {
+                foreach (JToken postalAddressElement in code["postalAddressElements"])
+                {
+                    if (postalAddressElement["type"] != null && postalAddressElement["type"]["code"] != null)
+                    {
+                        postalAddressElement["type"] = (string)postalAddressElement["type"]["code"];
+                    }
+                }
+            }
+
+            if (code["vanityAddressElements"] != null && code["vanityAddressElements"].Children().Any())
+            {
+                foreach (JToken vanityAddressElement in code["vanityAddressElements"])
+                {
+                    if (vanityAddressElement["type"] != null && vanityAddressElement["type"]["code"] != null)
+                    {
+                        vanityAddressElement["type"] = (string)vanityAddressElement["type"]["code"];
+                    }
+                }
+            }
 
             if (code["options"] != null && code["options"].Children().Any())
             {
