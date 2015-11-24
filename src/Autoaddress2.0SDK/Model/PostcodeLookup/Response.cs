@@ -16,6 +16,10 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
                           AddressType? addressType,
                           MatchLevel matchLevel,
                           string[] postalAddress,
+                          AddressElement[] postalAddressElements,
+                          string[] vanityAddress,
+                          AddressElement[] vanityAddressElements,
+                          string[] reformattedAddress,
                           int totalOptions,
                           Option[] options,
                           Request input,
@@ -30,10 +34,14 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
             AddressType = addressType;
             MatchLevel = matchLevel;
             PostalAddress = postalAddress;
+            PostalAddressElements = postalAddressElements;
+            VanityAddress = vanityAddress;
+            VanityAddressElements = vanityAddressElements;
+            ReformattedAddress = reformattedAddress;
             TotalOptions = totalOptions;
             Options = options;
             Input = input;
-            
+
             var newLinks = new List<Model.Link>();
 
             foreach (Model.Link link in links)
@@ -65,12 +73,12 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// Gets the Eircode or postcode.
         /// </summary>
         public string Postcode { get; private set; }
-        
+
         /// <summary>
         /// Gets the address id.
         /// </summary>
         public int? AddressId { get; private set; }
-        
+
         /// <summary>
         /// Gets the type of address found.
         /// </summary>
@@ -80,17 +88,37 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// Gets the match level of address found.
         /// </summary>
         public MatchLevel MatchLevel { get; private set; }
-        
+
         /// <summary>
         /// Gets the postal address in requested language for the input address.
         /// </summary>
         public string[] PostalAddress { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the postal address elements.
+        /// </summary>
+        public AddressElement[] PostalAddressElements { get; private set; }
+
+        /// <summary>
+        /// Gets the vanity address (if requested).
+        /// </summary>
+        public string[] VanityAddress { get; private set; }
+
+        /// <summary>
+        /// Gets the vanity address elements.
+        /// </summary>
+        public AddressElement[] VanityAddressElements { get; private set; }
+
+        /// <summary>
+        /// Gets the address reformatted (if an address profile name supplied in request).
+        /// </summary>
+        public string[] ReformattedAddress { get; private set; }
+
         /// <summary>
         /// Gets the total number of options. If this value is greater than the value of input field limit then no option is returned.
         /// </summary>
         public int TotalOptions { get; private set; }
-        
+
         /// <summary>
         /// Gets an array of Option objects.
         /// </summary>
@@ -100,7 +128,7 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// Gets the input request.
         /// </summary>
         public Request Input { get; private set; }
-        
+
         /// <summary>
         /// Gets an array of Link objects.
         /// </summary>
