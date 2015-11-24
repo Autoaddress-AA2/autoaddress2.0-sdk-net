@@ -13,9 +13,9 @@ namespace Autoaddress.Autoaddress2_0
         public const string DefaultApiBaseAddress = "https://api.autoaddress.ie";
         
         /// <summary>
-        /// The default request timeout in milliseconds (2000)
+        /// The default request timeout in milliseconds (3000)
         /// </summary>
-        public const int DefaultRequestTimeoutMilliseconds = 2000;
+        public const int DefaultRequestTimeoutMilliseconds = 3000;
 
         /// <summary>
         /// Gets the API base address
