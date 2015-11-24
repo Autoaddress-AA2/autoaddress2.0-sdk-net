@@ -255,6 +255,56 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
+        public void PostcodeLookup_IE_A96E2R8_isVanityModeEqualsTrue_addressElementsEqualsTrue_ReturnsValidResponse()
+        {
+            const string postcode = "A96E2R8";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: true, addressElements: true, addressProfileName: null);
+
+            var response = autoaddressClient.PostcodeLookup(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(Autoaddress.Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, response.Result);
+            Assert.AreEqual("A96E2R8", response.Postcode);
+            Assert.NotNull(response.PostalAddress);
+            Assert.AreEqual("1 WOODLANDS ROAD", response.PostalAddress[0]);
+            Assert.AreEqual("GLENAGEARY", response.PostalAddress[1]);
+            Assert.AreEqual("CO. DUBLIN", response.PostalAddress[2]);
+            Assert.NotNull(response.PostalAddressElements);
+            Assert.AreEqual(4, response.PostalAddressElements.Length);
+            Assert.AreEqual("1", response.PostalAddressElements[0].Value);
+            Assert.AreEqual(AddressElementType.BuildingNumber, response.PostalAddressElements[0].Type);
+            Assert.AreEqual(1401042441, response.PostalAddressElements[0].AddressId);
+            Assert.AreEqual("WOODLANDS ROAD", response.PostalAddressElements[1].Value);
+            Assert.AreEqual(AddressElementType.Thoroughfare, response.PostalAddressElements[1].Type);
+            Assert.AreEqual(1200029775, response.PostalAddressElements[1].AddressId);
+            Assert.AreEqual("GLENAGEARY", response.PostalAddressElements[2].Value);
+            Assert.AreEqual(AddressElementType.Town, response.PostalAddressElements[2].Type);
+            Assert.AreEqual(1100000090, response.PostalAddressElements[2].AddressId);
+            Assert.AreEqual("CO. DUBLIN", response.PostalAddressElements[3].Value);
+            Assert.AreEqual(AddressElementType.County, response.PostalAddressElements[3].Type);
+            Assert.AreEqual(1001000025, response.PostalAddressElements[3].AddressId);
+            Assert.NotNull(response.VanityAddress);
+            Assert.AreEqual("1 Woodlands Road", response.VanityAddress[0]);
+            Assert.AreEqual("Dun Laoghaire", response.VanityAddress[1]);
+            Assert.AreEqual("Co. Dublin", response.VanityAddress[2]);
+            Assert.NotNull(response.VanityAddressElements);
+            Assert.AreEqual(4, response.VanityAddressElements.Length);
+            Assert.AreEqual("1", response.VanityAddressElements[0].Value);
+            Assert.AreEqual(AddressElementType.BuildingNumber, response.VanityAddressElements[0].Type);
+            Assert.AreEqual(1401042441, response.VanityAddressElements[0].AddressId);
+            Assert.AreEqual("Woodlands Road", response.VanityAddressElements[1].Value);
+            Assert.AreEqual(AddressElementType.Thoroughfare, response.VanityAddressElements[1].Type);
+            Assert.AreEqual(1200029775, response.VanityAddressElements[1].AddressId);
+            Assert.AreEqual("Dun Laoghaire", response.VanityAddressElements[2].Value);
+            Assert.AreEqual(AddressElementType.Locality, response.VanityAddressElements[2].Type);
+            Assert.AreEqual(1100000131, response.VanityAddressElements[2].AddressId);
+            Assert.AreEqual("Co. Dublin", response.VanityAddressElements[3].Value);
+            Assert.AreEqual(AddressElementType.County, response.VanityAddressElements[3].Type);
+            Assert.AreEqual(1001000025, response.VanityAddressElements[3].AddressId);
+        }
+
+        [Test]
         public void PostcodeLookup_IE_A86VC04ThenSelectSelfLink_ReturnsValidResponse()
         {
             const string postcode = "A86VC04";
