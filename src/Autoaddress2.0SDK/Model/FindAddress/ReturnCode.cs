@@ -12,6 +12,7 @@
         AddressAmendedToMatchPostcode = 130,
         PostcodeAndAddressAmended = 140,
         PostcodeNotAvailable = 200,
+        PostcodeRetired = 210,
         NonUniqueAddress = 300,
         PartialAddressMatch = 400,
         IncompleteAddressEntered = 500,

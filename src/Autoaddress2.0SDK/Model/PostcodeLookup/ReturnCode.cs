@@ -6,8 +6,10 @@
     public enum ReturnCode
     {
         Unknown,
-        ValidPostcode = 100, 
-        InvalidPostcode = 200, 
-        PartialPostcode = 150
+        ValidPostcode = 100,
+        RetiredPostcode = 110,
+        ChangedPostcode = 120,
+        PartialPostcode = 150,
+        InvalidPostcode = 200
     }
 }

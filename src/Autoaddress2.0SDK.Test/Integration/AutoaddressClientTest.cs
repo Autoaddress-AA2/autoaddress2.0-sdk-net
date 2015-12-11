@@ -382,6 +382,61 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
+        public void PostcodeLookup_IE_F94H289_ReturnsValidResponse()
+        {
+            const string postcode = "F94H289";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
+
+            var response = autoaddressClient.PostcodeLookup(request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.RetiredPostcode, response.Result);
+            Assert.AreEqual("F94H289", response.Postcode);
+            Assert.AreEqual(MatchLevel.Unknown, response.MatchLevel);
+            Assert.IsNull(response.AddressType);
+            Assert.IsNull(response.AddressId);
+            Assert.IsNull(response.AddressType);
+            Assert.IsNull(response.PostalAddress);
+            Assert.IsNull(response.PostalAddressElements);
+            Assert.IsNull(response.VanityAddress);
+            Assert.IsNull(response.VanityAddressElements);
+            Assert.IsNull(response.ReformattedAddress);
+            Assert.AreEqual(0, response.TotalOptions);
+            Assert.IsNotNull(response.Options);
+            Assert.AreEqual(0, response.Options.Length);
+        }
+
+        [Test]
+        public void PostcodeLookup_IE_Y35F9KX_ReturnsValidResponse()
+        {
+            const string postcode = "Y35F9KX";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
+
+            var response = autoaddressClient.PostcodeLookup(request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ChangedPostcode, response.Result);
+            Assert.NotNull(response.Postcode);
+            Assert.AreEqual("Y35TD51", response.Postcode);
+            Assert.AreEqual(1702151625, response.AddressId);
+            Assert.AreEqual(MatchLevel.AddressPoint, response.MatchLevel);
+            Assert.AreEqual(AddressType.ResidentialAddressPoint, response.AddressType);
+            Assert.IsNotNull(response.PostalAddress);
+            Assert.AreEqual(3, response.PostalAddress.Length);
+            Assert.AreEqual("22 HILLCREST", response.PostalAddress[0]);
+            Assert.AreEqual("MULGANNON", response.PostalAddress[1]);
+            Assert.AreEqual("WEXFORD", response.PostalAddress[2]);
+            Assert.IsNull(response.PostalAddressElements);
+            Assert.IsNull(response.VanityAddress);
+            Assert.IsNull(response.VanityAddressElements);
+            Assert.AreEqual(0, response.TotalOptions);
+            Assert.IsNotNull(response.Options);
+            Assert.AreEqual(0, response.Options.Length);
+        }
+
+        [Test]
         public void FindAddress_NI_9AvocaCloseBelfast_ReturnsValidResponse()
         {
             const string address = "9 Avoca Close, Belfast";
