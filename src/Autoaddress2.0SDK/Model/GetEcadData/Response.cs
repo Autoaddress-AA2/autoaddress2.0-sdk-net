@@ -18,6 +18,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
                           BuildingInfo buildingInfo,
                           OrganisationInfo organisationInfo,
                           SpatialInfo spatialInfo,
+                          RelatedEcadIds relatedEcadIds,
                           Request input,
                           Model.Link[] links)
         {
@@ -31,6 +32,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
             BuildingInfo = buildingInfo;
             OrganisationInfo = organisationInfo;
             SpatialInfo = spatialInfo;
+            RelatedEcadIds = relatedEcadIds;
             Input = input;
             
             var newLinks = new List<Model.Link>();
@@ -94,7 +96,12 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the spatial info.
         /// </summary>
         public SpatialInfo SpatialInfo { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the related ECAD ids.
+        /// </summary>
+        public RelatedEcadIds RelatedEcadIds { get; private set; }
+
         /// <summary>
         /// Gets the input request.
         /// </summary>
