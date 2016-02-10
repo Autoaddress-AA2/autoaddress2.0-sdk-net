@@ -944,5 +944,53 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("WINETAVERN STREET", findAddressResponse.PostalAddress[2]);
             Assert.AreEqual("DUBLIN 8", findAddressResponse.PostalAddress[3]);
         }
+
+        [Test]
+        public void ReverseGeocode_LongitudeEqualsMinus6Point271796_LatitudeEquals53Point343761_ReturnsValidResponse()
+        {
+            const double longitude = -6.271796;
+            const double latitude = 53.343761;
+            const double maxDistance = 100;
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.ReverseGeocode.Request(latitude: latitude, longitude: longitude, maxDistance: maxDistance, language: Language.EN, country: Country.IE, vanityMode: false, addressProfileName: null);
+
+            var reverseGeocodeResponse = autoaddressClient.ReverseGeocode(request);
+
+            Assert.NotNull(reverseGeocodeResponse);
+            Assert.NotNull(reverseGeocodeResponse.Hits);
+            Assert.AreEqual(1, reverseGeocodeResponse.Hits.Length);
+            Assert.AreEqual(1401182204, reverseGeocodeResponse.Hits[0].AddressId);
+            Assert.NotNull(reverseGeocodeResponse.Hits[0].PostalAddress);
+            Assert.AreEqual(3, reverseGeocodeResponse.Hits[0].PostalAddress.Length);
+            Assert.AreEqual("INNS COURT", reverseGeocodeResponse.Hits[0].PostalAddress[0]);
+            Assert.AreEqual("WINETAVERN STREET", reverseGeocodeResponse.Hits[0].PostalAddress[1]);
+            Assert.AreEqual("DUBLIN 8", reverseGeocodeResponse.Hits[0].PostalAddress[2]);
+            Assert.Null(reverseGeocodeResponse.Hits[0].VanityAddress);
+            Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddress);
+        }
+
+        [Test]
+        public async void ReverseGeocodeAsync_LongitudeEqualsMinus6Point271796_LatitudeEquals53Point343761_ReturnsValidResponse()
+        {
+            const double longitude = -6.271796;
+            const double latitude = 53.343761;
+            const double maxDistance = 100;
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.ReverseGeocode.Request(latitude: latitude, longitude: longitude, maxDistance: maxDistance, language: Language.EN, country: Country.IE, vanityMode: false, addressProfileName: null);
+
+            var reverseGeocodeResponse = await autoaddressClient.ReverseGeocodeAsync(request);
+
+            Assert.NotNull(reverseGeocodeResponse);
+            Assert.NotNull(reverseGeocodeResponse.Hits);
+            Assert.AreEqual(1, reverseGeocodeResponse.Hits.Length);
+            Assert.AreEqual(1401182204, reverseGeocodeResponse.Hits[0].AddressId);
+            Assert.NotNull(reverseGeocodeResponse.Hits[0].PostalAddress);
+            Assert.AreEqual(3, reverseGeocodeResponse.Hits[0].PostalAddress.Length);
+            Assert.AreEqual("INNS COURT", reverseGeocodeResponse.Hits[0].PostalAddress[0]);
+            Assert.AreEqual("WINETAVERN STREET", reverseGeocodeResponse.Hits[0].PostalAddress[1]);
+            Assert.AreEqual("DUBLIN 8", reverseGeocodeResponse.Hits[0].PostalAddress[2]);
+            Assert.Null(reverseGeocodeResponse.Hits[0].VanityAddress);
+            Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddress);
+        }
     }
 }

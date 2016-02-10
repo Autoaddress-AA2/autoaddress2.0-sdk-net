@@ -132,5 +132,33 @@ namespace Autoaddress.Autoaddress2_0
         /// <param name="request">AutoComplete request.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.AutoComplete.Response> AutoCompleteAsync(Model.AutoComplete.Request request);
+
+        /// <summary>
+        /// Reverse geocode a location. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="request">ReverseGeocode request.</param>
+        /// <returns>ReverseGeocode response.</returns>
+        Model.ReverseGeocode.Response ReverseGeocode(Model.ReverseGeocode.Request request);
+
+        /// <summary>
+        /// Reverse geocode a location. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="link">A link returned in a ReverseGeocode response.</param>
+        /// <returns>ReverseGeocode response.</returns>
+        Model.ReverseGeocode.Response ReverseGeocode(Model.ReverseGeocode.Link link);
+
+        /// <summary>
+        /// Reverse geocode a location as an asynchronous operation. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="request">ReverseGeocode request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Request request);
+
+        /// <summary>
+        /// Reverse geocode a location as an asynchronous operation. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="link">A link returned in a ReverseGeocode response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Link link);
     }
 }

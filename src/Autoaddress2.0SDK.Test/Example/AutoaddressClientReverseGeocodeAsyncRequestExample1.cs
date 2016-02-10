@@ -1,0 +1,27 @@
+﻿using System;
+using Autoaddress.Autoaddress2_0.Model;
+using NUnit.Framework;
+
+namespace Autoaddress.Autoaddress2_0.Test.Example
+{
+    public class AutoaddressClientReverseGeocodeAsyncRequestExample1
+    {
+        public static async void Main()
+        {
+            const double longitude = -6.271796;
+            const double latitude = 53.343761;
+            const double maxDistance = 100;
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.ReverseGeocode.Request(latitude: latitude, longitude: longitude, maxDistance: maxDistance, language: Language.EN, country: Country.IE, vanityMode: false, addressProfileName: null);
+
+            var response = await autoaddressClient.ReverseGeocodeAsync(request);
+
+            Console.WriteLine("response.Hits[0].AddressId = {0}", response.Hits[0].AddressId);
+            Console.WriteLine("response.Hits[0].PostalAddress = {0}", string.Join(",", response.Hits[0].PostalAddress));
+        }
+    }
+}
+
+// This code example produces the following output:
+// response.Hits[0].AddressId = 1401182204
+// response.Hits[0].PostalAddress = INNS COURT,WINETAVERN STREET,DUBLIN 8

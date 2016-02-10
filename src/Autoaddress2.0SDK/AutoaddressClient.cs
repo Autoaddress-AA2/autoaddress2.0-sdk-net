@@ -31,6 +31,7 @@ namespace Autoaddress.Autoaddress2_0
         private const string VerifyAddressMethod = "VerifyAddress";
         private const string GetEcadDataMethod = "GetEcadData";
         private const string AutoCompleteMethod = "AutoComplete";
+        private const string ReverseGeocodeMethod = "ReverseGeocode";
         private const string JsonContentType = "application/json";
 
         private readonly AutoaddressConfig _autoaddressConfig;
@@ -372,7 +373,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <param name="request">GetEcadData request.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         /// <example>
-        /// The following code example creates an AutoaddressClient and calls GetEcadData with a request.
+        /// The following code example creates an AutoaddressClient and calls GetEcadDataAsync with a request.
         /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientGetEcadDataAsyncRequestExample1.cs" language="cs" />
         /// </example>
         public async Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Request request)
@@ -436,6 +437,74 @@ namespace Autoaddress.Autoaddress2_0
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
+        }
+
+        /// <summary>
+        /// Reverse geocode a location. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="request">ReverseGeocode request.</param>
+        /// <returns>ReverseGeocode response.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls ReverseGeocode with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientReverseGeocodeRequestExample1.cs" language="cs" />
+        /// </example>
+        public Model.ReverseGeocode.Response ReverseGeocode(Model.ReverseGeocode.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+        }
+
+        /// <summary>
+        /// Reverse geocode a location. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="link">A link returned in a ReverseGeocode response.</param>
+        /// <returns>ReverseGeocode response.</returns>
+        public Model.ReverseGeocode.Response ReverseGeocode(Model.ReverseGeocode.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+        }
+
+        /// <summary>
+        /// Reverse geocode a location as an asynchronous operation. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="request">ReverseGeocode request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls ReverseGeocodeAsync with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientReverseGeocodeAsyncRequestExample1.cs" language="cs" />
+        /// </example>
+        public async Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+        }
+
+        /// <summary>
+        /// Reverse geocode a location as an asynchronous operation. Returns the nearest building to the location within the specified maxDistance.
+        /// </summary>
+        /// <param name="link">A link returned in a ReverseGeocode response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
         }
 
         private static Uri GetRequestUri(string licenceKey, string baseAddress, string version, string method, object inputParam)
