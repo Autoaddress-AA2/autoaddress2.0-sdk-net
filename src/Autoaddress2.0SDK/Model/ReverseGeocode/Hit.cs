@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Autoaddress.Autoaddress2_0.Model.ReverseGeocode
 {
     /// <summary>
-    /// Hit returned in ReverseGeocode Response object
+    /// Hit returned in a ReverseGeocode Response object
     /// </summary>
     public class Hit
     {
