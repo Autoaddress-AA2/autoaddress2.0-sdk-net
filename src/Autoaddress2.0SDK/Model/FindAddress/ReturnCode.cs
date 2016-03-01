@@ -16,6 +16,7 @@
         NonUniqueAddress = 300,
         PartialAddressMatch = 400,
         IncompleteAddressEntered = 500,
+        NoAddressMatch = 550,
         ForeignAddressDetected = 600,
         InvalidAddressEntered = 700
     }
