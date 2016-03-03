@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Autoaddress.Autoaddress2_0.Model;
+using Autoaddress.Autoaddress2_0.Test.Example;
 using NUnit.Framework;
 
 namespace Autoaddress.Autoaddress2_0.Test.Integration
@@ -255,7 +256,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void PostcodeLookup_IE_A96E2R8_isVanityModeEqualsTrue_addressElementsEqualsTrue_ReturnsValidResponse()
+        public void PostcodeLookup_IE_A96E2R8_vanityModeEqualsTrue_addressElementsEqualsTrue_ReturnsValidResponse()
         {
             const string postcode = "A96E2R8";
             var autoaddressClient = new AutoaddressClient();
@@ -967,6 +968,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("DUBLIN 8", reverseGeocodeResponse.Hits[0].PostalAddress[2]);
             Assert.Null(reverseGeocodeResponse.Hits[0].VanityAddress);
             Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddress);
+            Assert.NotNull(reverseGeocodeResponse.Hits[0].Links);
+            Assert.AreEqual(1, reverseGeocodeResponse.Hits[0].Links.Length);
+            Assert.IsInstanceOf(typeof(Model.GetEcadData.Link), reverseGeocodeResponse.Hits[0].Links[0]);
         }
 
         [Test]
@@ -991,6 +995,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("DUBLIN 8", reverseGeocodeResponse.Hits[0].PostalAddress[2]);
             Assert.Null(reverseGeocodeResponse.Hits[0].VanityAddress);
             Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddress);
+            Assert.NotNull(reverseGeocodeResponse.Hits[0].Links);
+            Assert.AreEqual(1, reverseGeocodeResponse.Hits[0].Links.Length);
+            Assert.IsInstanceOf(typeof(Model.GetEcadData.Link), reverseGeocodeResponse.Hits[0].Links[0]);
         }
     }
 }
