@@ -15,7 +15,8 @@
         /// <param name="country">Country.</param>
         /// <param name="vanityMode">Return vanity address format, if it exists.</param>
         /// <param name="addressProfileName">If supplied, a reformatted address (according to profile rules) is returned in the ReformattedAddress field.</param>
-        public Request(double latitude, double longitude, double maxDistance, Language language, Country country, bool vanityMode, string addressProfileName)
+        /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
+        public Request(double latitude, double longitude, double maxDistance, Language language, Country country, bool vanityMode, string addressProfileName, string txn = null)
         {
             Latitude = latitude;
             Longitude = longitude;
@@ -24,6 +25,7 @@
             Country = country;
             VanityMode = vanityMode;
             AddressProfileName = addressProfileName;
+            Txn = txn;
         }
 
         /// <summary>
@@ -60,5 +62,10 @@
         /// Gets the address profile name.
         /// </summary>
         public string AddressProfileName { get; private set; }
+
+        /// <summary>
+        /// Gets the transaction.
+        /// </summary>
+        public string Txn { get; private set; }
     }
 }

@@ -126,7 +126,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
             
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
             string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
@@ -164,7 +164,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
@@ -202,7 +202,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
             string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.PostcodeLookup.Response>(result);
@@ -240,7 +240,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.PostcodeLookup.Response>(result);
@@ -278,7 +278,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
             string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.VerifyAddress.Response>(result);
@@ -312,7 +312,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.VerifyAddress.Response>(result);
@@ -346,7 +346,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
             string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
@@ -380,7 +380,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
@@ -414,7 +414,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
             string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
@@ -433,7 +433,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
@@ -452,7 +452,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
             string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
@@ -486,7 +486,7 @@ namespace Autoaddress.Autoaddress2_0
         {
             if (request == null) throw new ArgumentNullException("request");
 
-            Uri requestUri = GetRequestUri(_licenceKey, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
@@ -507,10 +507,20 @@ namespace Autoaddress.Autoaddress2_0
             return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
         }
 
-        private static Uri GetRequestUri(string licenceKey, string baseAddress, string version, string method, object inputParam)
+        private static Uri GetRequestUri(string licenceKey, string txn, string baseAddress, string version, string method, object inputParam)
         {
             string requestUri = string.Format("{0}/{1}/{2}", baseAddress, version, method);
-            string parameters = string.Format("Key={0}&{1}", licenceKey, inputParam.ToQueryString());
+            string parameters;
+
+            if (!string.IsNullOrEmpty(txn))
+            {
+                parameters = string.Format("Key={0}&Txn={1}&{2}", licenceKey, txn, inputParam.ToQueryString());
+            }
+            else
+            {
+                parameters = string.Format("Key={0}&{1}", licenceKey, inputParam.ToQueryString());
+            }
+
             requestUri = string.Format("{0}{1}{2}", requestUri, "?", parameters);
             return new Uri(requestUri);
         }

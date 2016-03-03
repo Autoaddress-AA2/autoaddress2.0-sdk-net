@@ -21,7 +21,8 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
         /// <param name="vanityMode">Return vanity address format, if it exists.</param>
         /// <param name="addressElements">Return address elements.</param>
         /// <param name="addressProfileName">If supplied, a reformatted address (according to profile rules) is returned in the response.</param>
-        public Request(string address, Language language, Country country, int limit, bool vanityMode, bool addressElements, string addressProfileName)
+        /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
+        public Request(string address, Language language, Country country, int limit, bool vanityMode, bool addressElements, string addressProfileName, string txn = null)
         {
             Address = address;
             Language = language;
@@ -30,6 +31,7 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
             VanityMode = vanityMode;
             AddressElements = addressElements;
             AddressProfileName = addressProfileName;
+            Txn = txn;
         }
 
         /// <summary>
@@ -66,5 +68,10 @@ namespace Autoaddress.Autoaddress2_0.Model.AutoComplete
         /// Gets the address profile name.
         /// </summary>
         public string AddressProfileName { get; private set; }
+
+        /// <summary>
+        /// Gets the transaction.
+        /// </summary>
+        public string Txn { get; private set; }
     }
 }

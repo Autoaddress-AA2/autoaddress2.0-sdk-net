@@ -14,20 +14,22 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         /// <param name="address">An address separated by commas to compare.</param>
         /// <param name="language">Language to verify address.</param>
         /// <param name="country">Country to verify address.</param>
+        /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
         /// <exception cref="ArgumentNullException">
         /// postcode
         /// or
         /// address
         /// </exception>
-        public Request(string postcode, string address, Language language, Country country)
+        public Request(string postcode, string address, Language language, Country country, string txn = null)
         {
             if (string.IsNullOrWhiteSpace(postcode)) throw new ArgumentNullException("postcode");
             if (string.IsNullOrWhiteSpace(address)) throw new ArgumentNullException("address");
-            
+
             Postcode = postcode;
             Address = address;
             Language = language;
             Country = country;
+            Txn = txn;
         }
 
         /// <summary>
@@ -49,5 +51,10 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         /// Gets the country.
         /// </summary>
         public Country Country { get; private set; }
+
+        /// <summary>
+        /// Gets the transaction.
+        /// </summary>
+        public string Txn { get; private set; }
     }
 }
