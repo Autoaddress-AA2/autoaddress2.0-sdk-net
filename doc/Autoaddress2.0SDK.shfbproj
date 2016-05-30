@@ -42,11 +42,11 @@
       <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.FindAddress" isDocumented="True">Model classes and enumerations for interacting with the FindAddress service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0" isDocumented="True">Classes and interfaces for interacting with the Autoaddress 2.0 service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model" isDocumented="True">Model classes for interacting with the Autoaddress 2.0 service.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.GetEcadData" isDocumented="False">Model classes and enumerations for interacting with the GetEcadData service.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.GetEcadData" isDocumented="True">Model classes and enumerations for interacting with the GetEcadData service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.PostcodeLookup" isDocumented="True">Model classes and enumerations for interacting with the PostcodeLookup service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.VerifyAddress" isDocumented="True">Model classes and enumerations for interacting with the VerifyAddress service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.ReverseGeocode" isDocumented="True">Model classes and enumerations for interacting with the ReverseGeocode service.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.AutoComplete" isDocumented="True">Model classes and enumerations for interacting with the AutComplete service.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.AutoComplete" isDocumented="True">Model classes and enumerations for interacting with the AutoComplete service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.GetGbPostcodeData" isDocumented="True">Model classes and enumerations for interacting with the GetGbPostcodeData service.</NamespaceSummaryItem></NamespaceSummaries>
     <ComponentConfigurations>
       <ComponentConfig id="Code Block Component" enabled="True" xmlns="">
