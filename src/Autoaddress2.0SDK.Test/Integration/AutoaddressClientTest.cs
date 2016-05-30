@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Autoaddress.Autoaddress2_0.Model;
-using Autoaddress.Autoaddress2_0.Test.Example;
 using NUnit.Framework;
 
 namespace Autoaddress.Autoaddress2_0.Test.Integration
@@ -198,7 +198,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void FindAddressAsync_IE_8SilverBirchesDunboyne_ReturnsValidResponse()
+        public async Task FindAddressAsync_IE_8SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -219,11 +219,11 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             var autoaddressClient = new AutoaddressClient(licenceKey);
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            Assert.Throws<AutoaddressException>(async () => await autoaddressClient.FindAddressAsync(request));
+            Assert.ThrowsAsync<AutoaddressException>(async () => await autoaddressClient.FindAddressAsync(request));
         }
 
         [Test]
-        public async void FindAddressAsync_IE_SilverBirchesDunboyne_ReturnsValidResponse()
+        public async Task FindAddressAsync_IE_SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -456,7 +456,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void PostcodeLookupAsync_IE_A86VC04_ReturnsValidResponse()
+        public async Task PostcodeLookupAsync_IE_A86VC04_ReturnsValidResponse()
         {
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
@@ -476,7 +476,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void PostcodeLookupAsync_IE_D08XY00_ReturnsValidResponse()
+        public async Task PostcodeLookupAsync_IE_D08XY00_ReturnsValidResponse()
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -500,7 +500,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void PostcodeLookupAsync_IE_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
+        public async Task PostcodeLookupAsync_IE_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -575,7 +575,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void VerifyAddressAsync_IE_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public async Task VerifyAddressAsync_IE_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
         {
             const string address = "8 Silver Birches, Dunboyne";
             const string postcode = "A86VC04";
@@ -757,7 +757,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void GetEcadDataAsync_1701984269_ReturnsValidResponse()
+        public async Task GetEcadDataAsync_1701984269_ReturnsValidResponse()
         {
             const int ecadId = 1701984269;
             var autoaddressClient = new AutoaddressClient();
@@ -836,7 +836,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void AutoCompleteAsync_IE_SilverBirchesDunboyne_ReturnsValidResponse()
+        public async Task AutoCompleteAsync_IE_SilverBirchesDunboyne_ReturnsValidResponse()
         {
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
@@ -868,7 +868,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void AutoCompleteAsync_IE_D08XY00_ReturnsValidResponse()
+        public async Task AutoCompleteAsync_IE_D08XY00_ReturnsValidResponse()
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -916,7 +916,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void AutoCompleteAsyncThenFindAddressAsync_IE_D08XY00_ReturnsValidResponse()
+        public async Task AutoCompleteAsyncThenFindAddressAsync_IE_D08XY00_ReturnsValidResponse()
         {
             const string eircode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
@@ -974,7 +974,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public async void ReverseGeocodeAsync_LongitudeEqualsMinus6Point271796_LatitudeEquals53Point343761_ReturnsValidResponse()
+        public async Task ReverseGeocodeAsync_LongitudeEqualsMinus6Point271796_LatitudeEquals53Point343761_ReturnsValidResponse()
         {
             const double longitude = -6.271796;
             const double latitude = 53.343761;
@@ -998,6 +998,65 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(reverseGeocodeResponse.Hits[0].Links);
             Assert.AreEqual(1, reverseGeocodeResponse.Hits[0].Links.Length);
             Assert.IsInstanceOf(typeof(Model.GetEcadData.Link), reverseGeocodeResponse.Hits[0].Links[0]);
+        }
+
+        [Test]
+        public void GetGbPostcodeData_BT11Space8QT_ReturnsValidResponse()
+        {
+            const string postcode = "BT11 8QT";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.GetGbPostcodeData.Request(postcode);
+
+            var response = autoaddressClient.GetGbPostcodeData(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(Autoaddress2_0.Model.GetGbPostcodeData.ReturnCode.PostcodeValid, response.Result);
+            Assert.AreEqual(postcode, response.Postcode);
+            Assert.NotNull(response.SpatialInfo);
+            Assert.NotNull(response.SpatialInfo.Wgs84);
+            Assert.NotNull(response.SpatialInfo.Wgs84.Location);
+            Assert.Greater(response.SpatialInfo.Wgs84.Location.Latitude, 0);
+            Assert.Less(response.SpatialInfo.Wgs84.Location.Longitude, 0);
+        }
+
+        [Test]
+        public async Task GetGbPostcodeDataAsync_BT11Space8QT_ReturnsValidResponse()
+        {
+            const string postcode = "BT11 8QT";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.GetGbPostcodeData.Request(postcode);
+
+            var response = await autoaddressClient.GetGbPostcodeDataAsync(request);
+
+            Assert.NotNull(response);
+            Assert.AreEqual(Autoaddress2_0.Model.GetGbPostcodeData.ReturnCode.PostcodeValid, response.Result);
+            Assert.AreEqual(postcode, response.Postcode);
+            Assert.NotNull(response.SpatialInfo);
+            Assert.NotNull(response.SpatialInfo.Wgs84);
+            Assert.NotNull(response.SpatialInfo.Wgs84.Location);
+            Assert.Greater(response.SpatialInfo.Wgs84.Location.Latitude, 0);
+            Assert.Less(response.SpatialInfo.Wgs84.Location.Longitude, 0);
+        }
+
+        [Test]
+        public void GetGbPostcodeData_BT11Space8QTThenSelectSelfLink_ReturnsValidResponses()
+        {
+            const string postcode = "BT11 8QT";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.GetGbPostcodeData.Request(postcode);
+
+            var firstResponse = autoaddressClient.GetGbPostcodeData(request);
+
+            Assert.NotNull(firstResponse);
+            Assert.NotNull(firstResponse.Links);
+            Assert.Greater(firstResponse.Links.Length, 0);
+            var link = firstResponse.Links.OfType<Model.GetGbPostcodeData.Link>().First();
+
+            var secondResponse = autoaddressClient.GetGbPostcodeData(link);
+
+            Assert.NotNull(secondResponse);
+            Assert.AreEqual(firstResponse.Result, secondResponse.Result);
+            Assert.AreEqual(firstResponse.Postcode, secondResponse.Postcode);
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Autoaddress.Autoaddress2_0
         private const string GetEcadDataMethod = "GetEcadData";
         private const string AutoCompleteMethod = "AutoComplete";
         private const string ReverseGeocodeMethod = "ReverseGeocode";
+        private const string GetGbPostcodeDataMethod = "GetGbPostcodeData";
         private const string JsonContentType = "application/json";
 
         private readonly AutoaddressConfig _autoaddressConfig;
@@ -505,6 +506,74 @@ namespace Autoaddress.Autoaddress2_0
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK postcode.
+        /// </summary>
+        /// <param name="request">GetGbPostcodeData request.</param>
+        /// <returns>GetGbPostcodeData response.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls GetGbPostcodeData with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientGetGbPostcodeDataRequestExample1.cs" language="cs" />
+        /// </example>
+        public Model.GetGbPostcodeData.Response GetGbPostcodeData(Model.GetGbPostcodeData.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbPostcodeDataMethod, request);
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK postcode.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbPostcodeData response.</param>
+        /// <returns>GetGbPostcodeData response.</returns>
+        public Model.GetGbPostcodeData.Response GetGbPostcodeData(Model.GetGbPostcodeData.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK postcode as an asynchronous operation.
+        /// </summary>
+        /// <param name="request">GetGbPostcodeData request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls GetGbPostcodeDataAsync with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientGetGbPostcodeDataAsyncRequestExample1.cs" language="cs" />
+        /// </example>
+        public async Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbPostcodeDataMethod, request);
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK postcode as an asynchronous operation.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbPostcodeData response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
         }
 
         private static Uri GetRequestUri(string licenceKey, string txn, string baseAddress, string version, string method, object inputParam)

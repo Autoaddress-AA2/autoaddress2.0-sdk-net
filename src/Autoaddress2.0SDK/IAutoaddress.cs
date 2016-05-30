@@ -160,5 +160,33 @@ namespace Autoaddress.Autoaddress2_0
         /// <param name="link">A link returned in a ReverseGeocode response.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Link link);
+
+        /// <summary>
+        /// Return data for the supplied UK postcode.
+        /// </summary>
+        /// <param name="request">GetGbPostcodeData request.</param>
+        /// <returns>GetGbPostcodeData response.</returns>
+        Model.GetGbPostcodeData.Response GetGbPostcodeData(Model.GetGbPostcodeData.Request request);
+
+        /// <summary>
+        /// Return data for the supplied UK postcode.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbPostcodeData response.</param>
+        /// <returns>GetGbPostcodeData response.</returns>
+        Model.GetGbPostcodeData.Response GetGbPostcodeData(Model.GetGbPostcodeData.Link link);
+
+        /// <summary>
+        /// Return data for the supplied UK postcode as an asynchronous operation.
+        /// </summary>
+        /// <param name="request">GetGbPostcodeData request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Request request);
+
+        /// <summary>
+        /// Return data for the supplied UK postcode as an asynchronous operation.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbPostcodeData response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Link link);
     }
 }
