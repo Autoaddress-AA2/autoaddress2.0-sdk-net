@@ -14,12 +14,13 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// <param name="language">Language for returned address.</param>
         /// <param name="country">Country the address should be searched in.</param>
         /// <param name="limit">An upper limit on the number of options that may be returned.</param>
+        /// <param name="geographicAddress">Return geographic address.</param>
         /// <param name="vanityMode">Return vanity address format, if it exists.</param>
         /// <param name="addressElements">Return address elements.</param>
         /// <param name="addressProfileName">If supplied, a reformatted address (according to profile rules) is returned in the ReformattedAddress field.</param>
         /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
         /// <exception cref="ArgumentNullException">postcode</exception>
-        public Request(string postcode, Language language, Country country, int limit, bool vanityMode, bool addressElements, string addressProfileName, string txn = null)
+        public Request(string postcode, Language language, Country country, int limit, bool geographicAddress, bool vanityMode, bool addressElements, string addressProfileName, string txn = null)
         {
             if (string.IsNullOrWhiteSpace(postcode)) throw new ArgumentNullException("postcode");
 
@@ -27,6 +28,7 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
             Language = language;
             Country = country;
             Limit = limit;
+            GeographicAddress = geographicAddress;
             VanityMode = vanityMode;
             AddressElements = addressElements;
             AddressProfileName = addressProfileName;
@@ -52,6 +54,11 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// Gets the limit.
         /// </summary>
         public int Limit { get; private set; }
+
+        /// <summary>
+        /// Gets geographic address.
+        /// </summary>
+        public bool GeographicAddress { get; private set; }
 
         /// <summary>
         /// Gets vanity mode.

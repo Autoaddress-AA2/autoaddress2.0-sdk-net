@@ -73,6 +73,7 @@
     <Compile Include="Model\GetEcadData\GeographicCoordinates.cs" />
     <Compile Include="Model\GetEcadData\GeographicSpatialInfo.cs" />
     <Compile Include="Model\GetEcadData\Link.cs" />
+    <Compile Include="Model\GetEcadData\GeographicAddress.cs" />
     <Compile Include="Model\GetEcadData\ProjectedBoundingBox.cs" />
     <Compile Include="Model\GetEcadData\ProjectedCoordinates.cs" />
     <Compile Include="Model\GetEcadData\ProjectedSpatialInfo.cs" />

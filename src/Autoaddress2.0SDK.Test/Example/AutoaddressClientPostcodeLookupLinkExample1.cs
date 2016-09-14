@@ -11,7 +11,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
         {
             const string postcode = "D08XY00";
             var autoaddressClient = new AutoaddressClient();
-            var request = new Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
+            var request = new Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response1 = autoaddressClient.PostcodeLookup(request);
 

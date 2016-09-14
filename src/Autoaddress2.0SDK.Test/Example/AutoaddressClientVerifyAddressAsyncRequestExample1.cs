@@ -12,7 +12,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             const string postcode = "A86VC04";
             var autoaddressClient = new AutoaddressClient();
 
-            var request = new Request(postcode, address, Language.EN, Country.IE);
+            var request = new Request(postcode: postcode, address: address, language: Language.EN, country: Country.IE, geographicAddress: false, vanityMode: false);
             var response = await autoaddressClient.VerifyAddressAsync(request);
 
             Console.WriteLine("response.Result = {0}", response.Result);

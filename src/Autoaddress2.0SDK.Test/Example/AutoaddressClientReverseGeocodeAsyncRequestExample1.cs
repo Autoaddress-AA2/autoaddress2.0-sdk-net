@@ -11,7 +11,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             const double latitude = 53.343761;
             const double maxDistance = 100;
             var autoaddressClient = new AutoaddressClient();
-            var request = new Autoaddress2_0.Model.ReverseGeocode.Request(latitude: latitude, longitude: longitude, maxDistance: maxDistance, language: Language.EN, country: Country.IE, vanityMode: true, addressProfileName: null);
+            var request = new Autoaddress2_0.Model.ReverseGeocode.Request(latitude: latitude, longitude: longitude, maxDistance: maxDistance, language: Language.EN, country: Country.IE, geographicAddress: false, vanityMode: true, addressProfileName: null);
 
             var response = await autoaddressClient.ReverseGeocodeAsync(request);
 

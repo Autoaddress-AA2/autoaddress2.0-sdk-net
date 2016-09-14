@@ -12,6 +12,8 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         [JsonConstructor]
         internal Response(ReturnCode result,
                           string[] postalAddress,
+                          string[] geographicAddress,
+                          string[] vanityAddress,
                           string postcode,
                           int? addressId,
                           AddressType? addressType,
@@ -23,6 +25,8 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
 
             Result = result;
             PostalAddress = postalAddress;
+            GeographicAddress = geographicAddress;
+            VanityAddress = vanityAddress;
             Postcode = postcode;
             AddressId = addressId;
             AddressType = addressType;
@@ -60,7 +64,17 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         /// Gets the postal address in requested language for the input address.
         /// </summary>
         public string[] PostalAddress { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the geographic address in requested language for the input address.
+        /// </summary>
+        public string[] GeographicAddress { get; private set; }
+
+        /// <summary>
+        /// Vanity address in case it was requested per input and it is available.
+        /// </summary>
+        public string[] VanityAddress { get; private set; }
+
         /// <summary>
         /// Gets the Eircode or postcode.
         /// </summary>

@@ -14,13 +14,15 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         /// <param name="address">An address separated by commas to compare.</param>
         /// <param name="language">Language to verify address.</param>
         /// <param name="country">Country to verify address.</param>
+        /// <param name="geographicAddress">Return geographic address.</param>
+        /// <param name="vanityMode">Return vanity address format, if it exists.</param>
         /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
         /// <exception cref="ArgumentNullException">
         /// postcode
         /// or
         /// address
         /// </exception>
-        public Request(string postcode, string address, Language language, Country country, string txn = null)
+        public Request(string postcode, string address, Language language, Country country, bool geographicAddress, bool vanityMode, string txn = null)
         {
             if (string.IsNullOrWhiteSpace(postcode)) throw new ArgumentNullException("postcode");
             if (string.IsNullOrWhiteSpace(address)) throw new ArgumentNullException("address");
@@ -29,6 +31,8 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
             Address = address;
             Language = language;
             Country = country;
+            GeographicAddress = geographicAddress;
+            VanityMode = vanityMode;
             Txn = txn;
         }
 
@@ -51,6 +55,16 @@ namespace Autoaddress.Autoaddress2_0.Model.VerifyAddress
         /// Gets the country.
         /// </summary>
         public Country Country { get; private set; }
+
+        /// <summary>
+        /// Gets geographic address.
+        /// </summary>
+        public bool GeographicAddress { get; private set; }
+
+        /// <summary>
+        /// Gets vanity mode.
+        /// </summary>
+        public bool VanityMode { get; private set; }
 
         /// <summary>
         /// Gets the transaction.

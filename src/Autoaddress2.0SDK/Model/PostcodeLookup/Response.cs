@@ -17,6 +17,8 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
                           MatchLevel matchLevel,
                           string[] postalAddress,
                           AddressElement[] postalAddressElements,
+                          string[] geographicAddress,
+                          AddressElement[] geographicAddressElements,
                           string[] vanityAddress,
                           AddressElement[] vanityAddressElements,
                           string[] reformattedAddress,
@@ -35,6 +37,8 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
             MatchLevel = matchLevel;
             PostalAddress = postalAddress;
             PostalAddressElements = postalAddressElements;
+            GeographicAddress = geographicAddress;
+            GeographicAddressElements = geographicAddressElements;
             VanityAddress = vanityAddress;
             VanityAddressElements = vanityAddressElements;
             ReformattedAddress = reformattedAddress;
@@ -98,6 +102,16 @@ namespace Autoaddress.Autoaddress2_0.Model.PostcodeLookup
         /// Gets the postal address elements.
         /// </summary>
         public AddressElement[] PostalAddressElements { get; private set; }
+
+        /// <summary>
+        /// Gets the geographic address in requested language for the input address.
+        /// </summary>
+        public string[] GeographicAddress { get; private set; }
+
+        /// <summary>
+        /// Gets the geographic address elements.
+        /// </summary>
+        public AddressElement[] GeographicAddressElements { get; private set; }
 
         /// <summary>
         /// Gets the vanity address (if requested).

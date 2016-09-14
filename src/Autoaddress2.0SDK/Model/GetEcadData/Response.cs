@@ -14,6 +14,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
                           int? ecadId,
                           int? addressTypeId,
                           PostalAddress postalAddress,
+                          GeographicAddress geographicAddress,
                           AdministrativeInfo administrativeInfo,
                           BuildingInfo buildingInfo,
                           OrganisationInfo organisationInfo,
@@ -27,6 +28,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
             Result = result;
             EcadId = ecadId;
             AddressTypeId = addressTypeId;
+            GeographicAddress = geographicAddress;
             PostalAddress = postalAddress;
             AdministrativeInfo = administrativeInfo;
             BuildingInfo = buildingInfo;
@@ -76,6 +78,11 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the postal address in requested language.
         /// </summary>
         public PostalAddress PostalAddress { get; private set; }
+
+        /// <summary>
+        /// Gets the geographic address in requested language.
+        /// </summary>
+        public GeographicAddress GeographicAddress { get; private set; }
 
         /// <summary>
         /// Gets the administrative info.

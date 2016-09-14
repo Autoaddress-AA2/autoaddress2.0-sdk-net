@@ -15,7 +15,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             var autoaddressConfig = new AutoaddressConfig(apiBaseAddress, requestTimeoutMilliseconds);
             var autoaddressClient = new AutoaddressClient(licenceKey, autoaddressConfig);
             
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
+            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             var response = autoaddressClient.FindAddress(request);
             
             Console.WriteLine("response.Result = {0}", response.Result);

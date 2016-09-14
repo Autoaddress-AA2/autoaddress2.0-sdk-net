@@ -626,6 +626,17 @@ namespace Autoaddress.Autoaddress2_0
                 }
             }
 
+            if (code["geographicAddressElements"] != null && code["geographicAddressElements"].Children().Any())
+            {
+                foreach (JToken geographicAddressElement in code["geographicAddressElements"])
+                {
+                    if (geographicAddressElement["type"] != null && geographicAddressElement["type"]["code"] != null)
+                    {
+                        geographicAddressElement["type"] = (string)geographicAddressElement["type"]["code"];
+                    }
+                }
+            }
+
             if (code["vanityAddressElements"] != null && code["vanityAddressElements"].Children().Any())
             {
                 foreach (JToken vanityAddressElement in code["vanityAddressElements"])

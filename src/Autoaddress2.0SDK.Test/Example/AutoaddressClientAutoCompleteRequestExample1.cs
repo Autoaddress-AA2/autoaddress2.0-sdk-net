@@ -1,7 +1,6 @@
 ﻿using System;
 using Autoaddress.Autoaddress2_0.Model;
 using Autoaddress.Autoaddress2_0.Model.AutoComplete;
-using NUnit.Framework;
 
 namespace Autoaddress.Autoaddress2_0.Test.Example
 {
@@ -12,7 +11,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             const string address = "Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
 
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
+            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             var response = autoaddressClient.AutoComplete(request);
 
             Console.WriteLine("response.TotalOptions = {0}", response.TotalOptions);

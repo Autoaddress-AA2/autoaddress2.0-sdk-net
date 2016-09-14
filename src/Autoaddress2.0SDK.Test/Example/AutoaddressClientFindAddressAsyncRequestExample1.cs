@@ -11,7 +11,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient();
             
-            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, vanityMode: false, addressElements: false, addressProfileName: null);
+            var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             var response = await autoaddressClient.FindAddressAsync(request);
 
             Console.WriteLine("response.Result = {0}", response.Result);
