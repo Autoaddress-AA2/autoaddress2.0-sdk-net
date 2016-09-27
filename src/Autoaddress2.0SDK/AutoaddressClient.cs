@@ -604,6 +604,9 @@ namespace Autoaddress.Autoaddress2_0
             if (code["addressType"] != null && code["addressType"]["code"] != null)
                 code["addressType"] = (string) code["addressType"]["code"];
 
+            if (code["reformattedAddressResult"] != null && code["reformattedAddressResult"]["code"] != null)
+                code["reformattedAddressResult"] = (string)code["reformattedAddressResult"]["code"];
+
             if (code["unmatchedAddressElements"] != null && code["unmatchedAddressElements"].Children().Any())
             {
                 foreach (JToken unmatchedAddressElement in code["unmatchedAddressElements"])

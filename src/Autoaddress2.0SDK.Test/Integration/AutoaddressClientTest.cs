@@ -457,6 +457,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.IsNull(response.PostalAddressElements);
             Assert.IsNull(response.VanityAddress);
             Assert.IsNull(response.VanityAddressElements);
+            Assert.IsNull(response.ReformattedAddressResult);
             Assert.IsNull(response.ReformattedAddress);
             Assert.AreEqual(0, response.TotalOptions);
             Assert.IsNotNull(response.Options);
@@ -1043,6 +1044,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("DUBLIN 8", reverseGeocodeResponse.Hits[0].PostalAddress[2]);
             Assert.Null(reverseGeocodeResponse.Hits[0].VanityAddress);
             Assert.Null(reverseGeocodeResponse.Hits[0].GeographicAddress);
+            Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddressResult);
             Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddress);
             Assert.NotNull(reverseGeocodeResponse.Hits[0].Links);
             Assert.AreEqual(1, reverseGeocodeResponse.Hits[0].Links.Length);
@@ -1071,6 +1073,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual("DUBLIN 8", reverseGeocodeResponse.Hits[0].PostalAddress[2]);
             Assert.Null(reverseGeocodeResponse.Hits[0].VanityAddress);
             Assert.Null(reverseGeocodeResponse.Hits[0].GeographicAddress);
+            Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddressResult);
             Assert.Null(reverseGeocodeResponse.Hits[0].ReformattedAddress);
             Assert.NotNull(reverseGeocodeResponse.Hits[0].Links);
             Assert.AreEqual(1, reverseGeocodeResponse.Hits[0].Links.Length);

@@ -23,6 +23,7 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
                           AddressElement[] geographicAddressElements,
                           string[] vanityAddress,
                           AddressElement[] vanityAddressElements,
+                          ReformattedAddressResult? reformattedAddressResult,
                           string[] reformattedAddress,
                           int totalOptions,
                           Option[] options,
@@ -42,6 +43,7 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
             GeographicAddressElements = geographicAddressElements;
             VanityAddress = vanityAddress;
             VanityAddressElements = vanityAddressElements;
+            ReformattedAddressResult = reformattedAddressResult;
             ReformattedAddress = reformattedAddress;
             Unmatched = unmatched;
             UnmatchedAddressElements = unmatchedAddressElements;
@@ -135,6 +137,11 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
         /// Gets the vanity address elements.
         /// </summary>
         public AddressElement[] VanityAddressElements { get; private set; }
+
+        /// <summary>
+        /// Gets the reformatted address result.
+        /// </summary>
+        public ReformattedAddressResult? ReformattedAddressResult { get; private set; }
 
         /// <summary>
         /// Gets the address reformatted (if an address profile name supplied in request).

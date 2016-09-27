@@ -92,6 +92,7 @@
     <Compile Include="Model\PostcodeLookup\Link.cs" />
     <Compile Include="Model\PostcodeLookup\Request.cs" />
     <Compile Include="Model\PostcodeLookup\ReturnCode.cs" />
+    <Compile Include="Model\ReformattedAddressResult.cs" />
     <Compile Include="Model\ReverseGeocode\Hit.cs" />
     <Compile Include="Model\ReverseGeocode\Link.cs" />
     <Compile Include="Model\ReverseGeocode\Request.cs" />

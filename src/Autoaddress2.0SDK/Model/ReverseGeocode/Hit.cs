@@ -10,7 +10,7 @@ namespace Autoaddress.Autoaddress2_0.Model.ReverseGeocode
     public class Hit
     {
         [JsonConstructor]
-        internal Hit(int addressId, string[] postalAddress, string[] geographicAddress, string[] vanityAddress, string[] reformattedAddress, double distance, Model.Link[] links)
+        internal Hit(int addressId, string[] postalAddress, string[] geographicAddress, string[] vanityAddress, ReformattedAddressResult? reformattedAddressResult, string[] reformattedAddress, double distance, Model.Link[] links)
         {
             if (postalAddress == null || postalAddress.Length == 0) throw new ArgumentNullException("postalAddress");
             if (distance < -0.00001D) throw new ArgumentNullException("distance");
@@ -20,6 +20,7 @@ namespace Autoaddress.Autoaddress2_0.Model.ReverseGeocode
             PostalAddress = postalAddress;
             GeographicAddress = geographicAddress;
             VanityAddress = vanityAddress;
+            ReformattedAddressResult = reformattedAddressResult;
             ReformattedAddress = reformattedAddress;
             Distance = distance;
 
@@ -64,6 +65,11 @@ namespace Autoaddress.Autoaddress2_0.Model.ReverseGeocode
         /// Gets the vanity address (if requested).
         /// </summary>
         public string[] VanityAddress { get; private set; }
+
+        /// <summary>
+        /// Gets the reformatted address result.
+        /// </summary>
+        public ReformattedAddressResult? ReformattedAddressResult { get; private set; }
 
         /// <summary>
         /// Gets the address reformatted (if an address profile name supplied in request).
