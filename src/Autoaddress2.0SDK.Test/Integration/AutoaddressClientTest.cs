@@ -696,6 +696,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(167029, response.AdministrativeInfo.DedId);
             Assert.AreEqual(14588, response.AdministrativeInfo.SmallAreaId);
             Assert.AreEqual(160648, response.AdministrativeInfo.TownlandId);
+            Assert.AreEqual(1001000020, response.AdministrativeInfo.CountyId);
             Assert.AreEqual(false, response.AdministrativeInfo.Gaeltacht);
             Assert.NotNull(response.BuildingInfo);
             Assert.AreEqual(1400247786, response.BuildingInfo.EcadId);
@@ -793,6 +794,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(29, response.AdministrativeInfo.LaId);
             Assert.IsNull(response.AdministrativeInfo.SmallAreaId);
             Assert.IsNull(response.AdministrativeInfo.TownlandId);
+            Assert.AreEqual(1001000025, response.AdministrativeInfo.CountyId);
             Assert.IsNull(response.BuildingInfo);
             Assert.IsNull(response.OrganisationInfo);
             Assert.NotNull(response.SpatialInfo);
@@ -864,6 +866,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(167029, response.AdministrativeInfo.DedId);
             Assert.AreEqual(14588, response.AdministrativeInfo.SmallAreaId);
             Assert.AreEqual(160648, response.AdministrativeInfo.TownlandId);
+            Assert.AreEqual(1001000020, response.AdministrativeInfo.CountyId);
             Assert.AreEqual(false, response.AdministrativeInfo.Gaeltacht);
             Assert.NotNull(response.BuildingInfo);
             Assert.AreEqual(1400247786, response.BuildingInfo.EcadId);

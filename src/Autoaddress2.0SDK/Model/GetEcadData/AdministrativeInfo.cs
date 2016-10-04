@@ -13,6 +13,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
                                   int? dedId,
                                   int? smallAreaId,
                                   int? townlandId,
+                                  int? countyId,
                                   bool? gaeltacht)
         {
             EcadId = ecadId;
@@ -20,6 +21,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
             DedId = dedId;
             SmallAreaId = smallAreaId;
             TownlandId = townlandId;
+            CountyId = countyId;
             Gaeltacht = gaeltacht;
         }
 
@@ -47,6 +49,11 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the Townland Id.
         /// </summary>
         public int? TownlandId { get; private set; }
+
+        /// <summary>
+        /// Gets the County Id.
+        /// </summary>
+        public int? CountyId { get; private set; }
 
         /// <summary>
         /// Gets whether or not Ecad Id is in a Gaeltacht area.
