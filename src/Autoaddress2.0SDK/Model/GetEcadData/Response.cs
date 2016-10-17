@@ -13,6 +13,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         internal Response(ReturnCode result,
                           int? ecadId,
                           int? addressTypeId,
+                          EircodeInfo eircodeInfo,
                           PostalAddress postalAddress,
                           GeographicAddress geographicAddress,
                           AdministrativeInfo administrativeInfo,
@@ -28,6 +29,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
             Result = result;
             EcadId = ecadId;
             AddressTypeId = addressTypeId;
+            EircodeInfo = eircodeInfo;
             GeographicAddress = geographicAddress;
             PostalAddress = postalAddress;
             AdministrativeInfo = administrativeInfo;
@@ -68,12 +70,17 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the ECAD id.
         /// </summary>
         public int? EcadId { get; private set; }
-        
+
         /// <summary>
         /// Gets the type of address found.
         /// </summary>
         public int? AddressTypeId { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the Eircode info.
+        /// </summary>
+        public EircodeInfo EircodeInfo { get; private set; }
+
         /// <summary>
         /// Gets the postal address in requested language.
         /// </summary>
@@ -93,12 +100,12 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the building info.
         /// </summary>
         public BuildingInfo BuildingInfo { get; private set; }
-        
+
         /// <summary>
         /// Gets the organisation info.
         /// </summary>
         public OrganisationInfo OrganisationInfo { get; private set; }
-        
+
         /// <summary>
         /// Gets the spatial info.
         /// </summary>
@@ -113,7 +120,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the input request.
         /// </summary>
         public Request Input { get; private set; }
-        
+
         /// <summary>
         /// Gets an array of Link objects.
         /// </summary>

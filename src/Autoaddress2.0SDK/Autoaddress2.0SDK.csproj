@@ -69,6 +69,7 @@
     <Compile Include="Model\FindAddress\OptionType.cs" />
     <Compile Include="Model\FindAddress\Request.cs" />
     <Compile Include="Model\FindAddress\ReturnCode.cs" />
+    <Compile Include="Model\GetEcadData\EircodeInfo.cs" />
     <Compile Include="Model\GetEcadData\GeographicBoundingBox.cs" />
     <Compile Include="Model\GetEcadData\GeographicCoordinates.cs" />
     <Compile Include="Model\GetEcadData\GeographicSpatialInfo.cs" />
