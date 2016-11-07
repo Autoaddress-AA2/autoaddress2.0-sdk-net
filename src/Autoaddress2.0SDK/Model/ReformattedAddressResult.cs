@@ -21,6 +21,10 @@
         /// <summary>
         /// At least one address element has been lost and at least one address element has been truncated.
         /// </summary>
-        AddressElementLostAndTruncated = 103
+        AddressElementLostAndTruncated = 103,
+        /// <summary>
+        /// All address elements have been used, but at least one has been abbreviated.
+        /// </summary>
+        AddressElementAbbreviated = 110
     }
 }
