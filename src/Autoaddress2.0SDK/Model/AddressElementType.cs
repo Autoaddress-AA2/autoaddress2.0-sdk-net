@@ -6,19 +6,21 @@
     public enum AddressElementType
     {
         Unknown = 0,
-        Organisation,
-        AddressPointName,
-        BuildingName,
-        BuildingNumber,
-        BuildingGroup,
-        Thoroughfare,
-        Locality,
-        Village,
-        Town,
-        PostTown,
-        City,
-        DublinPostalArea,
-        County,
-        Eircode
+        Organisation = 1,
+        AddressPointName = 2,
+        BuildingName = 3,
+        BuildingNumber = 4,
+        BuildingGroup = 5,
+        Thoroughfare = 6,
+        Locality = 7,
+        Village = 8,
+        Town = 9,
+        PostTown = 10,
+        City = 11,
+        DublinPostalArea = 12,
+        County = 13,
+        Eircode = 14,
+        UrbanArea = 16,
+        RuralLocality = 17
     }
 }

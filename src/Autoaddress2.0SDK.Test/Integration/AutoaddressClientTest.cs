@@ -190,7 +190,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(AddressElementType.Thoroughfare, response.VanityAddressElements[1].Type);
             Assert.AreEqual(1200029775, response.VanityAddressElements[1].AddressId);
             Assert.AreEqual("Cabinteely", response.VanityAddressElements[2].Value);
-            Assert.AreEqual(AddressElementType.Locality, response.VanityAddressElements[2].Type);
+            Assert.AreEqual(AddressElementType.UrbanArea, response.VanityAddressElements[2].Type);
             Assert.AreEqual(1110029573, response.VanityAddressElements[2].AddressId);
             Assert.AreEqual("Dublin 18", response.VanityAddressElements[3].Value);
             Assert.AreEqual(AddressElementType.DublinPostalArea, response.VanityAddressElements[3].Type);
@@ -222,13 +222,13 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(AddressElementType.BuildingName, response.PostalAddressElements[0].Type);
             Assert.AreEqual(1401207129, response.PostalAddressElements[0].AddressId);
             Assert.AreEqual("SHANNON AIRPORT", response.PostalAddressElements[1].Value);
-            Assert.AreEqual(AddressElementType.Locality, response.PostalAddressElements[1].Type);
+            Assert.AreEqual(AddressElementType.RuralLocality, response.PostalAddressElements[1].Type);
             Assert.AreEqual(1110026207, response.PostalAddressElements[1].AddressId);
             Assert.AreEqual("SHANNON", response.PostalAddressElements[2].Value);
-            Assert.AreEqual(AddressElementType.Locality, response.PostalAddressElements[2].Type);
+            Assert.AreEqual(AddressElementType.Town, response.PostalAddressElements[2].Type);
             Assert.AreEqual(1100000099, response.PostalAddressElements[2].AddressId);
             Assert.AreEqual("LIMERICK", response.PostalAddressElements[3].Value);
-            Assert.AreEqual(AddressElementType.Town, response.PostalAddressElements[3].Type);
+            Assert.AreEqual(AddressElementType.City, response.PostalAddressElements[3].Type);
             Assert.AreEqual(1100000030, response.PostalAddressElements[3].AddressId);
             Assert.NotNull(response.GeographicAddress);
             Assert.AreEqual("TERMINAL BUILDING", response.GeographicAddress[0]);
@@ -241,10 +241,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(AddressElementType.BuildingName, response.GeographicAddressElements[0].Type);
             Assert.AreEqual(1401207129, response.GeographicAddressElements[0].AddressId);
             Assert.AreEqual("SHANNON AIRPORT", response.GeographicAddressElements[1].Value);
-            Assert.AreEqual(AddressElementType.Locality, response.GeographicAddressElements[1].Type);
+            Assert.AreEqual(AddressElementType.RuralLocality, response.GeographicAddressElements[1].Type);
             Assert.AreEqual(1110026207, response.GeographicAddressElements[1].AddressId);
             Assert.AreEqual("SHANNON", response.GeographicAddressElements[2].Value);
-            Assert.AreEqual(AddressElementType.Locality, response.GeographicAddressElements[2].Type);
+            Assert.AreEqual(AddressElementType.Town, response.GeographicAddressElements[2].Type);
             Assert.AreEqual(1100000099, response.GeographicAddressElements[2].AddressId);
             Assert.AreEqual("CO. CLARE", response.GeographicAddressElements[3].Value);
             Assert.AreEqual(AddressElementType.County, response.GeographicAddressElements[3].Type);
@@ -835,7 +835,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Greater(response.SpatialInfo.Itm.BoundingBox.Max.Easting, 0);
             Assert.Greater(response.SpatialInfo.Itm.BoundingBox.Max.Northing, 0);
             Assert.AreEqual("3", response.SpatialInfo.SpatialAccuracy);
-            Assert.IsNull(response.RelatedEcadIds);
+            Assert.IsNotNull(response.RelatedEcadIds);
         }
 
         [Test]
