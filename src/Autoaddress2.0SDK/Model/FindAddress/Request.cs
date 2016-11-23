@@ -16,9 +16,10 @@
         /// <param name="vanityMode">Return vanity address format, if it exists.</param>
         /// <param name="addressElements">Return address elements.</param>
         /// <param name="addressProfileName">If supplied, a reformatted address (according to profile rules) is returned in the ReformattedAddress field.</param>
+        /// <param name="addressId">ID of the address to find (i.e. ECAD ID for Ireland).</param>
         /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
         public Request(string address, Language language, Country country,
-                       int limit, bool geographicAddress, bool vanityMode, bool addressElements, string addressProfileName, string txn = null)
+                       int limit, bool geographicAddress, bool vanityMode, bool addressElements, string addressProfileName, int? addressId = null, string txn = null)
         {
             Address = address;
             Language = language;
@@ -28,6 +29,7 @@
             VanityMode = vanityMode;
             AddressElements = addressElements;
             AddressProfileName = addressProfileName;
+            AddressId = addressId;
             Txn = txn;
         }
 
@@ -35,17 +37,17 @@
         /// Gets the address.
         /// </summary>
         public string Address { get; private set; }
-        
+
         /// <summary>
         /// Gets the language.
         /// </summary>
         public Language Language { get; private set; }
-        
+
         /// <summary>
         /// Gets the country.
         /// </summary>
         public Country Country { get; private set; }
-        
+
         /// <summary>
         /// Gets the limit.
         /// </summary>
@@ -70,6 +72,11 @@
         /// Gets the address profile name.
         /// </summary>
         public string AddressProfileName { get; private set; }
+
+        /// <summary>
+        /// Gets the address ID.
+        /// </summary>
+        public int? AddressId { get; private set; }
 
         /// <summary>
         /// Gets the transaction.
