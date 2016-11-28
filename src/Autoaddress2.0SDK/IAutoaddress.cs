@@ -188,5 +188,33 @@ namespace Autoaddress.Autoaddress2_0
         /// <param name="link">A link returned in a GetGbPostcodeData response.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Link link);
+
+        /// <summary>
+        /// Map ID.
+        /// </summary>
+        /// <param name="request">MapId request.</param>
+        /// <returns>MapId response.</returns>
+        Model.MapId.Response MapId(Model.MapId.Request request);
+
+        /// <summary>
+        /// Map ID.
+        /// </summary>
+        /// <param name="link">A link returned in a MapId response.</param>
+        /// <returns>MapId response.</returns>
+        Model.MapId.Response MapId(Model.MapId.Link link);
+
+        /// <summary>
+        /// Map ID.
+        /// </summary>
+        /// <param name="request">MapId request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.MapId.Response> MapIdAsync(Model.MapId.Request request);
+
+        /// <summary>
+        /// Map ID.
+        /// </summary>
+        /// <param name="link">A link returned in a MapId response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.MapId.Response> MapIdAsync(Model.MapId.Link link);
     }
 }

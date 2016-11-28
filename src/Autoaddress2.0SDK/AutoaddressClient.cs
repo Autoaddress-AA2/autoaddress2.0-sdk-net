@@ -33,6 +33,7 @@ namespace Autoaddress.Autoaddress2_0
         private const string AutoCompleteMethod = "AutoComplete";
         private const string ReverseGeocodeMethod = "ReverseGeocode";
         private const string GetGbPostcodeDataMethod = "GetGbPostcodeData";
+        private const string MapIdMethod = "MapId";
         private const string JsonContentType = "application/json";
 
         private readonly AutoaddressConfig _autoaddressConfig;
@@ -574,6 +575,74 @@ namespace Autoaddress.Autoaddress2_0
             string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+        }
+
+        /// <summary>
+        /// Map ID.
+        /// </summary>
+        /// <param name="request">MapId request.</param>
+        /// <returns>MapId response.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls MapId with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientGetGbPostcodeDataRequestExample1.cs" language="cs" />
+        /// </example>
+        public Model.MapId.Response MapId(Model.MapId.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, MapIdMethod, request);
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+        }
+
+        /// <summary>
+        /// Map ID.
+        /// </summary>
+        /// <param name="link">A link returned in a MapId response.</param>
+        /// <returns>MapId response.</returns>
+        public Model.MapId.Response MapId(Model.MapId.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+        }
+
+        /// <summary>
+        /// Map ID as an asynchronous operation.
+        /// </summary>
+        /// <param name="request">MapId request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        /// <example>
+        /// The following code example creates an AutoaddressClient and calls GetGbPostcodeDataAsync with a request.
+        /// <code source="..\src\Autoaddress2.0SDK.Test\Example\AutoaddressClientGetGbPostcodeDataAsyncRequestExample1.cs" language="cs" />
+        /// </example>
+        public async Task<Model.MapId.Response> MapIdAsync(Model.MapId.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, MapIdMethod, request);
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+        }
+
+        /// <summary>
+        /// Map ID as an asynchronous operation.
+        /// </summary>
+        /// <param name="link">A link returned in a MapId response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<Model.MapId.Response> MapIdAsync(Model.MapId.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
         }
 
         private static Uri GetRequestUri(string licenceKey, string txn, string baseAddress, string version, string method, object inputParam)

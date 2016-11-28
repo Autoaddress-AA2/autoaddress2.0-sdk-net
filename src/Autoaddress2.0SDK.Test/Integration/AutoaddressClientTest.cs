@@ -1148,5 +1148,65 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.AreEqual(firstResponse.Result, secondResponse.Result);
             Assert.AreEqual(firstResponse.Postcode, secondResponse.Postcode);
         }
+
+        [Test]
+        public void MapId_EcadId_1401182204_ReturnsValidResponse()
+        {
+            const int ecadId = 1401182204;
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.MapId.Request(ecadId: ecadId);
+
+            var response = autoaddressClient.MapId(request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(Model.MapId.ReturnCode.EcadIdValid, response.Result);
+            Assert.AreEqual("B:50596412", response.GeoDirectoryId);
+            Assert.IsNull(response.EcadId);
+        }
+
+        [Test]
+        public void MapId_GeoDirectoryId_BColon50596412_ReturnsValidResponse()
+        {
+            const string geoDirectoryId = "B:50596412";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.MapId.Request(geoDirectoryId: geoDirectoryId);
+
+            var response = autoaddressClient.MapId(request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(Model.MapId.ReturnCode.GeoDirectoryIdValid, response.Result);
+            Assert.AreEqual(1401182204, response.EcadId);
+            Assert.IsNull(response.GeoDirectoryId);
+        }
+
+        [Test]
+        public async Task MapIdAsync_EcadId_1401182204_ReturnsValidResponse()
+        {
+            const int ecadId = 1401182204;
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.MapId.Request(ecadId: ecadId);
+
+            var response = await autoaddressClient.MapIdAsync(request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(Model.MapId.ReturnCode.EcadIdValid, response.Result);
+            Assert.AreEqual("B:50596412", response.GeoDirectoryId);
+            Assert.IsNull(response.EcadId);
+        }
+
+        [Test]
+        public async Task MapIdAsync_GeoDirectoryId_BColon50596412_ReturnsValidResponse()
+        {
+            const string geoDirectoryId = "B:50596412";
+            var autoaddressClient = new AutoaddressClient();
+            var request = new Autoaddress2_0.Model.MapId.Request(geoDirectoryId: geoDirectoryId);
+
+            var response = await autoaddressClient.MapIdAsync(request);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(Model.MapId.ReturnCode.GeoDirectoryIdValid, response.Result);
+            Assert.AreEqual(1401182204, response.EcadId);
+            Assert.IsNull(response.GeoDirectoryId);
+        }
     }
 }
