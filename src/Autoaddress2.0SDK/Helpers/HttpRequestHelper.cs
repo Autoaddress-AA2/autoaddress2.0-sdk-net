@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.IO;
 using System.Net;
@@ -58,28 +57,19 @@ namespace Autoaddress.Autoaddress2_0.Helpers
             }
         }
 
-        public static async Task<string> InvokeGetRequestAsync(Uri requestUri, string contentType, int requestTimeoutMilliseconds)
+        public static async Task<string> InvokeGetRequestAsync(HttpClient httpClient, Uri requestUri)
         {
-            string result;
+            HttpResponseMessage response = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
+            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            using (var client = new HttpClient())
+            AutoaddressException autoaddressException = GetAutoaddressException(result);
+
+            if (autoaddressException != null)
             {
-                client.Timeout = TimeSpan.FromMilliseconds(requestTimeoutMilliseconds);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
-                
-                HttpResponseMessage response = await client.GetAsync(requestUri).ConfigureAwait(false);
-                result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-                AutoaddressException autoaddressException = GetAutoaddressException(result);
-
-                if (autoaddressException != null)
-                {
-                    throw autoaddressException;
-                }
-
-                response.EnsureSuccessStatusCode();
+                throw autoaddressException;
             }
+
+            response.EnsureSuccessStatusCode();
 
             return result;
         }
