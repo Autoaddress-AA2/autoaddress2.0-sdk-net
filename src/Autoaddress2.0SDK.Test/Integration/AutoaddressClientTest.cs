@@ -663,6 +663,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
             Assert.AreEqual(ecadId, response.EcadId);
+            Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Current, response.EcadIdStatus);
             Assert.AreEqual(2150, response.AddressTypeId);
             Assert.NotNull(response.EircodeInfo);
             Assert.AreEqual(ecadId, response.EircodeInfo.EcadId);
@@ -780,6 +781,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
             Assert.AreEqual(ecadId, response.EcadId);
+            Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Current, response.EcadIdStatus);
             Assert.AreEqual(3100, response.AddressTypeId);
             Assert.IsNull(response.EircodeInfo);
             Assert.NotNull(response.PostalAddress);
@@ -850,6 +852,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
             Assert.AreEqual(ecadId, response.EcadId);
+            Assert.AreEqual(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Current, response.EcadIdStatus);
             Assert.AreEqual(2150, response.AddressTypeId);
             Assert.NotNull(response.EircodeInfo);
             Assert.AreEqual(ecadId, response.EircodeInfo.EcadId);

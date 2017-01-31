@@ -686,6 +686,9 @@ namespace Autoaddress.Autoaddress2_0
         {
             JObject code = JObject.Parse(json);
 
+            if (code["ecadIdStatus"] != null && code["ecadIdStatus"]["code"] != null)
+                code["ecadIdStatus"] = (string)code["ecadIdStatus"]["code"];
+
             if (code["matchLevel"] != null && code["matchLevel"]["code"] != null)
                 code["matchLevel"] = (string) code["matchLevel"]["code"];
 

@@ -12,6 +12,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         [JsonConstructor]
         internal Response(ReturnCode result,
                           int? ecadId,
+                          EcadIdStatus ecadIdStatus,
                           int? addressTypeId,
                           EircodeInfo eircodeInfo,
                           PostalAddress postalAddress,
@@ -28,6 +29,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
 
             Result = result;
             EcadId = ecadId;
+            EcadIdStatus = ecadIdStatus;
             AddressTypeId = addressTypeId;
             EircodeInfo = eircodeInfo;
             GeographicAddress = geographicAddress;
@@ -67,9 +69,14 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         public ReturnCode Result { get; private set; }
 
         /// <summary>
-        /// Gets the ECAD id.
+        /// Gets the ECAD ID.
         /// </summary>
         public int? EcadId { get; private set; }
+
+        /// <summary>
+        /// Gets the ECAD ID status.
+        /// </summary>
+        public EcadIdStatus EcadIdStatus { get; private set; }
 
         /// <summary>
         /// Gets the type of address found.

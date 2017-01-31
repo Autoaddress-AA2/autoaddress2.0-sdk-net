@@ -80,6 +80,7 @@
     <Compile Include="Model\GetEcadData\ProjectedSpatialInfo.cs" />
     <Compile Include="Model\GetEcadData\RelatedEcadIds.cs" />
     <Compile Include="Model\GetEcadData\Request.cs" />
+    <Compile Include="Model\GetEcadData\EcadIdStatus.cs" />
     <Compile Include="Model\GetEcadData\ReturnCode.cs" />
     <Compile Include="Model\GetGbPostcodeData\GbPostcodeGeographicSpatialInfo.cs" />
     <Compile Include="Model\GetGbPostcodeData\Link.cs" />
