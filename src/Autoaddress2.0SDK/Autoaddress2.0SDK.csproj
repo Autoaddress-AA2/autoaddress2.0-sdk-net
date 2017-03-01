@@ -90,6 +90,7 @@
     <Compile Include="Model\GetGbPostcodeData\SpatialInfo.cs" />
     <Compile Include="Model\Language.cs" />
     <Compile Include="Model\Link.cs" />
+    <Compile Include="Model\MapId\GeoDirectoryVersion.cs" />
     <Compile Include="Model\MapId\Link.cs" />
     <Compile Include="Model\MapId\Request.cs" />
     <Compile Include="Model\MapId\Response.cs" />

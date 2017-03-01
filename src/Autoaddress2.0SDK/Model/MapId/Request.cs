@@ -10,11 +10,13 @@
         /// </summary>
         /// <param name="ecadId">The ECAD ID to get the GeoDirectory ID for.</param>
         /// <param name="geoDirectoryId">The GeoDirectory ID to get the ECAD ID for.</param>
+        /// <param name="geoDirectoryVersion">The GeoDirectory version.</param>
         /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
-        public Request(int? ecadId = null, string geoDirectoryId = null, string txn = null)
+        public Request(int? ecadId = null, string geoDirectoryId = null, GeoDirectoryVersion? geoDirectoryVersion = null, string txn = null)
         {
             EcadId = ecadId;
             GeoDirectoryId = geoDirectoryId;
+            GeoDirectoryVersion = geoDirectoryVersion;
             Txn = txn;
         }
 
@@ -27,6 +29,11 @@
         /// Gets the GeoDirectory ID.
         /// </summary>
         public string GeoDirectoryId { get; private set; }
+
+        /// <summary>
+        /// Gets the GeoDirectory version.
+        /// </summary>
+        public GeoDirectoryVersion? GeoDirectoryVersion { get; private set; }
 
         /// <summary>
         /// Gets the transaction.
