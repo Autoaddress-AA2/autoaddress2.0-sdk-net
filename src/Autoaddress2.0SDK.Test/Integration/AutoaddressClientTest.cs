@@ -9,9 +9,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
     public class AutoaddressClientTest
     {
         [Test]
-        public void FindAddress_IE_8SilverBirchesDunboyne_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyneCoDotMeath_ReturnsValidResponse()
         {
-            const string address = "8 Silver Birches, Dunboyne";
+            const string address = "8 Silver Birches, Dunboyne, Co. Meath";
             var autoaddressClient = new AutoaddressClient();
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             
@@ -23,9 +23,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_IE_8SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyneCoDotMeathA86VC04_ReturnsValidResponse()
         {
-            const string address = "8 Silver Birches, Dunboyne, A86VC04";
+            const string address = "8 Silver Birches, Dunboyne, Co. Meath, A86VC04";
             var autoaddressClient = new AutoaddressClient();
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -37,9 +37,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_IE_8SilverBirchesDunboyneA86VC05_ReturnsValidResponse()
+        public void FindAddress_IE_8SilverBirchesDunboyneCoDotMeathA86VC05_ReturnsValidResponse()
         {
-            const string address = "8 Silver Birches, Dunboyne, A86VC05";
+            const string address = "8 Silver Birches, Dunboyne, Co. Meath, A86VC05";
             var autoaddressClient = new AutoaddressClient();
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -51,9 +51,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Test]
-        public void FindAddress_IE_9SilverBirchesDunboyneA86VC04_ReturnsValidResponse()
+        public void FindAddress_IE_9SilverBirchesDunboyneCoDotMeathA86VC04_ReturnsValidResponse()
         {
-            const string address = "9 Silver Birches, Dunboyne, A86VC04";
+            const string address = "9 Silver Birches, Dunboyne, Co. Meath, A86VC04";
             var autoaddressClient = new AutoaddressClient();
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
