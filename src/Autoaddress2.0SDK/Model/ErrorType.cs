@@ -38,6 +38,7 @@
         InvalidGeodirectoryId = 400024,
         InvalidRequestOriginator = 400025,
         InvalidGeodirectoryVersion = 400026,
+        MissingParameter = 400050,
         NotFound = 404001,
         InternalServerError = 500000
     }
