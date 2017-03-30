@@ -69,6 +69,7 @@
     <Compile Include="Model\FindAddress\OptionType.cs" />
     <Compile Include="Model\FindAddress\Request.cs" />
     <Compile Include="Model\FindAddress\ReturnCode.cs" />
+    <Compile Include="Model\GbGeographicSpatialInfo.cs" />
     <Compile Include="Model\GetEcadData\EircodeInfo.cs" />
     <Compile Include="Model\GetEcadData\GeographicBoundingBox.cs" />
     <Compile Include="Model\GetEcadData\GeographicCoordinates.cs" />
@@ -82,7 +83,11 @@
     <Compile Include="Model\GetEcadData\Request.cs" />
     <Compile Include="Model\GetEcadData\EcadIdStatus.cs" />
     <Compile Include="Model\GetEcadData\ReturnCode.cs" />
-    <Compile Include="Model\GetGbPostcodeData\GbPostcodeGeographicSpatialInfo.cs" />
+    <Compile Include="Model\GetGbBuildingData\Link.cs" />
+    <Compile Include="Model\GetGbBuildingData\Request.cs" />
+    <Compile Include="Model\GetGbBuildingData\Response.cs" />
+    <Compile Include="Model\GetGbBuildingData\ReturnCode.cs" />
+    <Compile Include="Model\GetGbBuildingData\SpatialInfo.cs" />
     <Compile Include="Model\GetGbPostcodeData\Link.cs" />
     <Compile Include="Model\GetGbPostcodeData\Request.cs" />
     <Compile Include="Model\GetGbPostcodeData\Response.cs" />

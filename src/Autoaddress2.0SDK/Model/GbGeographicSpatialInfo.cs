@@ -1,15 +1,15 @@
 ﻿using Autoaddress.Autoaddress2_0.Model.GetEcadData;
 using Newtonsoft.Json;
 
-namespace Autoaddress.Autoaddress2_0.Model.GetGbPostcodeData
+namespace Autoaddress.Autoaddress2_0.Model
 {
     /// <summary>
-    /// Geographic Spatial Info
+    /// GbGeographicSpatialInfo
     /// </summary>
-    public class GbPostcodeGeographicSpatialInfo
+    public class GbGeographicSpatialInfo
     {
         [JsonConstructor]
-        internal GbPostcodeGeographicSpatialInfo(GeographicCoordinates location)
+        internal GbGeographicSpatialInfo(GeographicCoordinates location)
         {
             Location = location;
         }

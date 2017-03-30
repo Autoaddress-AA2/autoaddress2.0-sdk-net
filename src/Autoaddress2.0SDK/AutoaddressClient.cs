@@ -34,6 +34,7 @@ namespace Autoaddress.Autoaddress2_0
         private const string GetEcadDataMethod = "GetEcadData";
         private const string AutoCompleteMethod = "AutoComplete";
         private const string ReverseGeocodeMethod = "ReverseGeocode";
+        private const string GetGbBuildingDataMethod = "GetGbBuildingData";
         private const string GetGbPostcodeDataMethod = "GetGbPostcodeData";
         private const string MapIdMethod = "MapId";
         private const string JsonContentType = "application/json";
@@ -522,6 +523,68 @@ namespace Autoaddress.Autoaddress2_0
             string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri);
             string result = ParseJson(response);
             return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK address ID.
+        /// </summary>
+        /// <param name="request">GetGbBuildingData request.</param>
+        /// <returns>GetGbBuildingData response.</returns>
+        public Model.GetGbBuildingData.Response GetGbBuildingData(Model.GetGbBuildingData.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbBuildingDataMethod, request);
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK address ID.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbBuildingData response.</param>
+        /// <returns>GetGbBuildingData response.</returns>
+        public Model.GetGbBuildingData.Response GetGbBuildingData(Model.GetGbBuildingData.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK address ID as an asynchronous operation.
+        /// </summary>
+        /// <param name="request">GetGbBuildingData request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<Model.GetGbBuildingData.Response> GetGbBuildingDataAsync(Model.GetGbBuildingData.Request request)
+        {
+            if (request == null) throw new ArgumentNullException("request");
+
+            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbBuildingDataMethod, request);
+            EnsureHttpClient();
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+        }
+
+        /// <summary>
+        /// Return data for the supplied UK address ID as an asynchronous operation.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbBuildingData response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        public async Task<Model.GetGbBuildingData.Response> GetGbBuildingDataAsync(Model.GetGbBuildingData.Link link)
+        {
+            if (link == null) throw new ArgumentNullException("link");
+
+            Uri requestUri = link.Href;
+            EnsureHttpClient();
+            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri);
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
         }
 
         /// <summary>

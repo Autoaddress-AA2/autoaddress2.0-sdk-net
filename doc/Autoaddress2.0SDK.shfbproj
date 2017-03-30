@@ -47,6 +47,7 @@
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.VerifyAddress" isDocumented="True">Model classes and enumerations for interacting with the VerifyAddress service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.ReverseGeocode" isDocumented="True">Model classes and enumerations for interacting with the ReverseGeocode service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.AutoComplete" isDocumented="True">Model classes and enumerations for interacting with the AutoComplete service.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.GetGbBuildingData" isDocumented="True">Model classes and enumerations for interacting with the GetGbBuildingData service.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="Autoaddress.Autoaddress2_0.Model.GetGbPostcodeData" isDocumented="True">Model classes and enumerations for interacting with the GetGbPostcodeData service.</NamespaceSummaryItem></NamespaceSummaries>
     <ComponentConfigurations>
       <ComponentConfig id="Code Block Component" enabled="True" xmlns="">

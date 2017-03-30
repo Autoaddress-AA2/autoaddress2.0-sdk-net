@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Autoaddress.Autoaddress2_0.Model.GetGbPostcodeData
+namespace Autoaddress.Autoaddress2_0.Model.GetGbBuildingData
 {
     /// <summary>
     /// Spatial Info
