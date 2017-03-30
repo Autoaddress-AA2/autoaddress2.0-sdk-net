@@ -14,8 +14,9 @@ namespace Autoaddress.Autoaddress2_0.Helpers
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
             httpWebRequest.Method = "GET";
-            httpWebRequest.ContentType = contentType;
             httpWebRequest.Timeout = requestTimeoutMilliseconds;
+            httpWebRequest.ContentType = contentType;
+            httpWebRequest.Headers.Add("Client", "Autoaddress2.0SDK");
 
             try
             {

@@ -841,6 +841,7 @@ namespace Autoaddress.Autoaddress2_0
                         _httpClient.Timeout = TimeSpan.FromMilliseconds(_autoaddressConfig.RequestTimeoutMilliseconds);
                         _httpClient.DefaultRequestHeaders.Accept.Clear();
                         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
+                        _httpClient.DefaultRequestHeaders.Add("Client", "Autoaddress2.0SDK");
                     }
                 }
             }
