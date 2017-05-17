@@ -1164,6 +1164,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal(Model.MapId.ReturnCode.EcadIdValid, response.Result);
             Assert.Equal("B:50596412", response.GeoDirectoryId);
             Assert.Null(response.EcadId);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrWhiteSpace(response.Input.GeoDirectoryVersion));
         }
 
         [Fact]
@@ -1179,6 +1181,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal(Model.MapId.ReturnCode.GeoDirectoryIdValid, response.Result);
             Assert.Equal(1401182204, response.EcadId);
             Assert.Null(response.GeoDirectoryId);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrWhiteSpace(response.Input.GeoDirectoryVersion));
         }
 
         [Fact]
@@ -1194,6 +1198,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal(Model.MapId.ReturnCode.EcadIdValid, response.Result);
             Assert.Equal("B:50596412", response.GeoDirectoryId);
             Assert.Null(response.EcadId);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrWhiteSpace(response.Input.GeoDirectoryVersion));
         }
 
         [Fact]
@@ -1209,6 +1215,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal(Model.MapId.ReturnCode.GeoDirectoryIdValid, response.Result);
             Assert.Equal(1401182204, response.EcadId);
             Assert.Null(response.GeoDirectoryId);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrWhiteSpace(response.Input.GeoDirectoryVersion));
         }
     }
 }
