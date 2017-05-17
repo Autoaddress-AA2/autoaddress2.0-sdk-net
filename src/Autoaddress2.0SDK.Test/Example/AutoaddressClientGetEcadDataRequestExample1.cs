@@ -5,10 +5,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientGetEcadDataRequestExample1
     {
-        public static void Main()
+        public static void Run()
         {
             const int ecadId = 1200003223;
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Request(ecadId);
 
             var response = autoaddressClient.GetEcadData(request);

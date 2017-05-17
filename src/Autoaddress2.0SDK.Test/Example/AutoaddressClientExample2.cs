@@ -6,7 +6,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientExample2
     {
-        public static void Main()
+        public static void Run()
         {
             const string licenceKey = "TheLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";

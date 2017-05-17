@@ -6,10 +6,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientAutoCompleteAsyncRequestExample1
     {
-        public static async void Main()
+        public static async void Run()
         {
             const string address = "Silver Birches, Dunboyne";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
 
             var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             var response = await autoaddressClient.AutoCompleteAsync(request);

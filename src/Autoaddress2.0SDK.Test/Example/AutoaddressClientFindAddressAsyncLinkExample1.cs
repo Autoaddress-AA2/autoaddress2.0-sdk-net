@@ -10,7 +10,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
         public static async void MainAsync()
         {
             const string address = "Silver Birches, Dunboyne";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             
             var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             var response1 = await autoaddressClient.FindAddressAsync(request);

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Autoaddress.Autoaddress2_0.Extensions
 {
@@ -17,34 +20,18 @@ namespace Autoaddress.Autoaddress2_0.Extensions
             if (request == null)
                 throw new ArgumentNullException("request");
 
-            // Get all properties on the object
-            var properties = request.GetType().GetProperties()
-                .Where(x => x.CanRead)
-                .Where(x => x.GetValue(request, null) != null)
-                .ToDictionary(x => x.Name, x => x.GetValue(request, null));
-
-            // Get names for all IEnumerable properties (excl. string)
-            var propertyNames = properties
-                .Where(x => !(x.Value is string) && x.Value is IEnumerable)
-                .Select(x => x.Key)
-                .ToList();
-
-            // Concat all IEnumerable properties into a comma separated string
-            foreach (var key in propertyNames)
+            JsonConvert.DefaultSettings = (() =>
             {
-                var valueType = properties[key].GetType();
-                var valueElemType = valueType.IsGenericType
-                                        ? valueType.GetGenericArguments()[0]
-                                        : valueType.GetElementType();
-                if (valueElemType.IsPrimitive || valueElemType == typeof(string))
-                {
-                    var enumerable = properties[key] as IEnumerable;
-                    properties[key] = string.Join(separator, enumerable.Cast<object>());
-                }
-            }
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                return settings;
+            });
+
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+            Dictionary<string, string> properties = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
             // Concat all key/value pairs into a string separated by ampersand
-            return string.Join("&", properties
+            return string.Join("&", properties.Where(x => x.Value != null)
                 .Select(x => string.Concat(
                     Uri.EscapeDataString(x.Key), "=",
                     Uri.EscapeDataString(x.Value.ToString()))));

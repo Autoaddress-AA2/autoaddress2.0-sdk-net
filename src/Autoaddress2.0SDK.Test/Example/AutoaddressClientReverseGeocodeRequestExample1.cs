@@ -5,12 +5,12 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientReverseGeocodeRequestExample1
     {
-        public static void Main()
+        public static void Run()
         {
             const double longitude = -6.271796;
             const double latitude = 53.343761;
             const double maxDistance = 100;
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Autoaddress2_0.Model.ReverseGeocode.Request(latitude: latitude, longitude: longitude, maxDistance: maxDistance, language: Language.EN, country: Country.IE, geographicAddress: false, vanityMode: true, addressProfileName: null);
 
             var response = autoaddressClient.ReverseGeocode(request);

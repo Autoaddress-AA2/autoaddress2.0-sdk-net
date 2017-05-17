@@ -45,26 +45,6 @@ namespace Autoaddress.Autoaddress2_0
         private HttpClient _httpClient;
 
         /// <summary>
-        /// Constructs AutoaddressClient with the licence key loaded from the application's
-        /// default configuration and the other configuration settings using defaults.
-        ///
-        /// Example App.config with licence key set. 
-        /// <code>
-        /// &lt;?xml version="1.0" encoding="utf-8" ?&gt;
-        /// &lt;configuration&gt;
-        ///     &lt;appSettings&gt;
-        ///         &lt;add key="AutoAddress.AutoAddress2_0.Settings.Licence.Key" value="TheLicenceKey"/&gt;
-        ///     &lt;/appSettings&gt;
-        /// &lt;/configuration&gt;
-        /// </code>
-        /// </summary>
-        public AutoaddressClient()
-        {
-            _licenceKey = Settings.Licence.Key;
-            _autoaddressConfig = new AutoaddressConfig();
-        }
-
-        /// <summary>
         /// Constructs AutoaddressClient with a licence key and the other configuration settings using defaults.
         /// </summary>
         /// <param name="licenceKey">The licence key.</param>
@@ -75,30 +55,6 @@ namespace Autoaddress.Autoaddress2_0
             
             _licenceKey = licenceKey;
             _autoaddressConfig = new AutoaddressConfig();
-        }
-
-        /// <summary>
-        /// Constructs AutoaddressClient with the licence key loaded from the application's
-        /// default configuration and the other configuration settings from an AutoaddressConfig object.
-        ///
-        /// Example App.config with licence key set. 
-        /// <code>
-        /// &lt;?xml version="1.0" encoding="utf-8" ?&gt;
-        /// &lt;configuration&gt;
-        ///     &lt;appSettings&gt;
-        ///         &lt;add key="AutoAddress.AutoAddress2_0.Settings.Licence.Key" value="TheLicenceKey"/&gt;
-        ///     &lt;/appSettings&gt;
-        /// &lt;/configuration&gt;
-        /// </code>
-        /// </summary>
-        /// <param name="autoaddressConfig">The autoaddress config.</param>
-        /// <exception cref="System.ArgumentNullException">autoaddressConfig</exception>
-        public AutoaddressClient(AutoaddressConfig autoaddressConfig)
-        {
-            if (autoaddressConfig == null) throw new ArgumentNullException("autoaddressConfig");
-
-            _licenceKey = Settings.Licence.Key;
-            _autoaddressConfig = autoaddressConfig;
         }
 
         /// <summary>
@@ -131,12 +87,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.FindAddress.Response FindAddress(Model.FindAddress.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
-            
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
+            try
+            {
+                return FindAddressAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -150,12 +113,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.FindAddress.Response FindAddress(Model.FindAddress.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
-            
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
+            try
+            {
+                return FindAddressAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -209,12 +179,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.PostcodeLookup.Response PostcodeLookup(Model.PostcodeLookup.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return PostcodeLookupAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.PostcodeLookup.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -228,12 +205,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.PostcodeLookup.Response PostcodeLookup(Model.PostcodeLookup.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
-            
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.PostcodeLookup.Response>(result);
+            try
+            {
+                return PostcodeLookupAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -287,12 +271,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.VerifyAddress.Response VerifyAddress(Model.VerifyAddress.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return VerifyAddressAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.VerifyAddress.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -302,12 +293,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>VerifyAddress response.</returns>
         public Model.VerifyAddress.Response VerifyAddress(Model.VerifyAddress.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
-            
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.VerifyAddress.Response>(result);
+            try
+            {
+                return VerifyAddressAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -357,12 +355,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.GetEcadData.Response GetEcadData(Model.GetEcadData.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return GetEcadDataAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -372,12 +377,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>GetEcadData response.</returns>
         public Model.GetEcadData.Response GetEcadData(Model.GetEcadData.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            try
+            {
+                return GetEcadDataAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -427,12 +439,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.AutoComplete.Response AutoComplete(Model.AutoComplete.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return AutoCompleteAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -466,12 +485,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.ReverseGeocode.Response ReverseGeocode(Model.ReverseGeocode.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return ReverseGeocodeAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -481,12 +507,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>ReverseGeocode response.</returns>
         public Model.ReverseGeocode.Response ReverseGeocode(Model.ReverseGeocode.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            try
+            {
+                return ReverseGeocodeAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -532,12 +565,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>GetGbBuildingData response.</returns>
         public Model.GetGbBuildingData.Response GetGbBuildingData(Model.GetGbBuildingData.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return GetGbBuildingDataAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbBuildingDataMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -547,12 +587,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>GetGbBuildingData response.</returns>
         public Model.GetGbBuildingData.Response GetGbBuildingData(Model.GetGbBuildingData.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            try
+            {
+                return GetGbBuildingDataAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -598,12 +645,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.GetGbPostcodeData.Response GetGbPostcodeData(Model.GetGbPostcodeData.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return GetGbPostcodeDataAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbPostcodeDataMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -613,12 +667,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>GetGbPostcodeData response.</returns>
         public Model.GetGbPostcodeData.Response GetGbPostcodeData(Model.GetGbPostcodeData.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            try
+            {
+                return GetGbPostcodeDataAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -668,12 +729,19 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public Model.MapId.Response MapId(Model.MapId.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            try
+            {
+                return MapIdAsync(request).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, MapIdMethod, request);
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>
@@ -683,12 +751,19 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>MapId response.</returns>
         public Model.MapId.Response MapId(Model.MapId.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            try
+            {
+                return MapIdAsync(link).Result;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    throw e.InnerException;
+                }
 
-            Uri requestUri = link.Href;
-            string response = HttpRequestHelper.InvokeGetRequest(requestUri, JsonContentType, _autoaddressConfig.RequestTimeoutMilliseconds);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+                throw;
+            }
         }
 
         /// <summary>

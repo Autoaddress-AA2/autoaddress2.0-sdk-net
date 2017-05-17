@@ -6,7 +6,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientExample3
     {
-        public static void Main()
+        public static void Run()
         {
             const string apiBaseAddress = "https://api.autoaddress.ie";
             const int requestTimeoutMilliseconds = 5000;

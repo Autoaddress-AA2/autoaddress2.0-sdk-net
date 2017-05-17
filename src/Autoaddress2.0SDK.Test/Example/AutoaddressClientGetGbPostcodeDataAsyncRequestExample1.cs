@@ -6,10 +6,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientGetGbPostcodeDataAsyncRequestExample1
     {
-        public static async Task Main()
+        public static async Task Run()
         {
             const string postcode = "BT11 8QT";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Request(postcode);
 
             var response = await autoaddressClient.GetGbPostcodeDataAsync(request);

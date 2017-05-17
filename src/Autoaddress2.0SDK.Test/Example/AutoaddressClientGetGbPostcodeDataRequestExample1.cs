@@ -5,10 +5,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientGetGbPostcodeDataRequestExample1
     {
-        public static void Main()
+        public static void Run()
         {
             const string postcode = "BT11 8QT";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Request(postcode);
 
             var response = autoaddressClient.GetGbPostcodeData(request);

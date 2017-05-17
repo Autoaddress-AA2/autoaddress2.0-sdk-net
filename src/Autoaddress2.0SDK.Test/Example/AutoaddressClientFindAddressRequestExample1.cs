@@ -6,10 +6,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientFindAddressRequestExample1
     {
-        public static void Main()
+        public static void Run()
         {
             const string address = "8 Silver Birches, Dunboyne";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             
             var request = new Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
             var response = autoaddressClient.FindAddress(request);

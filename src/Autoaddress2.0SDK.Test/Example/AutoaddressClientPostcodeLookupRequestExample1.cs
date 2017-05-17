@@ -6,10 +6,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientPostcodeLookupRequestExample1
     {
-        public static void Main()
+        public static void Run()
         {
             const string postcode = "A86VC04";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
             var response = autoaddressClient.PostcodeLookup(request);

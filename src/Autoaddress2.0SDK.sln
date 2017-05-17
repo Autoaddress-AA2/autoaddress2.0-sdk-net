@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autoaddress2.0SDK", "Autoaddress2.0SDK\Autoaddress2.0SDK.csproj", "{C9BC21DF-F850-4FC8-993C-29793CD57DAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autoaddress2.0SDK.Test", "Autoaddress2.0SDK.Test\Autoaddress2.0SDK.Test.csproj", "{4873ABEB-119E-47E3-98C1-B3B9D204D65E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoaddress2.0SDK.Test", "Autoaddress2.0SDK.Test\Autoaddress2.0SDK.Test.csproj", "{38B8B6C2-A7F0-420F-BA4B-01F880B17941}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C9BC21DF-F850-4FC8-993C-29793CD57DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9BC21DF-F850-4FC8-993C-29793CD57DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9BC21DF-F850-4FC8-993C-29793CD57DAA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4873ABEB-119E-47E3-98C1-B3B9D204D65E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4873ABEB-119E-47E3-98C1-B3B9D204D65E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4873ABEB-119E-47E3-98C1-B3B9D204D65E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4873ABEB-119E-47E3-98C1-B3B9D204D65E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38B8B6C2-A7F0-420F-BA4B-01F880B17941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B8B6C2-A7F0-420F-BA4B-01F880B17941}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B8B6C2-A7F0-420F-BA4B-01F880B17941}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B8B6C2-A7F0-420F-BA4B-01F880B17941}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

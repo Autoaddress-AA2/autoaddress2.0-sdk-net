@@ -6,11 +6,11 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 {
     public class AutoaddressClientVerifyRequestExample1
     {
-        public static void Main()
+        public static void Run()
         {
             const string address = "8 Silver Birches, Dunboyne";
             const string postcode = "A86VC04";
-            var autoaddressClient = new AutoaddressClient();
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
 
             var request = new Request(postcode: postcode, address: address, language: Language.EN, country: Country.IE, geographicAddress: false, vanityMode: false);
             var response = autoaddressClient.VerifyAddress(request);
