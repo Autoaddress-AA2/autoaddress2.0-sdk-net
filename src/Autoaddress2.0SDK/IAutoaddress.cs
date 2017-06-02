@@ -160,6 +160,34 @@ namespace Autoaddress.Autoaddress2_0
         /// <param name="link">A link returned in a ReverseGeocode response.</param>
         /// <returns>The task object representing the asynchronous operation.</returns>
         Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Link link);
+        
+        /// <summary>
+        /// Return data for the supplied UK address ID.
+        /// </summary>
+        /// <param name="request">GetGbBuildingData request.</param>
+        /// <returns>GetGbBuildingData response.</returns>
+        Model.GetGbBuildingData.Response GetGbBuildingData(Model.GetGbBuildingData.Request request);
+
+        /// <summary>
+        /// Return data for the supplied UK address ID.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbBuildingData response.</param>
+        /// <returns>GetGbBuildingData response.</returns>
+        Model.GetGbBuildingData.Response GetGbBuildingData(Model.GetGbBuildingData.Link link);
+
+        /// <summary>
+        /// Return data for the supplied UK address ID as an asynchronous operation.
+        /// </summary>
+        /// <param name="request">GetGbBuildingData request.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.GetGbBuildingData.Response> GetGbBuildingDataAsync(Model.GetGbBuildingData.Request request);
+
+        /// <summary>
+        /// Return data for the supplied UK address ID as an asynchronous operation.
+        /// </summary>
+        /// <param name="link">A link returned in a GetGbBuildingData response.</param>
+        /// <returns>The task object representing the asynchronous operation.</returns>
+        Task<Model.GetGbBuildingData.Response> GetGbBuildingDataAsync(Model.GetGbBuildingData.Link link);
 
         /// <summary>
         /// Return data for the supplied UK postcode.
