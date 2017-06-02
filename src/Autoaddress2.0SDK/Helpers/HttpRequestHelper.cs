@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Autoaddress.Autoaddress2_0.Model;
@@ -12,6 +13,11 @@ namespace Autoaddress.Autoaddress2_0.Helpers
         {
             HttpResponseMessage response = await httpClient.GetAsync(requestUri).ConfigureAwait(false);
             string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if ((int) response.StatusCode == 429)
+            {
+                throw new TooManyRequestsException(response.ReasonPhrase);
+            }
 
             AutoaddressException autoaddressException = GetAutoaddressException(result);
 
