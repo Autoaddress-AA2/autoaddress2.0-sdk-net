@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/Autoaddress-AA2/autoaddress2.0-sdk-net</PackageProjectUrl>
     <Copyright>Copyright 2017 (c) Autoaddress. All rights reserved.</Copyright>
     <PackageTags>autoaddress</PackageTags>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
