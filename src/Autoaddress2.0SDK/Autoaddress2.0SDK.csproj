@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <PackageId>Autoaddress.Autoaddress2.0SDK</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
     <Title>Autoaddress 2.0 SDK for .NET</Title>
     <Authors>Autoaddress</Authors>
     <Description>Official Autoaddress 2.0 SDK for .NET</Description>
@@ -12,6 +11,7 @@
     <PackageProjectUrl>https://github.com/Autoaddress-AA2/autoaddress2.0-sdk-net</PackageProjectUrl>
     <Copyright>Copyright 2017 (c) Autoaddress. All rights reserved.</Copyright>
     <PackageTags>autoaddress</PackageTags>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
