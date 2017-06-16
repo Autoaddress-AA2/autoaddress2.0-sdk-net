@@ -3,13 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <PackageId>Autoaddress.Autoaddress2.0SDK</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Title>Autoaddress 2.0 SDK for .NET</Title>
     <Authors>Autoaddress</Authors>
     <Description>Official Autoaddress 2.0 SDK for .NET</Description>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
-    <ProjectUrl>https://github.com/Autoaddress-AA2/autoaddress2.0-sdk-net</ProjectUrl>
+    <PackageLicenseUrl>https://github.com/Autoaddress-AA2/autoaddress2.0-sdk-net/blob/master/LICENCE.md</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/Autoaddress-AA2/autoaddress2.0-sdk-net</PackageProjectUrl>
     <Copyright>Copyright 2017 (c) Autoaddress. All rights reserved.</Copyright>
     <PackageTags>autoaddress</PackageTags>
   </PropertyGroup>
