@@ -18,6 +18,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A86VC04", response.Postcode);
         }
 
@@ -32,6 +33,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeValidated, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A86VC04", response.Postcode);
         }
 
@@ -46,6 +48,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAmended, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A86VC04", response.Postcode);
         }
 
@@ -60,6 +63,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.AddressAmendedToMatchPostcode, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A86VC04", response.Postcode);
         }
 
@@ -86,6 +90,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A86VC04", response.Postcode);
         }
 
@@ -99,6 +104,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             var response = autoaddressClient.FindAddress(request);
 
             Assert.NotNull(response);
+            Assert.True(response.IsUniqueAddress.HasValue && !response.IsUniqueAddress.Value);
             Assert.NotNull(response.Options);
         }
 
@@ -113,6 +119,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(firstResponse);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.IncompleteAddressEntered, firstResponse.Result);
+            Assert.True(firstResponse.IsUniqueAddress.HasValue && !firstResponse.IsUniqueAddress.Value);
             Assert.NotNull(firstResponse.Options);
             var option = firstResponse.Options[0];
             var nextLink = option.Links.OfType<Model.FindAddress.Link>().First();
@@ -120,6 +127,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             var secondResponse = autoaddressClient.FindAddress(nextLink);
             Assert.NotNull(secondResponse);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.IncompleteAddressEntered, secondResponse.Result);
+            Assert.True(secondResponse.IsUniqueAddress.HasValue && !secondResponse.IsUniqueAddress.Value);
             Assert.NotNull(secondResponse.Options);
         }
 
@@ -155,6 +163,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A96E2R8", response.Postcode);
             Assert.Null(response.Unmatched);
             Assert.Null(response.UnmatchedAddressElements);
@@ -207,6 +216,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("V14NX04", response.Postcode);
             Assert.Null(response.Unmatched);
             Assert.Null(response.UnmatchedAddressElements);
@@ -262,6 +272,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.True(response.IsUniqueAddress.HasValue && response.IsUniqueAddress.Value);
             Assert.Equal("A86VC04", response.Postcode);
         }
 
@@ -503,6 +514,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.False(response.IsUniqueAddress.HasValue);
             Assert.Equal("BT11 8QT", response.Postcode);
             Assert.NotNull(response.PostalAddress);
             Assert.Equal(2, response.PostalAddress.Length);
