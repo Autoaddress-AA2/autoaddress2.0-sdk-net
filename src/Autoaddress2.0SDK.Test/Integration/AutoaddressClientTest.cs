@@ -459,9 +459,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.RetiredPostcode, response.Result);
             Assert.Equal("F94H289", response.Postcode);
+            Assert.Equal(1700276437, response.AddressId);
             Assert.Equal(MatchLevel.Unknown, response.MatchLevel);
-            Assert.Null(response.AddressType);
-            Assert.Null(response.AddressId);
             Assert.Null(response.AddressType);
             Assert.Null(response.PostalAddress);
             Assert.Null(response.PostalAddressElements);
