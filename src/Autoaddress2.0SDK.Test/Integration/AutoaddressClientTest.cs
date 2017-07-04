@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Autoaddress.Autoaddress2_0.Model;
 using Xunit;
@@ -756,6 +757,14 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response.RelatedEcadIds.GeographicCountyEcadIds);
             Assert.Equal(1, response.RelatedEcadIds.GeographicCountyEcadIds.Length);
             Assert.Equal(1001000020, response.RelatedEcadIds.GeographicCountyEcadIds[0]);
+            Assert.NotNull(response.DateInfo);
+            Assert.NotNull(response.DateInfo.Created);
+            Assert.NotNull(response.DateInfo.Modified);
+            Assert.True(response.DateInfo.Created.Value.Kind == DateTimeKind.Utc);
+            Assert.True(response.DateInfo.Modified.Value.Kind == DateTimeKind.Utc);
+            Assert.True(new DateTime(2014, 07, 04, 15, 50, 00, DateTimeKind.Utc) < response.DateInfo.Created.Value);
+            Assert.True(response.DateInfo.Created.Value < new DateTime(2014, 07, 04, 16, 00, 00, DateTimeKind.Utc));
+            Assert.True(new DateTime(2017, 02, 03, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Modified.Value);
         }
 
         [Fact]
@@ -917,6 +926,43 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response.RelatedEcadIds.GeographicCountyEcadIds);
             Assert.Equal(1, response.RelatedEcadIds.GeographicCountyEcadIds.Length);
             Assert.Equal(1001000020, response.RelatedEcadIds.GeographicCountyEcadIds[0]);
+            Assert.NotNull(response.DateInfo);
+            Assert.NotNull(response.DateInfo.Created);
+            Assert.NotNull(response.DateInfo.Modified);
+            Assert.True(response.DateInfo.Created.Value.Kind == DateTimeKind.Utc);
+            Assert.True(response.DateInfo.Modified.Value.Kind == DateTimeKind.Utc);
+            Assert.True(new DateTime(2014, 07, 04, 15, 50, 00, DateTimeKind.Utc) < response.DateInfo.Created.Value);
+            Assert.True(response.DateInfo.Created.Value < new DateTime(2014, 07, 04, 16, 00, 00, DateTimeKind.Utc));
+            Assert.True(new DateTime(2017, 02, 03, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Modified.Value);
+        }
+
+        [Fact]
+        public void GetEcadData_9999999999_ReturnsInvalidResponse()
+        {
+            const int ecadId = 999999999;
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+
+            var response = autoaddressClient.GetEcadData(request);
+
+            Assert.NotNull(response);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdInvalid, response.Result);
+            Assert.Null(response.DateInfo);
+        }
+
+        [Fact]
+        public void GetEcadData_1110000147_ReturnsValidResponseStatusChanged()
+        {
+            const int ecadId = 1110000147;
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+
+            var response = autoaddressClient.GetEcadData(request);
+
+            Assert.NotNull(response);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Changed, response.EcadIdStatus);
+            Assert.Null(response.DateInfo);
         }
 
         [Fact]

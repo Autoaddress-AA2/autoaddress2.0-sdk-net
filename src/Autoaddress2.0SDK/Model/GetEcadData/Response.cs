@@ -22,6 +22,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
                           OrganisationInfo organisationInfo,
                           SpatialInfo spatialInfo,
                           RelatedEcadIds relatedEcadIds,
+                          DateInfo dateInfo,
                           Request input,
                           Model.Link[] links)
         {
@@ -39,6 +40,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
             OrganisationInfo = organisationInfo;
             SpatialInfo = spatialInfo;
             RelatedEcadIds = relatedEcadIds;
+            DateInfo = dateInfo;
             Input = input;
             
             var newLinks = new List<Model.Link>();
@@ -122,6 +124,11 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the related ECAD ids.
         /// </summary>
         public RelatedEcadIds RelatedEcadIds { get; private set; }
+
+        /// <summary>
+        /// Gets the date info.
+        /// </summary>
+        public DateInfo DateInfo { get; private set; }
 
         /// <summary>
         /// Gets the input request.
