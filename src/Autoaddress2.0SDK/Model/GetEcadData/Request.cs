@@ -9,10 +9,12 @@
         /// Initializes a new instance of the <see cref="Request"/> class.
         /// </summary>
         /// <param name="ecadId">The ECAD id to get the ECAD data for.</param>
+        /// <param name="history">Whether or not to return history.</param>
         /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
-        public Request(int ecadId, string txn = null)
+        public Request(int ecadId, bool history, string txn = null)
         {
             EcadId = ecadId;
+            History = history;
             Txn = txn;
         }
 
@@ -20,6 +22,11 @@
         /// Gets the ECAD id.
         /// </summary>
         public int EcadId { get; private set; }
+
+        /// <summary>
+        /// Gets whether or not to return history.
+        /// </summary>
+        public bool History { get; private set; }
 
         /// <summary>
         /// Gets the transaction.

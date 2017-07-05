@@ -9,7 +9,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
         {
             const int ecadId = 1200003223;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Request(ecadId);
+            var request = new Request(ecadId, false);
 
             var response = autoaddressClient.GetEcadData(request);
 

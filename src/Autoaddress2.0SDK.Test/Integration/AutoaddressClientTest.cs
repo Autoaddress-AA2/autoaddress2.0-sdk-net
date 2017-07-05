@@ -667,7 +667,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const int ecadId = 1701984269;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false);
 
             var response = autoaddressClient.GetEcadData(request);
 
@@ -772,7 +772,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const int ecadId = 1701984269;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false);
 
             var firstResponse = autoaddressClient.GetEcadData(request);
 
@@ -793,7 +793,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const int ecadId = 1200003223;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false);
 
             var response = autoaddressClient.GetEcadData(request);
 
@@ -864,7 +864,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const int ecadId = 1701984269;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false);
 
             var response = await autoaddressClient.GetEcadDataAsync(request);
 
@@ -941,7 +941,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         {
             const int ecadId = 999999999;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false);
 
             var response = autoaddressClient.GetEcadData(request);
 
@@ -951,17 +951,32 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Fact]
-        public void GetEcadData_1110000147_ReturnsValidResponseStatusChanged()
+        public void GetEcadData_1110000147_HistoryEqualsFalse_ReturnsEcadIdValidAndChanged()
         {
             const int ecadId = 1110000147;
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false);
 
             var response = autoaddressClient.GetEcadData(request);
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
             Assert.Equal(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Changed, response.EcadIdStatus);
+            Assert.Null(response.DateInfo);
+        }
+
+        [Fact]
+        public void GetEcadData_1110000147_HistoryEqualsTrue_ReturnsEcadIdInvalidAndRetired()
+        {
+            const int ecadId = 1110000147;
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, true);
+
+            var response = autoaddressClient.GetEcadData(request);
+
+            Assert.NotNull(response);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdInvalid, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Retired, response.EcadIdStatus);
             Assert.Null(response.DateInfo);
         }
 
