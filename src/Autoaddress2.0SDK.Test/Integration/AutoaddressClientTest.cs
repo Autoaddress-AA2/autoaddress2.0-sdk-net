@@ -962,7 +962,15 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
             Assert.Equal(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Changed, response.EcadIdStatus);
-            Assert.Null(response.DateInfo);
+            Assert.NotNull(response.DateInfo);
+            Assert.NotNull(response.DateInfo.Created);
+            Assert.NotNull(response.DateInfo.Modified);
+            Assert.True(response.DateInfo.Created.Value.Kind == DateTimeKind.Utc);
+            Assert.True(response.DateInfo.Modified.Value.Kind == DateTimeKind.Utc);
+            Assert.True(new DateTime(2014, 10, 08, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Created.Value);
+            Assert.True(response.DateInfo.Created.Value < new DateTime(2014, 10, 08, 12, 00, 00, DateTimeKind.Utc));
+            Assert.True(new DateTime(2014, 10, 08, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Modified.Value);
+            Assert.True(response.DateInfo.Modified.Value < new DateTime(2014, 10, 08, 12, 00, 00, DateTimeKind.Utc));
         }
 
         [Fact]
@@ -977,7 +985,15 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdInvalid, response.Result);
             Assert.Equal(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Retired, response.EcadIdStatus);
-            Assert.Null(response.DateInfo);
+            Assert.NotNull(response.DateInfo);
+            Assert.NotNull(response.DateInfo.Created);
+            Assert.NotNull(response.DateInfo.Modified);
+            Assert.True(response.DateInfo.Created.Value.Kind == DateTimeKind.Utc);
+            Assert.True(response.DateInfo.Modified.Value.Kind == DateTimeKind.Utc);
+            Assert.True(new DateTime(2017, 05, 02, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Created.Value);
+            Assert.True(response.DateInfo.Created.Value < new DateTime(2017, 05, 02, 23, 59, 59, DateTimeKind.Utc));
+            Assert.True(new DateTime(2017, 05, 02, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Modified.Value);
+            Assert.True(response.DateInfo.Modified.Value < new DateTime(2017, 05, 02, 23, 59, 59, DateTimeKind.Utc));
         }
 
         [Fact]
