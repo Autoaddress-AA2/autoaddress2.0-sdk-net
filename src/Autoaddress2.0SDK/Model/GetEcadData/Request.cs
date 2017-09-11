@@ -11,11 +11,13 @@
         /// <param name="ecadId">The ECAD id to get the ECAD data for.</param>
         /// <param name="history">Whether or not to return history.</param>
         /// <param name="txn">Transaction. If null then automatically assigned a value in associated response.</param>
-        public Request(int ecadId, bool history, string txn = null)
+        /// <param name="administrativeInfo">Release of AdministrativeInfo to return. For example "2015" or "2017".</param>
+        public Request(int ecadId, bool history, string txn = null, string administrativeInfo = null)
         {
             EcadId = ecadId;
             History = history;
             Txn = txn;
+            AdministrativeInfo = administrativeInfo;
         }
 
         /// <summary>
@@ -32,5 +34,10 @@
         /// Gets the transaction.
         /// </summary>
         public string Txn { get; private set; }
+
+        /// <summary>
+        /// Gets the AdministrativeInfo release.
+        /// </summary>
+        public string AdministrativeInfo { get; private set; }
     }
 }

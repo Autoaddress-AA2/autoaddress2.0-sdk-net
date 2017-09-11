@@ -9,6 +9,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
     {
         [JsonConstructor]
         internal AdministrativeInfo(int ecadId,
+                                  string release,
                                   int? laId,
                                   int? dedId,
                                   int? smallAreaId,
@@ -17,6 +18,7 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
                                   bool? gaeltacht)
         {
             EcadId = ecadId;
+            Release = release;
             LaId = laId;
             DedId = dedId;
             SmallAreaId = smallAreaId;
@@ -29,7 +31,12 @@ namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
         /// Gets the ECAD Id that the Administrative Info corresponds to.
         /// </summary>
         public int EcadId { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the Release that the Administrative Info corresponds to.
+        /// </summary>
+        public string Release { get; private set; }
+
         /// <summary>
         /// Gets the Local Authority Id.
         /// </summary>

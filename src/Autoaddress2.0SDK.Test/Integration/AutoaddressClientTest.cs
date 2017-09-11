@@ -707,6 +707,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("CO. NA MÍ", response.GeographicAddress.Irish[3]);
             Assert.NotNull(response.AdministrativeInfo);
             Assert.Equal(1400247786, response.AdministrativeInfo.EcadId);
+            Assert.Equal("2015", response.AdministrativeInfo.Release);
             Assert.Equal(16, response.AdministrativeInfo.LaId);
             Assert.Equal(167029, response.AdministrativeInfo.DedId);
             Assert.Equal(14588, response.AdministrativeInfo.SmallAreaId);
@@ -814,6 +815,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("BAILE ÁTHA CLIATH 2", response.PostalAddress.Irish[1]);
             Assert.NotNull(response.AdministrativeInfo);
             Assert.Equal(ecadId, response.AdministrativeInfo.EcadId);
+            Assert.Equal("2015", response.AdministrativeInfo.Release);
             Assert.Equal(268140, response.AdministrativeInfo.DedId);
             Assert.Equal(false, response.AdministrativeInfo.Gaeltacht);
             Assert.Equal(29, response.AdministrativeInfo.LaId);
@@ -889,8 +891,10 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("FEIRM AN MHUILINN", response.PostalAddress.Irish[1]);
             Assert.Equal("DÚN BÚINNE", response.PostalAddress.Irish[2]);
             Assert.Equal("CO. NA MÍ", response.PostalAddress.Irish[3]);
+            Assert.Null(response.Input.AdministrativeInfo);
             Assert.NotNull(response.AdministrativeInfo);
             Assert.Equal(1400247786, response.AdministrativeInfo.EcadId);
+            Assert.Equal("2015", response.AdministrativeInfo.Release);
             Assert.Equal(16, response.AdministrativeInfo.LaId);
             Assert.Equal(167029, response.AdministrativeInfo.DedId);
             Assert.Equal(14588, response.AdministrativeInfo.SmallAreaId);
@@ -1306,5 +1310,32 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response.Input);
             Assert.True(!string.IsNullOrWhiteSpace(response.Input.GeoDirectoryVersion));
         }
+
+        [Fact]
+        public void GetEcadData_1701984269_AdministrativeInfo_2017_ReturnsValidResponse()
+        {
+            const int ecadId = 1701984269;
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var request = new Autoaddress2_0.Model.GetEcadData.Request(ecadId, false, txn: null, administrativeInfo: "2017");
+
+            var response = autoaddressClient.GetEcadData(request);
+
+            Assert.NotNull(response);
+            Assert.Equal("2017", response.Input.AdministrativeInfo);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.ReturnCode.EcadIdValid, response.Result);
+            Assert.Equal(ecadId, response.EcadId);
+            Assert.Equal(Autoaddress2_0.Model.GetEcadData.EcadIdStatus.Current, response.EcadIdStatus);
+            Assert.Equal(2150, response.AddressTypeId);
+            Assert.NotNull(response.AdministrativeInfo);
+            Assert.Equal(1400247786, response.AdministrativeInfo.EcadId);
+            Assert.Equal("2017", response.AdministrativeInfo.Release);
+            Assert.Equal(16, response.AdministrativeInfo.LaId);
+            Assert.Equal(167029, response.AdministrativeInfo.DedId);
+            Assert.Equal(14588, response.AdministrativeInfo.SmallAreaId);
+            Assert.Equal(160648, response.AdministrativeInfo.TownlandId);
+            Assert.Equal(1001000020, response.AdministrativeInfo.CountyId);
+            Assert.Equal(false, response.AdministrativeInfo.Gaeltacht);
+        }
+
     }
 }
