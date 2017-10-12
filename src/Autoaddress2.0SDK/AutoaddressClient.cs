@@ -836,6 +836,17 @@ namespace Autoaddress.Autoaddress2_0
             if (code["reformattedAddressResult"] != null && code["reformattedAddressResult"]["code"] != null)
                 code["reformattedAddressResult"] = (string)code["reformattedAddressResult"]["code"];
 
+            if (code["hits"] != null && code["hits"].Children().Any())
+            {
+                foreach (JToken hit in code["hits"])
+                {
+                    if (hit["reformattedAddressResult"] != null && hit["reformattedAddressResult"]["code"] != null)
+                    {
+                        hit["reformattedAddressResult"] = (string)hit["reformattedAddressResult"]["code"];
+                    }
+                }
+            }
+
             if (code["unmatchedAddressElements"] != null && code["unmatchedAddressElements"].Children().Any())
             {
                 foreach (JToken unmatchedAddressElement in code["unmatchedAddressElements"])
