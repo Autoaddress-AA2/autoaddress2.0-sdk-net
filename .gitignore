@@ -147,6 +147,7 @@ ClientBin/
 *.[Pp]ublish.xml
 *.pfx
 *.publishsettings
+.vs/
 
 ## Windows Ignores
 
