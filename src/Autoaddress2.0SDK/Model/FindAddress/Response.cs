@@ -26,6 +26,7 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
                           AddressElement[] vanityAddressElements,
                           ReformattedAddressResult? reformattedAddressResult,
                           string[] reformattedAddress,
+                          CleanResult cleanResult,
                           int totalOptions,
                           Option[] options,
                           Request input,
@@ -39,6 +40,8 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
             AddressId = addressId;
             AddressType = addressType;
             MatchLevel = matchLevel;
+            Unmatched = unmatched;
+            UnmatchedAddressElements = unmatchedAddressElements;
             PostalAddress = postalAddress;
             PostalAddressElements = postalAddressElements;
             GeographicAddress = geographicAddress;
@@ -47,12 +50,11 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
             VanityAddressElements = vanityAddressElements;
             ReformattedAddressResult = reformattedAddressResult;
             ReformattedAddress = reformattedAddress;
-            Unmatched = unmatched;
-            UnmatchedAddressElements = unmatchedAddressElements;
+            CleanResult = cleanResult;
             TotalOptions = totalOptions;
             Options = options;
             Input = input;
-            
+
             var newLinks = new List<Model.Link>();
 
             foreach (Model.Link link in links)
@@ -154,7 +156,12 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
         /// Gets the address reformatted (if an address profile name supplied in request).
         /// </summary>
         public string[] ReformattedAddress { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the clean result.
+        /// </summary>
+        public CleanResult CleanResult { get; private set; }
+
         /// <summary>
         /// Gets the total number of options. If this value is greater than the value of input field limit then no option is returned.
         /// </summary>

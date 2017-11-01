@@ -204,6 +204,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("Dublin 18", response.VanityAddressElements[3].Value);
             Assert.Equal(AddressElementType.DublinPostalArea, response.VanityAddressElements[3].Type);
             Assert.Equal(1100000017, response.VanityAddressElements[3].AddressId);
+            Assert.NotNull(response.CleanResult);
         }
 
         [Fact]
@@ -260,6 +261,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal(AddressElementType.County, response.GeographicAddressElements[3].Type);
             Assert.Equal(1001000003, response.GeographicAddressElements[3].AddressId);
             Assert.Null(response.VanityAddress);
+            Assert.NotNull(response.CleanResult);
         }
 
         [Fact]
