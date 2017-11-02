@@ -156,7 +156,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         [Fact]
         public void FindAddress_IE_1WoodlandsRoadCabinteelyDublin18_vanityModeEqualsTrue_addressElementsEqualsTrue_ReturnsValidResponse()
         {
-            const string address = "1 Woodlands Road, Cabinteely, Dublin 18";
+            const string address = "1 Woodlands Rd, Cabinteely, Dublin 18";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: true, addressElements: true, addressProfileName: null);
 
@@ -280,14 +280,14 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Fact]
-        public void FindAddressAsync_IE_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
+        public async Task FindAddressAsync_IE_8SilverBirchesDunboyneInvalidLicenceKey_ThrowsAutoaddressException()
         {
             const string licenceKey = "InvalidLicenceKey";
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient(licenceKey);
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            Assert.ThrowsAsync<AutoaddressException>(async () => await autoaddressClient.FindAddressAsync(request));
+            await Assert.ThrowsAsync<AutoaddressException>(async () => await autoaddressClient.FindAddressAsync(request));
         }
 
         [Fact]
