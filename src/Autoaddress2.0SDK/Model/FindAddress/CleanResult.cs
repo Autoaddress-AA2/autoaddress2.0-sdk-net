@@ -2,6 +2,9 @@
 
 namespace Autoaddress.Autoaddress2_0.Model.FindAddress
 {
+    /// <summary>
+    /// Clean Result
+    /// </summary>
     public class CleanResult
     {
         [JsonConstructor]
