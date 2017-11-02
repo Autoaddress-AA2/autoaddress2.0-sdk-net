@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/Autoaddress-AA2/autoaddress2.0-sdk-net</PackageProjectUrl>
     <Copyright>Copyright 2017 (c) Autoaddress. All rights reserved.</Copyright>
     <PackageTags>autoaddress</PackageTags>
-    <Version>1.0.9</Version>
+    <Version>1.0.10</Version>
     <PackageIconUrl>https://raw.githubusercontent.com/Autoaddress-AA2/autoaddress2.0-sdk-net/master/nuget/images/icon.png</PackageIconUrl>
   </PropertyGroup>
 
