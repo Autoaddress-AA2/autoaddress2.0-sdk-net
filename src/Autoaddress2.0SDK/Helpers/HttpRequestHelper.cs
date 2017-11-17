@@ -32,7 +32,16 @@ namespace Autoaddress.Autoaddress2_0.Helpers
 
         private static AutoaddressException GetAutoaddressException(string response)
         {
-            JObject obj = JObject.Parse(response);
+            JObject obj;
+            try
+            {
+                obj = JObject.Parse(response);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Error while JObject.Parse(response), response=[{response}]", e);
+            }
+
             AutoaddressException autoaddressException = null;
 
             if (obj["errors"] != null && obj["errors"].HasValues && obj["errors"][0]["type"]["code"] != null && obj["errors"][0]["message"] != null)
