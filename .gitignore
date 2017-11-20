@@ -148,6 +148,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 .vs/
+doc/Help/
 
 ## Windows Ignores
 
