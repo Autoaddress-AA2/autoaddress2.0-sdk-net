@@ -996,9 +996,9 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response.DateInfo.Modified);
             Assert.True(response.DateInfo.Created.Value.Kind == DateTimeKind.Utc);
             Assert.True(response.DateInfo.Modified.Value.Kind == DateTimeKind.Utc);
-            Assert.True(new DateTime(2017, 05, 02, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Created.Value);
+            Assert.True(new DateTime(2017, 02, 02, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Created.Value);
             Assert.True(response.DateInfo.Created.Value < new DateTime(2017, 05, 02, 23, 59, 59, DateTimeKind.Utc));
-            Assert.True(new DateTime(2017, 05, 02, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Modified.Value);
+            Assert.True(new DateTime(2017, 02, 02, 00, 00, 00, DateTimeKind.Utc) < response.DateInfo.Modified.Value);
             Assert.True(response.DateInfo.Modified.Value < new DateTime(2017, 05, 02, 23, 59, 59, DateTimeKind.Utc));
         }
 
@@ -1333,11 +1333,152 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("2017", response.AdministrativeInfo.Release);
             Assert.Equal(16, response.AdministrativeInfo.LaId);
             Assert.Equal(167029, response.AdministrativeInfo.DedId);
-            Assert.Equal(14588, response.AdministrativeInfo.SmallAreaId);
+            Assert.Equal(8577, response.AdministrativeInfo.SmallAreaId);
             Assert.Equal(160648, response.AdministrativeInfo.TownlandId);
             Assert.Equal(1001000020, response.AdministrativeInfo.CountyId);
             Assert.Equal(false, response.AdministrativeInfo.Gaeltacht);
         }
+        [Fact]
+        public async Task FindAddress_IdOfBuildingThatHasStatus2_ReturnsPostcodeNotAvailableNoMailDelivery()
+        {
+            const string address = null;
+            const int addressId = 1400021286;
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address,
+                                                                                   language: Language.EN,
+                                                                                   country: Country.IE,
+                                                                                   limit: 20,
+                                                                                   geographicAddress: false,
+                                                                                   vanityMode: false,
+                                                                                   addressElements: false,
+                                                                                   addressProfileName: null,
+                                                                                   addressId: addressId);
 
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var response = await autoaddressClient.FindAddressAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoMailDelivery, response.PostcodeNotAvailable);
+        }
+
+        [Fact]
+        public async Task FindAddressController_IdOfBuildingThatHasStatus3_ReturnsPostcodeNotAvailableNoRoutingKey()
+        {
+            const string address = null;
+            const int addressId = 1401939590;
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address,
+                                                                                   language: Language.EN,
+                                                                                   country: Country.IE,
+                                                                                   limit: 20,
+                                                                                   geographicAddress: false,
+                                                                                   vanityMode: false,
+                                                                                   addressElements: false,
+                                                                                   addressProfileName: null,
+                                                                                   addressId: addressId);
+
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var response = await autoaddressClient.FindAddressAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoRoutingKey, response.PostcodeNotAvailable);
+        }
+
+        [Fact]
+        public async Task FindAddressController_IdOfBuildingThatHasSpatialAccuracy1ButNoEircode_ReturnsPostcodeNotAvailableNoCoordinates()
+        {
+            const string address = null;
+            const int addressId = 1401935829;
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address,
+                                                                                   language: Language.EN,
+                                                                                   country: Country.IE,
+                                                                                   limit: 20,
+                                                                                   geographicAddress: false,
+                                                                                   vanityMode: false,
+                                                                                   addressElements: false,
+                                                                                   addressProfileName: null,
+                                                                                   addressId: addressId);
+
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var response = await autoaddressClient.FindAddressAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoCoordinates, response.PostcodeNotAvailable);
+        }
+        [Fact]
+        public async Task FindAddressController_AddressOfBuildingThatHasStatus2_ReturnsPostcodeNotAvailableNoMailDelivery()
+        {
+            const string address = "42 Wickham Street, Limerick";
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address,
+                                                                                   language: Language.EN,
+                                                                                   country: Country.IE,
+                                                                                   limit: 20,
+                                                                                   geographicAddress: false,
+                                                                                   vanityMode: false,
+                                                                                   addressElements: false,
+                                                                                   addressProfileName: null);
+
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var response = await autoaddressClient.FindAddressAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoMailDelivery, response.PostcodeNotAvailable);
+        }
+
+        [Fact]
+        public async Task FindAddressController_AddressOfBuildingThatHasStatus3_ReturnsPostcodeNotAvailableNoRoutingKey()
+        {
+            const string address = "5 The Mews, Mary Street, Cork";
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address,
+                                                                                   language: Language.EN,
+                                                                                   country: Country.IE,
+                                                                                   limit: 20,
+                                                                                   geographicAddress: false,
+                                                                                   vanityMode: false,
+                                                                                   addressElements: false,
+                                                                                   addressProfileName: null);
+
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var response = await autoaddressClient.FindAddressAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoRoutingKey, response.PostcodeNotAvailable);
+        }
+
+        [Fact]
+        public async Task FindAddressController_AddressOfBuildingThatHasStatus1ButNoEircode_ReturnsPostcodeNotAvailableNoCoordinates()
+        {
+            const string address = "61 Marrsfield Avenue, Clongriff, D13";
+            var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address,
+                                                                                   language: Language.EN,
+                                                                                   country: Country.IE,
+                                                                                   limit: 20,
+                                                                                   geographicAddress: false,
+                                                                                   vanityMode: false,
+                                                                                   addressElements: false,
+                                                                                   addressProfileName: null);
+
+            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            var response = await autoaddressClient.FindAddressAsync(request);
+
+            Assert.NotNull(response);
+            Assert.NotNull(response.Input);
+            Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoCoordinates, response.PostcodeNotAvailable);
+        }
     }
 }

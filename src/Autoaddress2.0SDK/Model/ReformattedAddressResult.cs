@@ -5,7 +5,9 @@
     /// </summary>
     public enum ReformattedAddressResult
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         Unknown = 0,
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
         /// <summary>
         /// All address elements have been used.
         /// </summary>

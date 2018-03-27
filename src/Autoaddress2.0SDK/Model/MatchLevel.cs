@@ -5,7 +5,9 @@
     /// </summary>
     public enum MatchLevel
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         Unknown = 0,
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
         /// <summary>
         /// An address within a building which has no underlying address information.
         /// </summary>

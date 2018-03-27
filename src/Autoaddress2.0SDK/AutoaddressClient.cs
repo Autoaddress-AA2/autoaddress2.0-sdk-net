@@ -51,7 +51,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <exception cref="ArgumentNullException">licenceKey</exception>
         public AutoaddressClient(string licenceKey)
         {
-            if (string.IsNullOrWhiteSpace(licenceKey)) throw new ArgumentNullException("licenceKey");
+            if (string.IsNullOrWhiteSpace(licenceKey)) throw new ArgumentNullException(nameof(licenceKey));
             
             _licenceKey = licenceKey;
             _autoaddressConfig = new AutoaddressConfig();
@@ -69,11 +69,10 @@ namespace Autoaddress.Autoaddress2_0
         /// </exception>
         public AutoaddressClient(string licenceKey, AutoaddressConfig autoaddressConfig)
         {
-            if (string.IsNullOrWhiteSpace(licenceKey)) throw new ArgumentNullException("licenceKey");
-            if (autoaddressConfig == null) throw new ArgumentNullException("autoaddressConfig");
+            if (string.IsNullOrWhiteSpace(licenceKey)) throw new ArgumentNullException(nameof(licenceKey));
 
             _licenceKey = licenceKey;
-            _autoaddressConfig = autoaddressConfig;
+            _autoaddressConfig = autoaddressConfig ?? throw new ArgumentNullException(nameof(autoaddressConfig));
         }
 
         /// <summary>
@@ -139,7 +138,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.FindAddress.Response> FindAddressAsync(Model.FindAddress.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
             EnsureHttpClient();
@@ -159,7 +158,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.FindAddress.Response> FindAddressAsync(Model.FindAddress.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -231,7 +230,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.PostcodeLookup.Response> PostcodeLookupAsync(Model.PostcodeLookup.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
             EnsureHttpClient();
@@ -251,7 +250,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.PostcodeLookup.Response> PostcodeLookupAsync(Model.PostcodeLookup.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -319,7 +318,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.VerifyAddress.Response> VerifyAddressAsync(Model.VerifyAddress.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
             EnsureHttpClient();
@@ -335,7 +334,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.VerifyAddress.Response> VerifyAddressAsync(Model.VerifyAddress.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
             
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -403,7 +402,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
             EnsureHttpClient();
@@ -419,7 +418,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.GetEcadData.Response> GetEcadDataAsync(Model.GetEcadData.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -465,7 +464,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.AutoComplete.Response> AutoCompleteAsync(Model.AutoComplete.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
             EnsureHttpClient();
@@ -533,7 +532,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
             EnsureHttpClient();
@@ -549,7 +548,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.ReverseGeocode.Response> ReverseGeocodeAsync(Model.ReverseGeocode.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -609,7 +608,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.GetGbBuildingData.Response> GetGbBuildingDataAsync(Model.GetGbBuildingData.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbBuildingDataMethod, request);
             EnsureHttpClient();
@@ -625,7 +624,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.GetGbBuildingData.Response> GetGbBuildingDataAsync(Model.GetGbBuildingData.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -693,7 +692,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbPostcodeDataMethod, request);
             EnsureHttpClient();
@@ -709,7 +708,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.GetGbPostcodeData.Response> GetGbPostcodeDataAsync(Model.GetGbPostcodeData.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -777,7 +776,7 @@ namespace Autoaddress.Autoaddress2_0
         /// </example>
         public async Task<Model.MapId.Response> MapIdAsync(Model.MapId.Request request)
         {
-            if (request == null) throw new ArgumentNullException("request");
+            if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, MapIdMethod, request);
             EnsureHttpClient();
@@ -793,7 +792,7 @@ namespace Autoaddress.Autoaddress2_0
         /// <returns>The task object representing the asynchronous operation.</returns>
         public async Task<Model.MapId.Response> MapIdAsync(Model.MapId.Link link)
         {
-            if (link == null) throw new ArgumentNullException("link");
+            if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
             EnsureHttpClient();
@@ -804,19 +803,13 @@ namespace Autoaddress.Autoaddress2_0
 
         private static Uri GetRequestUri(string licenceKey, string txn, string baseAddress, string version, string method, object inputParam)
         {
-            string requestUri = string.Format("{0}/{1}/{2}", baseAddress, version, method);
-            string parameters;
+            string requestUri = $"{baseAddress}/{version}/{method}";
 
-            if (!string.IsNullOrEmpty(txn))
-            {
-                parameters = string.Format("Key={0}&Txn={1}&{2}", licenceKey, txn, inputParam.ToQueryString());
-            }
-            else
-            {
-                parameters = string.Format("Key={0}&{1}", licenceKey, inputParam.ToQueryString());
-            }
+            var parameters = !string.IsNullOrEmpty(txn) ? 
+                                    $"Key={licenceKey}&Txn={txn}&{inputParam.ToQueryString()}" : 
+                                    $"Key={licenceKey}&{inputParam.ToQueryString()}";
 
-            requestUri = string.Format("{0}{1}{2}", requestUri, "?", parameters);
+            requestUri = $"{requestUri}?{parameters}";
             return new Uri(requestUri);
         }
 
@@ -824,23 +817,23 @@ namespace Autoaddress.Autoaddress2_0
         {
             JObject code = JObject.Parse(json);
 
-            if (code["ecadIdStatus"] != null && code["ecadIdStatus"]["code"] != null)
+            if (code["ecadIdStatus"]?["code"] != null)
                 code["ecadIdStatus"] = (string)code["ecadIdStatus"]["code"];
 
-            if (code["matchLevel"] != null && code["matchLevel"]["code"] != null)
+            if (code["matchLevel"]?["code"] != null)
                 code["matchLevel"] = (string) code["matchLevel"]["code"];
 
-            if (code["addressType"] != null && code["addressType"]["code"] != null)
+            if (code["addressType"]?["code"] != null)
                 code["addressType"] = (string) code["addressType"]["code"];
 
-            if (code["reformattedAddressResult"] != null && code["reformattedAddressResult"]["code"] != null)
+            if (code["reformattedAddressResult"]?["code"] != null)
                 code["reformattedAddressResult"] = (string)code["reformattedAddressResult"]["code"];
 
             if (code["hits"] != null && code["hits"].Children().Any())
             {
                 foreach (JToken hit in code["hits"])
                 {
-                    if (hit["reformattedAddressResult"] != null && hit["reformattedAddressResult"]["code"] != null)
+                    if (hit["reformattedAddressResult"]?["code"] != null)
                     {
                         hit["reformattedAddressResult"] = (string)hit["reformattedAddressResult"]["code"];
                     }
@@ -851,7 +844,7 @@ namespace Autoaddress.Autoaddress2_0
             {
                 foreach (JToken unmatchedAddressElement in code["unmatchedAddressElements"])
                 {
-                    if (unmatchedAddressElement["type"] != null && unmatchedAddressElement["type"]["code"] != null)
+                    if (unmatchedAddressElement["type"]?["code"] != null)
                     {
                         unmatchedAddressElement["type"] = (string)unmatchedAddressElement["type"]["code"];
                     }
@@ -862,7 +855,7 @@ namespace Autoaddress.Autoaddress2_0
             {
                 foreach (JToken postalAddressElement in code["postalAddressElements"])
                 {
-                    if (postalAddressElement["type"] != null && postalAddressElement["type"]["code"] != null)
+                    if (postalAddressElement["type"]?["code"] != null)
                     {
                         postalAddressElement["type"] = (string)postalAddressElement["type"]["code"];
                     }
@@ -873,7 +866,7 @@ namespace Autoaddress.Autoaddress2_0
             {
                 foreach (JToken geographicAddressElement in code["geographicAddressElements"])
                 {
-                    if (geographicAddressElement["type"] != null && geographicAddressElement["type"]["code"] != null)
+                    if (geographicAddressElement["type"]?["code"] != null)
                     {
                         geographicAddressElement["type"] = (string)geographicAddressElement["type"]["code"];
                     }
@@ -884,7 +877,7 @@ namespace Autoaddress.Autoaddress2_0
             {
                 foreach (JToken vanityAddressElement in code["vanityAddressElements"])
                 {
-                    if (vanityAddressElement["type"] != null && vanityAddressElement["type"]["code"] != null)
+                    if (vanityAddressElement["type"]?["code"] != null)
                     {
                         vanityAddressElement["type"] = (string)vanityAddressElement["type"]["code"];
                     }
@@ -895,21 +888,26 @@ namespace Autoaddress.Autoaddress2_0
             {
                 foreach (JToken option in code["options"])
                 {
-                    if (option["addressType"] != null && option["addressType"]["code"] != null)
+                    if (option["addressType"]?["code"] != null)
                     {
                         option["addressType"] = (string) option["addressType"]["code"];
                     }
 
-                    if (option["optionType"] != null && option["optionType"]["code"] != null)
+                    if (option["optionType"]?["code"] != null)
                     {
                         option["optionType"] = (string) option["optionType"]["code"];
                     }
                 }
             }
 
-            if (code["result"] != null && code["result"]["code"] != null)
+            if (code["result"]?["code"] != null)
             {
-                code["result"] = (string) code["result"]["code"];
+                code["result"] = (string)code["result"]["code"];
+            }
+
+            if (code["postcodeNotAvailable"]?["code"] != null)
+            {
+                code["postcodeNotAvailable"] = (string)code["postcodeNotAvailable"]["code"];
             }
 
             return code.ToString();
@@ -923,8 +921,10 @@ namespace Autoaddress.Autoaddress2_0
                 {
                     if (_httpClient == null)
                     {
-                        _httpClient = new HttpClient();
-                        _httpClient.Timeout = TimeSpan.FromMilliseconds(_autoaddressConfig.RequestTimeoutMilliseconds);
+                        _httpClient = new HttpClient
+                                      {
+                                          Timeout = TimeSpan.FromMilliseconds(_autoaddressConfig.RequestTimeoutMilliseconds)
+                                      };
                         _httpClient.DefaultRequestHeaders.Accept.Clear();
                         _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
                         _httpClient.DefaultRequestHeaders.Add("Client", "Autoaddress2.0SDK");

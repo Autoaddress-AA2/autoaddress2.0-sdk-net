@@ -5,6 +5,7 @@
     /// </summary>
     public enum ErrorType
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         Unknown = 0,
         MissingLicenceKey = 401001,
         Unauthorized = 403,
@@ -44,5 +45,6 @@
         MissingParameter = 400050,
         NotFound = 404001,
         InternalServerError = 500000
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
     }
 }

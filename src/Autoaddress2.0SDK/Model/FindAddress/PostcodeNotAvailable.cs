@@ -1,16 +1,14 @@
-﻿namespace Autoaddress.Autoaddress2_0.Model.GetEcadData
+﻿namespace Autoaddress.Autoaddress2_0.Model.FindAddress
 {
     /// <summary>
-    /// Ecad ID Status
+    /// Reasons why ReturnCode is PostcodeNotAvailable
     /// </summary>
-    public enum EcadIdStatus
+    public enum PostcodeNotAvailable
     {
 #pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
-        Unknown,
-        Current = 100,
-        Changed = 110,
-        Retired = 120,
-        Invalid = 200
+        NoMailDelivery = 1,
+        NoRoutingKey = 2,
+        NoCoordinates = 3
 #pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
     }
 }

@@ -5,6 +5,7 @@
     /// </summary>
     public enum ReturnCode
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         Unknown,
         PostcodeAppended = 100,
         PostcodeValidated = 110,
@@ -20,5 +21,6 @@
         NoAddressMatch = 550,
         ForeignAddressDetected = 600,
         InvalidAddressEntered = 700
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
     }
 }

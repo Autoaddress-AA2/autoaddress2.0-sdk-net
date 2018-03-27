@@ -5,7 +5,9 @@
     /// </summary>
     public enum Country
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         Unknown,
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
         /// <summary>
         /// Republic of Ireland
         /// </summary>

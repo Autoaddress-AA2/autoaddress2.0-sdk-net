@@ -7,6 +7,9 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
     /// </summary>
     public class CleanResult
     {
+        /// <summary>
+        /// Clean Result constructor.
+        /// </summary>
         [JsonConstructor]
         public CleanResult(bool isSpellingChanged, bool isFormatChanged, bool isAltered)
         {

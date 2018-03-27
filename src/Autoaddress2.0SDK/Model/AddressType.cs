@@ -5,6 +5,7 @@
     /// </summary>
     public enum AddressType
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         // Unknown = 0, zero is not in ECAD
         IndustrialEstate = 1080,
         ResidentialEstate = 1090,
@@ -61,5 +62,6 @@
         City = 3800,
         PostTown = 3850,
         County = 3900,
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
     }
 }

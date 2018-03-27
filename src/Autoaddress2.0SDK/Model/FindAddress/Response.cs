@@ -11,6 +11,7 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
     {
         [JsonConstructor]
         internal Response(ReturnCode result,
+                          PostcodeNotAvailable? postcodeNotAvailable,
                           bool? isUniqueAddress,
                           string postcode,
                           int? addressId,
@@ -35,6 +36,7 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
             if (links == null) throw new ArgumentNullException("links");
 
             Result = result;
+            PostcodeNotAvailable = postcodeNotAvailable;
             IsUniqueAddress = isUniqueAddress;
             Postcode = postcode;
             AddressId = addressId;
@@ -81,6 +83,11 @@ namespace Autoaddress.Autoaddress2_0.Model.FindAddress
         /// Gets the result of the search.
         /// </summary>
         public ReturnCode Result { get; private set; }
+
+        /// <summary>
+        /// Further information on why Result equals PostcodeNotAvailable 
+        /// </summary>
+        public PostcodeNotAvailable? PostcodeNotAvailable { get; private set; }
 
         /// <summary>
         /// Gets whether or not the address is unique.

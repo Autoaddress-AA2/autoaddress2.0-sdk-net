@@ -5,6 +5,7 @@
     /// </summary>
     public enum AddressElementType
     {
+#pragma warning disable CS1591  //  Missing XML comment for publicly visible type or member
         Unknown = 0,
         Organisation = 1,
         AddressPointName = 2,
@@ -22,5 +23,6 @@
         Eircode = 14,
         UrbanArea = 16,
         RuralLocality = 17
+#pragma warning restore CS1591  //  Missing XML comment for publicly visible type or member
     }
 }
