@@ -805,9 +805,10 @@ namespace Autoaddress.Autoaddress2_0
         {
             string requestUri = $"{baseAddress}/{version}/{method}";
 
+            // note: it must be "key", not "Key" or any other caseing
             var parameters = !string.IsNullOrEmpty(txn) ? 
-                                    $"Key={licenceKey}&Txn={txn}&{inputParam.ToQueryString()}" : 
-                                    $"Key={licenceKey}&{inputParam.ToQueryString()}";
+                                    $"key={licenceKey}&txn={txn}&{inputParam.ToQueryString()}" : 
+                                    $"key={licenceKey}&{inputParam.ToQueryString()}";
 
             requestUri = $"{requestUri}?{parameters}";
             return new Uri(requestUri);

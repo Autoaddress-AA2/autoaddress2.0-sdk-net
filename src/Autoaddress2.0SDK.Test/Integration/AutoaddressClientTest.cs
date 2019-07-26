@@ -1409,8 +1409,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.NotNull(response.Input);
             Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
-            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
-            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoCoordinates, response.PostcodeNotAvailable);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.Null(response.PostcodeNotAvailable);
         }
         [Fact]
         public async Task FindAddressController_AddressOfBuildingThatHasStatus2_ReturnsPostcodeNotAvailableNoMailDelivery()
@@ -1477,8 +1477,8 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response);
             Assert.NotNull(response.Input);
             Assert.True(!string.IsNullOrEmpty(response.Input.Txn));
-            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeNotAvailable, response.Result);
-            Assert.Equal(Autoaddress2_0.Model.FindAddress.PostcodeNotAvailable.NoCoordinates, response.PostcodeNotAvailable);
+            Assert.Equal(Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
+            Assert.Null(response.PostcodeNotAvailable);
         }
     }
 }
