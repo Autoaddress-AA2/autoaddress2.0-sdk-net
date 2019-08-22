@@ -9,7 +9,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
     {
         public static void Run()
         {
-            const string postcode = "D08XY00";
+            const string postcode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -41,15 +41,15 @@ namespace Autoaddress.Autoaddress2_0.Test.Example
 // response1.Result = ValidPostcode
 // response1.MatchLevel = AddressPoint
 // response1.AddressType = NonResidentialAddressPoint
-// response1.AddressId = 1702105351
-// response1.Postcode = D08XY00
-// response1.PostalAddress = 4 INNS COURT,WINETAVERN STREET,DUBLIN 8
-// response1.Options[0].DisplayName = 4 INNS COURT, WINETAVERN STREET, DUBLIN 8
-// response1.Options[1].DisplayName = BIZMAPS LIMITED, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8
-// response1.Options[2].DisplayName = GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8
+// response1.AddressId = 1700013666
+// response1.Postcode = D02C966
+// response1.PostalAddress = SAINT ANDREW STREET POST OFFICE,19-24 SAINT ANDREW STREET, DUBLIN 2
+// response1.Options[0].DisplayName = SAINT ANDREW STREET POST OFFICE, 19-24 SAINT ANDREW STREET, DUBLIN 2
+// response1.Options[1].DisplayName = 2ND FLOOR SAINT ANDREW STREET POST OFFICE, 19-24 SAINT ANDREW STREET, DUBLIN 2
+// response1.Options[2].DisplayName = AN POST, SAINT ANDREW STREET POST OFFICE, 19-24 SAINT ANDREW STREET, DUBLIN 2
 // response2.Result = ValidPostcode
 // response2.MatchLevel = Organisation
 // response2.AddressType = Organisation
-// response2.AddressId = 1900187606
-// response2.Postcode = D08XY00
-// response2.PostalAddress = GAMMA,4 INNS COURT,WINETAVERN STREET,DUBLIN 8
+// response2.AddressId = 1900169004
+// response2.Postcode = D02C966
+// response2.PostalAddress = AN POST, SAINT ANDREW STREET POST OFFICE,19-24 SAINT ANDREW STREET, DUBLIN 2

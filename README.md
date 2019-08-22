@@ -8,4 +8,4 @@ The **Autoaddress 2.0 SDK for .NET** enables .NET developers to easily work with
 
 ## Tests
 
-Tests can be found in the **Autoaddress2.0SDK.Test** project. These tests require a valid licence key in the App.config.
+Tests can be found in the **Autoaddress2.0SDK.Test** project. These tests require a valid licence key you need store as a environment variable called "Autoaddress2_0SDK_Test_LicenceKey".

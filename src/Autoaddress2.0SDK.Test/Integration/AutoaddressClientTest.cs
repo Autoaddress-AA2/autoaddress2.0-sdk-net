@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Autoaddress.Autoaddress2_0.Model;
+using Autoaddress.Autoaddress2_0.Model.AutoComplete;
 using Xunit;
 
 namespace Autoaddress.Autoaddress2_0.Test.Integration
@@ -395,62 +396,6 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Fact]
-        public void PostcodeLookup_IE_D08XY00_ReturnsValidResponse()
-        {
-            const string postcode = "D08XY00";
-            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
-
-            var response = autoaddressClient.PostcodeLookup(request);
-
-            Assert.NotNull(response);
-            Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, response.Result);
-            Assert.Equal(postcode, response.Postcode);
-            Assert.NotNull(response.PostalAddress);
-            Assert.Equal(3, response.PostalAddress.Length);
-            Assert.Equal("4 INNS COURT", response.PostalAddress[0]);
-            Assert.Equal("WINETAVERN STREET", response.PostalAddress[1]);
-            Assert.Equal("DUBLIN 8", response.PostalAddress[2]);
-            Assert.NotNull(response.Options);
-            Assert.Equal(3, response.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
-        }
-
-        [Fact]
-        public void PostcodeLookup_IE_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
-        {
-            const string postcode = "D08XY00";
-            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
-
-            var firstResponse = autoaddressClient.PostcodeLookup(request);
-
-            Assert.NotNull(firstResponse);
-            Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, firstResponse.Result);
-            Assert.Equal(postcode, firstResponse.Postcode);
-            Assert.NotNull(firstResponse.PostalAddress);
-            Assert.Equal(3, firstResponse.PostalAddress.Length);
-            Assert.Equal("4 INNS COURT", firstResponse.PostalAddress[0]);
-            Assert.Equal("WINETAVERN STREET", firstResponse.PostalAddress[1]);
-            Assert.Equal("DUBLIN 8", firstResponse.PostalAddress[2]);
-            Assert.NotNull(firstResponse.Options);
-            Assert.Equal(3, firstResponse.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[2].DisplayName);
-            Assert.NotNull(firstResponse.Options[2].Links);
-            Assert.True(firstResponse.Options[2].Links.Length > 0);
-            Assert.NotNull(firstResponse.Options[2].Links[0]);
-
-            var secondResponse = autoaddressClient.PostcodeLookup(firstResponse.Options[2].Links.OfType<Model.PostcodeLookup.Link>().First());
-            Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, firstResponse.Result);
-            Assert.Equal(postcode, firstResponse.Postcode);
-            Assert.Equal(AddressType.Organisation, secondResponse.AddressType);
-        }
-
-        [Fact]
         public void PostcodeLookup_IE_F94H289_ReturnsValidResponse()
         {
             const string postcode = "F94H289";
@@ -544,57 +489,92 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("CO. MEATH", response.PostalAddress[3]);
         }
 
-        [Fact]
-        public async Task PostcodeLookupAsync_IE_D08XY00_ReturnsValidResponse()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task PostcodeLookup_IE_D02C966_ReturnsValidResponse(bool useAsync)
         {
-            const string postcode = "D08XY00";
+            const string postcode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            var response = await autoaddressClient.PostcodeLookupAsync(request);
+            Model.PostcodeLookup.Response response;
+            if (useAsync)
+            {
+                response = await autoaddressClient.PostcodeLookupAsync(request);
+            }
+            else
+            {
+                response = autoaddressClient.PostcodeLookup(request);
+            }
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, response.Result);
             Assert.Equal(postcode, response.Postcode);
             Assert.NotNull(response.PostalAddress);
             Assert.Equal(3, response.PostalAddress.Length);
-            Assert.Equal("4 INNS COURT", response.PostalAddress[0]);
-            Assert.Equal("WINETAVERN STREET", response.PostalAddress[1]);
-            Assert.Equal("DUBLIN 8", response.PostalAddress[2]);
+            Assert.Equal(new[] { "SAINT ANDREW STREET POST OFFICE", "19-24 SAINT ANDREW STREET", "DUBLIN 2" }, response.PostalAddress);
             Assert.NotNull(response.Options);
-            Assert.Equal(3, response.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
+            Assert.True(response.Options.Length > 0);
+            var list = response.Options
+                .Select((x, i) => new { x.DisplayName, Index = i })
+                .Where(x => x.DisplayName.Contains("AUTOADDRESS", StringComparison.InvariantCultureIgnoreCase))
+                .Select(x => x.Index)
+                .ToList();
+            Assert.Equal(1, list.Count);
+            int index = list[0];
+            Assert.Equal("AUTOADDRESS, 1ST FLOOR SAINT ANDREW STREET POST OFFICE, 19-24 SAINT ANDREW STREET, DUBLIN 2", response.Options[index].DisplayName);
         }
 
-        [Fact]
-        public async Task PostcodeLookupAsync_IE_D08XY00ThenSelectGammaFromOptions_ReturnsValidResponses()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task PostcodeLookup_IE_D02C966ThenSelectGammaFromOptions_ReturnsValidResponses(bool useAsync)
         {
-            const string postcode = "D08XY00";
+            const string postcode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            var firstResponse = await autoaddressClient.PostcodeLookupAsync(request);
+            Model.PostcodeLookup.Response firstResponse;
+            if (useAsync)
+            {
+                firstResponse = await autoaddressClient.PostcodeLookupAsync(request);
+            }
+            else
+            {
+                firstResponse = autoaddressClient.PostcodeLookup(request);
+            }
 
             Assert.NotNull(firstResponse);
             Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, firstResponse.Result);
             Assert.Equal(postcode, firstResponse.Postcode);
             Assert.NotNull(firstResponse.PostalAddress);
             Assert.Equal(3, firstResponse.PostalAddress.Length);
-            Assert.Equal("4 INNS COURT", firstResponse.PostalAddress[0]);
-            Assert.Equal("WINETAVERN STREET", firstResponse.PostalAddress[1]);
-            Assert.Equal("DUBLIN 8", firstResponse.PostalAddress[2]);
+            Assert.Equal(new[] { "SAINT ANDREW STREET POST OFFICE", "19-24 SAINT ANDREW STREET", "DUBLIN 2" }, firstResponse.PostalAddress);
             Assert.NotNull(firstResponse.Options);
-            Assert.Equal(3, firstResponse.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", firstResponse.Options[2].DisplayName);
-            Assert.NotNull(firstResponse.Options[2].Links);
-            Assert.True(firstResponse.Options[2].Links.Length > 0);
-            Assert.NotNull(firstResponse.Options[2].Links[0]);
+            Assert.True(firstResponse.Options.Length > 0);
+            var list = firstResponse.Options
+                .Select((x, i) => new { x.DisplayName, Index = i })
+                .Where(x => x.DisplayName.Contains("AUTOADDRESS", StringComparison.InvariantCultureIgnoreCase))
+                .Select(x => x.Index)
+                .ToList();
+            Assert.Equal(1, list.Count);
+            int index = list[0];
+            Assert.Equal("AUTOADDRESS, 1ST FLOOR SAINT ANDREW STREET POST OFFICE, 19-24 SAINT ANDREW STREET, DUBLIN 2", firstResponse.Options[index].DisplayName);
+            Assert.NotNull(firstResponse.Options[index].Links);
+            Assert.True(firstResponse.Options[index].Links.Length > 0);
+            Assert.NotNull(firstResponse.Options[index].Links[0]);
 
-            var secondResponse = await autoaddressClient.PostcodeLookupAsync(firstResponse.Options[2].Links.OfType<Model.PostcodeLookup.Link>().First());
+            Model.PostcodeLookup.Response secondResponse;
+            if (useAsync)
+            {
+                secondResponse = await autoaddressClient.PostcodeLookupAsync(firstResponse.Options[index].Links.OfType<Autoaddress.Autoaddress2_0.Model.PostcodeLookup.Link>().First());
+            }
+            else
+            {
+                secondResponse = autoaddressClient.PostcodeLookup(firstResponse.Options[index].Links.OfType<Autoaddress.Autoaddress2_0.Model.PostcodeLookup.Link>().First());
+            }
+
             Assert.Equal(Autoaddress2_0.Model.PostcodeLookup.ReturnCode.ValidPostcode, firstResponse.Result);
             Assert.Equal(postcode, firstResponse.Postcode);
             Assert.Equal(AddressType.Organisation, secondResponse.AddressType);
@@ -1032,100 +1012,87 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.Equal("SILVER BIRCHES, MILLFARM, DUNBOYNE, CO. MEATH", response.Options[0].DisplayName);
         }
 
-        [Fact]
-        public void AutoComplete_IE_D08XY00_ReturnsValidResponse()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task AutoCompleteAsync_IE_D02C966_ReturnsValidResponse(bool useAsync)
         {
-            const string eircode = "D08XY00";
+            const string eircode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            var response = autoaddressClient.AutoComplete(request);
+            Response response;
+            if (useAsync)
+            {
+                response = await autoaddressClient.AutoCompleteAsync(request);
+            }
+            else
+            {
+                response = autoaddressClient.AutoComplete(request);
+            }
 
             Assert.NotNull(response);
             Assert.NotNull(response.Options);
-            Assert.Equal(3, response.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
+            Assert.True(response.Options.Length > 0);
+            var list = response.Options
+                .Select((x, i) => new { x.DisplayName, Index = i })
+                .Where(x => x.DisplayName.Contains("AUTOADDRESS", StringComparison.InvariantCultureIgnoreCase))
+                .Select(x => x.Index)
+                .ToList();
+            Assert.Equal(1, list.Count);
+            int index = list[0];
+
+            Assert.Equal("AUTOADDRESS, 1ST FLOOR SAINT ANDREW STREET POST OFFICE, 19-24 SAINT ANDREW STREET, DUBLIN 2", response.Options[index].DisplayName);
         }
 
-        [Fact]
-        public async Task AutoCompleteAsync_IE_D08XY00_ReturnsValidResponse()
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task AutoCompleteThenFindAddress_IE_D02C966_ReturnsValidResponse(bool useAsync)
         {
-            const string eircode = "D08XY00";
+            const string eircode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
             var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            var response = await autoaddressClient.AutoCompleteAsync(request);
-
-            Assert.NotNull(response);
-            Assert.NotNull(response.Options);
-            Assert.Equal(3, response.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", response.Options[2].DisplayName);
-        }
-
-        [Fact]
-        public void AutoCompleteThenFindAddress_IE_D08XY00_ReturnsValidResponse()
-        {
-            const string eircode = "D08XY00";
-            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
-
-            var autoCompleteResponse = autoaddressClient.AutoComplete(request);
+            Response autoCompleteResponse;
+            if (useAsync)
+            {
+                autoCompleteResponse = await autoaddressClient.AutoCompleteAsync(request);
+            }
+            else
+            {
+                autoCompleteResponse = autoaddressClient.AutoComplete(request);
+            }
 
             Assert.NotNull(autoCompleteResponse);
             Assert.NotNull(autoCompleteResponse.Options);
-            Assert.Equal(3, autoCompleteResponse.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[2].DisplayName);
+            Assert.True(autoCompleteResponse.Options.Length > 0);
+            var list = autoCompleteResponse.Options
+                .Select((x, i) => new { x.DisplayName, Index = i })
+                .Where(x => x.DisplayName.Contains("AUTOADDRESS", StringComparison.InvariantCultureIgnoreCase))
+                .Select(x => x.Index)
+                .ToList();
+            Assert.Equal(1, list.Count);
+            int index = list[0];
 
-            var link = autoCompleteResponse.Options[1].Links.OfType<Model.FindAddress.Link>().First();
+            var link = autoCompleteResponse.Options[index].Links.OfType<Model.FindAddress.Link>().First();
 
-            var findAddressResponse = autoaddressClient.FindAddress(link);
-            
+            Model.FindAddress.Response findAddressResponse;
+            if (useAsync)
+            {
+                findAddressResponse = await autoaddressClient.FindAddressAsync(link);
+            }
+            else
+            {
+                findAddressResponse = autoaddressClient.FindAddress(link);
+            }
+
             Assert.NotNull(findAddressResponse);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, findAddressResponse.Result);
             Assert.Equal(eircode, findAddressResponse.Postcode);
             Assert.NotNull(findAddressResponse.PostalAddress);
             Assert.Equal(4, findAddressResponse.PostalAddress.Length);
-            Assert.Equal("AUTOADDRESS", findAddressResponse.PostalAddress[0]);
-            Assert.Equal("4 INNS COURT", findAddressResponse.PostalAddress[1]);
-            Assert.Equal("WINETAVERN STREET", findAddressResponse.PostalAddress[2]);
-            Assert.Equal("DUBLIN 8", findAddressResponse.PostalAddress[3]);
-        }
-
-        [Fact]
-        public async Task AutoCompleteAsyncThenFindAddressAsync_IE_D08XY00_ReturnsValidResponse()
-        {
-            const string eircode = "D08XY00";
-            var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
-            var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
-
-            var autoCompleteResponse = await autoaddressClient.AutoCompleteAsync(request);
-
-            Assert.NotNull(autoCompleteResponse);
-            Assert.NotNull(autoCompleteResponse.Options);
-            Assert.Equal(3, autoCompleteResponse.Options.Length);
-            Assert.Equal("4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[0].DisplayName);
-            Assert.Equal("AUTOADDRESS, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[1].DisplayName);
-            Assert.Equal("GAMMA, 4 INNS COURT, WINETAVERN STREET, DUBLIN 8", autoCompleteResponse.Options[2].DisplayName);
-
-            var link = autoCompleteResponse.Options[1].Links.OfType<Model.FindAddress.Link>().First();
-
-            var findAddressResponse = await autoaddressClient.FindAddressAsync(link);
-            
-            Assert.NotNull(findAddressResponse);
-            Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, findAddressResponse.Result);
-            Assert.Equal(eircode, findAddressResponse.Postcode);
-            Assert.NotNull(findAddressResponse.PostalAddress);
-            Assert.Equal(4, findAddressResponse.PostalAddress.Length);
-            Assert.Equal("AUTOADDRESS", findAddressResponse.PostalAddress[0]);
-            Assert.Equal("4 INNS COURT", findAddressResponse.PostalAddress[1]);
-            Assert.Equal("WINETAVERN STREET", findAddressResponse.PostalAddress[2]);
-            Assert.Equal("DUBLIN 8", findAddressResponse.PostalAddress[3]);
+            Assert.Equal(new[] { "AUTOADDRESS", "1ST FLOOR SAINT ANDREW STREET POST OFFICE", "19-24 SAINT ANDREW STREET", "DUBLIN 2" }, findAddressResponse.PostalAddress);
         }
 
         [Fact]
