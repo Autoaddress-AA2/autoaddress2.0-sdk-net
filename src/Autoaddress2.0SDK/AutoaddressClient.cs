@@ -1,12 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using Autoaddress.Autoaddress2_0.Extensions;
-using Autoaddress.Autoaddress2_0.Helpers;
+﻿using Autoaddress.Autoaddress2_0.Extensions;
+using Autoaddress.Autoaddress2_0.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Autoaddress.Autoaddress2_0
 {
@@ -39,10 +41,31 @@ namespace Autoaddress.Autoaddress2_0
         private const string MapIdMethod = "MapId";
         private const string JsonContentType = "application/json";
 
+        private static readonly string AssemblyVersion;
+
         private readonly AutoaddressConfig _autoaddressConfig;
         private readonly string _licenceKey;
         private readonly object _httpClientLock = new object();
         private HttpClient _httpClient;
+
+        /// <summary>
+        /// Occurs just before request is sent to Autoaddress endpoint.
+        /// </summary>
+        public event EventHandler<PreRequestEventArgs> PreRequest;
+
+        static AutoaddressClient()
+        {
+            string assemblyQualifiedName = typeof(AutoaddressClient).AssemblyQualifiedName;
+            if (assemblyQualifiedName != null)
+            {
+                string version = assemblyQualifiedName
+                    .Split(',')
+                    .Where(x => !string.IsNullOrWhiteSpace(x) && x.ToLowerInvariant().Contains("version"))
+                    .Select(x => x.Trim())
+                    .FirstOrDefault();
+                AssemblyVersion = version;
+            }
+        }
 
         /// <summary>
         /// Constructs AutoaddressClient with a licence key and the other configuration settings using defaults.
@@ -73,6 +96,83 @@ namespace Autoaddress.Autoaddress2_0
 
             _licenceKey = licenceKey;
             _autoaddressConfig = autoaddressConfig ?? throw new ArgumentNullException(nameof(autoaddressConfig));
+        }
+
+        private static async Task<string> InvokeGetRequestAsync(HttpClient httpClient, HttpRequestMessage httpRequestMessage)
+        {
+            var completionOption = HttpCompletionOption.ResponseContentRead;
+            var cancellationToken = CancellationToken.None;
+
+            HttpResponseMessage response = await httpClient.SendAsync(httpRequestMessage, completionOption, cancellationToken).ConfigureAwait(false);
+
+            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return result;
+            }
+
+            if ((int)response.StatusCode == 429)
+            {
+                throw new TooManyRequestsException(response.ReasonPhrase);
+            }
+
+            AutoaddressException autoaddressException = GetAutoaddressException(response.StatusCode, httpRequestMessage.RequestUri, result);
+
+            if (autoaddressException != null)
+            {
+                throw autoaddressException;
+            }
+
+            // guard
+            response.EnsureSuccessStatusCode();
+
+            throw new InvalidOperationException();
+        }
+
+        private static AutoaddressException GetAutoaddressException(HttpStatusCode httpStatusCode, Uri requestUri, string response)
+        {
+            JObject obj;
+            try
+            {
+                obj = JObject.Parse(response);
+            }
+            catch
+            {
+                return new AutoaddressException(ErrorType.Unknown, httpStatusCode, requestUri, $"response=[{response}]");
+            }
+
+            try
+            {
+                AutoaddressException autoaddressException = null;
+                if (obj["errors"] != null && obj["errors"].HasValues && obj["errors"][0]["type"]["code"] != null && obj["errors"][0]["message"] != null)
+                {
+                    ErrorType errorType = (ErrorType)((int)obj["errors"][0]["type"]["code"]);
+                    string message = obj["errors"][0]["message"].ToString();
+                    autoaddressException = new AutoaddressException(errorType, httpStatusCode, requestUri, message);
+                }
+                return autoaddressException;
+            }
+            catch
+            {
+                return new AutoaddressException(ErrorType.Unknown, httpStatusCode, requestUri, $"response=[{response}]");
+            }
+        }
+
+        private async Task<T> GetResponseAsync<T>(object request, Uri requestUri)
+        {
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+            httpRequestMessage.Headers.Accept.Clear();
+            httpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
+            httpRequestMessage.Headers.Add("Client", $"Autoaddress2.0SDK {AssemblyVersion}");
+
+            PreRequest?.Invoke(this, new PreRequestEventArgs(request, httpRequestMessage));
+
+            EnsureHttpClient();
+            string response = await InvokeGetRequestAsync(_httpClient, httpRequestMessage).ConfigureAwait(false);
+
+            string result = ParseJson(response);
+            return JsonConvert.DeserializeObject<T>(result);
         }
 
         /// <summary>
@@ -141,10 +241,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, FindAddressMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
+            var response = await GetResponseAsync<Model.FindAddress.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -161,10 +259,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.FindAddress.Response>(result);
+            var response = await GetResponseAsync<Model.FindAddress.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -233,10 +329,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, PostcodeLookupMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.PostcodeLookup.Response>(result);
+            var response = await GetResponseAsync<Model.PostcodeLookup.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -253,10 +347,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.PostcodeLookup.Response>(result);
+            var response = await GetResponseAsync<Model.PostcodeLookup.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -321,10 +413,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, VerifyAddressMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.VerifyAddress.Response>(result);
+            var response = await GetResponseAsync<Model.VerifyAddress.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -337,10 +427,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
             
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.VerifyAddress.Response>(result);
+            var response = await GetResponseAsync<Model.VerifyAddress.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -405,10 +493,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetEcadDataMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
+            var response = await GetResponseAsync<Model.GetEcadData.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -421,10 +507,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetEcadData.Response>(result);
+            var response = await GetResponseAsync<Model.GetEcadData.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -467,10 +551,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, AutoCompleteMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.AutoComplete.Response>(result);
+            var response = await GetResponseAsync<Model.AutoComplete.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -535,10 +617,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, ReverseGeocodeMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+            var response = await GetResponseAsync<Model.ReverseGeocode.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -551,10 +631,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.ReverseGeocode.Response>(result);
+            var response = await GetResponseAsync<Model.ReverseGeocode.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -611,10 +689,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbBuildingDataMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+            var response = await GetResponseAsync<Model.GetGbBuildingData.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -627,10 +703,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbBuildingData.Response>(result);
+            var response = await GetResponseAsync<Model.GetGbBuildingData.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -695,10 +769,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, GetGbPostcodeDataMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+            var response = await GetResponseAsync<Model.GetGbPostcodeData.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -711,10 +783,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.GetGbPostcodeData.Response>(result);
+            var response = await GetResponseAsync<Model.GetGbPostcodeData.Response>(link, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -779,10 +849,8 @@ namespace Autoaddress.Autoaddress2_0
             if (request == null) throw new ArgumentNullException(nameof(request));
 
             Uri requestUri = GetRequestUri(_licenceKey, request.Txn, _autoaddressConfig.ApiBaseAddress, Version, MapIdMethod, request);
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+            var response = await GetResponseAsync<Model.MapId.Response>(request, requestUri);
+            return response;
         }
 
         /// <summary>
@@ -795,10 +863,8 @@ namespace Autoaddress.Autoaddress2_0
             if (link == null) throw new ArgumentNullException(nameof(link));
 
             Uri requestUri = link.Href;
-            EnsureHttpClient();
-            string response = await HttpRequestHelper.InvokeGetRequestAsync(_httpClient, requestUri).ConfigureAwait(false);
-            string result = ParseJson(response);
-            return JsonConvert.DeserializeObject<Model.MapId.Response>(result);
+            var response = await GetResponseAsync<Model.MapId.Response>(link, requestUri);
+            return response;
         }
 
         private static Uri GetRequestUri(string licenceKey, string txn, string baseAddress, string version, string method, object inputParam)
@@ -926,9 +992,6 @@ namespace Autoaddress.Autoaddress2_0
                                       {
                                           Timeout = TimeSpan.FromMilliseconds(_autoaddressConfig.RequestTimeoutMilliseconds)
                                       };
-                        _httpClient.DefaultRequestHeaders.Accept.Clear();
-                        _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
-                        _httpClient.DefaultRequestHeaders.Add("Client", "Autoaddress2.0SDK");
                     }
                 }
             }

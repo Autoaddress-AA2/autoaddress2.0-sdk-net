@@ -1,14 +1,29 @@
-﻿using System;
+﻿using Autoaddress.Autoaddress2_0.Model;
+using Autoaddress.Autoaddress2_0.Model.AutoComplete;
+using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Autoaddress.Autoaddress2_0.Model;
-using Autoaddress.Autoaddress2_0.Model.AutoComplete;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Autoaddress.Autoaddress2_0.Test.Integration
 {
     public class AutoaddressClientTest
     {
+        private readonly ITestOutputHelper _output;
+
+        public AutoaddressClientTest(ITestOutputHelper output)
+        {
+            this._output = output;
+        }
+
+        private void PreRequest(object sender, PreRequestEventArgs args)
+        {
+            args.HttpRequestMessage.Headers.Add("X-Source", nameof(AutoaddressClientTest));
+            _output.WriteLine(JsonConvert.SerializeObject(args, Formatting.Indented));
+        }
+
         [Fact]
         public void FindAddress_IE_8SilverBirchesDunboyneCoDotMeath_ReturnsValidResponse()
         {
@@ -265,14 +280,30 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             Assert.NotNull(response.CleanResult);
         }
 
-        [Fact]
-        public async Task FindAddressAsync_IE_8SilverBirchesDunboyne_ReturnsValidResponse()
+        [Theory]
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public async Task FindAddressAsync_IE_8SilverBirchesDunboyne_ReturnsValidResponse(bool useAsync, bool log)
         {
             const string address = "8 Silver Birches, Dunboyne";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            if (log)
+            {
+                autoaddressClient.PreRequest += PreRequest;
+            }
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
-            var response = await autoaddressClient.FindAddressAsync(request);
+            Model.FindAddress.Response response;
+            if (useAsync)
+            {
+                response = await autoaddressClient.FindAddressAsync(request);
+            }
+            else
+            {
+                response = autoaddressClient.FindAddress(request);
+            }
 
             Assert.NotNull(response);
             Assert.Equal(Autoaddress.Autoaddress2_0.Model.FindAddress.ReturnCode.PostcodeAppended, response.Result);
@@ -490,12 +521,18 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async Task PostcodeLookup_IE_D02C966_ReturnsValidResponse(bool useAsync)
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public async Task PostcodeLookup_IE_D02C966_ReturnsValidResponse(bool useAsync, bool log)
         {
             const string postcode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            if (log)
+            {
+                autoaddressClient.PreRequest += PreRequest;
+            }
             var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
             Model.PostcodeLookup.Response response;
@@ -527,12 +564,18 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async Task PostcodeLookup_IE_D02C966ThenSelectGammaFromOptions_ReturnsValidResponses(bool useAsync)
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public async Task PostcodeLookup_IE_D02C966ThenSelectAutoaddressFromOptions_ReturnsValidResponses(bool useAsync, bool log)
         {
             const string postcode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            if (log)
+            {
+                autoaddressClient.PreRequest += PreRequest;
+            }
             var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
             Model.PostcodeLookup.Response firstResponse;
@@ -1013,12 +1056,18 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async Task AutoCompleteAsync_IE_D02C966_ReturnsValidResponse(bool useAsync)
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public async Task AutoCompleteAsync_IE_D02C966_ReturnsValidResponse(bool useAsync, bool log)
         {
             const string eircode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            if (log)
+            {
+                autoaddressClient.PreRequest += PreRequest;
+            }
             var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
             Response response;
@@ -1046,12 +1095,18 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public async Task AutoCompleteThenFindAddress_IE_D02C966_ReturnsValidResponse(bool useAsync)
+        [InlineData(false, false)]
+        [InlineData(false, true)]
+        [InlineData(true, false)]
+        [InlineData(true, true)]
+        public async Task AutoCompleteThenFindAddress_IE_D02C966_ReturnsValidResponse(bool useAsync, bool log)
         {
             const string eircode = "D02C966";
             var autoaddressClient = new AutoaddressClient(Settings.Licence.Key);
+            if (log)
+            {
+                autoaddressClient.PreRequest += PreRequest;
+            }
             var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
             Response autoCompleteResponse;
