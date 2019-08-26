@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Autoaddress.Autoaddress2_0
 {
@@ -7,6 +8,11 @@ namespace Autoaddress.Autoaddress2_0
     /// </summary>
     public interface IAutoaddress
     {
+        /// <summary>
+        /// Occurs just before request is sent to Autoaddress endpoint.
+        /// </summary>
+        event EventHandler<PreRequestEventArgs> PreRequest;
+
         /// <summary>
         /// Lookup a Postcode or Address. Returns all available data if found.
         /// </summary>
