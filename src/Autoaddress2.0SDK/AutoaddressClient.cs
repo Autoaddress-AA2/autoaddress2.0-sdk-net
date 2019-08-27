@@ -53,6 +53,11 @@ namespace Autoaddress.Autoaddress2_0
         /// </summary>
         public event EventHandler<PreRequestEventArgs> PreRequest;
 
+        /// <summary>
+        /// Occurs after response was received from Autoaddress endpoint.
+        /// </summary>
+        public event EventHandler<PostRequestEventArgs> PostRequest;
+
         static AutoaddressClient()
         {
             string assemblyQualifiedName = typeof(AutoaddressClient).AssemblyQualifiedName;
@@ -98,38 +103,6 @@ namespace Autoaddress.Autoaddress2_0
             _autoaddressConfig = autoaddressConfig ?? throw new ArgumentNullException(nameof(autoaddressConfig));
         }
 
-        private static async Task<string> InvokeGetRequestAsync(HttpClient httpClient, HttpRequestMessage httpRequestMessage)
-        {
-            var completionOption = HttpCompletionOption.ResponseContentRead;
-            var cancellationToken = CancellationToken.None;
-
-            HttpResponseMessage response = await httpClient.SendAsync(httpRequestMessage, completionOption, cancellationToken).ConfigureAwait(false);
-
-            string result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return result;
-            }
-
-            if ((int)response.StatusCode == 429)
-            {
-                throw new TooManyRequestsException(response.ReasonPhrase);
-            }
-
-            AutoaddressException autoaddressException = GetAutoaddressException(response.StatusCode, httpRequestMessage.RequestUri, result);
-
-            if (autoaddressException != null)
-            {
-                throw autoaddressException;
-            }
-
-            // guard
-            response.EnsureSuccessStatusCode();
-
-            throw new InvalidOperationException();
-        }
-
         private static AutoaddressException GetAutoaddressException(HttpStatusCode httpStatusCode, Uri requestUri, string response)
         {
             JObject obj;
@@ -166,12 +139,39 @@ namespace Autoaddress.Autoaddress2_0
             httpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(JsonContentType));
             httpRequestMessage.Headers.Add("Client", $"Autoaddress2.0SDK {AssemblyVersion}");
 
+            EnsureHttpClient();
+
+            var completionOption = HttpCompletionOption.ResponseContentRead;
+            var cancellationToken = CancellationToken.None;
+
             PreRequest?.Invoke(this, new PreRequestEventArgs(request, httpRequestMessage));
 
-            EnsureHttpClient();
-            string response = await InvokeGetRequestAsync(_httpClient, httpRequestMessage).ConfigureAwait(false);
+            HttpResponseMessage response = await _httpClient.SendAsync(httpRequestMessage, completionOption, cancellationToken).ConfigureAwait(false);
+            string content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            string result = ParseJson(response);
+            PostRequest?.Invoke(this, new PostRequestEventArgs(response, content));
+
+            if (!response.IsSuccessStatusCode)
+            {
+                if ((int)response.StatusCode == 429)
+                {
+                    throw new TooManyRequestsException(response.ReasonPhrase);
+                }
+
+                AutoaddressException autoaddressException = GetAutoaddressException(response.StatusCode, httpRequestMessage.RequestUri, content);
+
+                if (autoaddressException != null)
+                {
+                    throw autoaddressException;
+                }
+
+                // guard
+                response.EnsureSuccessStatusCode();
+
+                throw new InvalidOperationException();
+            }
+
+            string result = ParseJson(content);
             return JsonConvert.DeserializeObject<T>(result);
         }
 

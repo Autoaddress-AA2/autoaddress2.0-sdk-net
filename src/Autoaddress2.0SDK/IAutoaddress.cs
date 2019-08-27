@@ -14,6 +14,11 @@ namespace Autoaddress.Autoaddress2_0
         event EventHandler<PreRequestEventArgs> PreRequest;
 
         /// <summary>
+        /// Occurs after response was received from Autoaddress endpoint.
+        /// </summary>
+        event EventHandler<PostRequestEventArgs> PostRequest;
+
+        /// <summary>
         /// Lookup a Postcode or Address. Returns all available data if found.
         /// </summary>
         /// <param name="request">FindAddress request.</param>

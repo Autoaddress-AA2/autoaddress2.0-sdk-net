@@ -21,6 +21,16 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
         private void PreRequest(object sender, PreRequestEventArgs args)
         {
             args.HttpRequestMessage.Headers.Add("X-Source", nameof(AutoaddressClientTest));
+
+            _output.WriteLine("");
+            _output.WriteLine($"{nameof(PreRequest)}: ");
+            _output.WriteLine(JsonConvert.SerializeObject(args, Formatting.Indented));
+        }
+
+        private void PostRequest(object sender, PostRequestEventArgs args)
+        {
+            _output.WriteLine("");
+            _output.WriteLine($"{nameof(PostRequest)}: ");
             _output.WriteLine(JsonConvert.SerializeObject(args, Formatting.Indented));
         }
 
@@ -304,6 +314,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             if (log)
             {
                 autoaddressClient.PreRequest += PreRequest;
+                autoaddressClient.PostRequest += PostRequest;
             }
             var request = new Autoaddress.Autoaddress2_0.Model.FindAddress.Request(address: address, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -544,6 +555,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             if (log)
             {
                 autoaddressClient.PreRequest += PreRequest;
+                autoaddressClient.PostRequest += PostRequest;
             }
             var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -587,6 +599,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             if (log)
             {
                 autoaddressClient.PreRequest += PreRequest;
+                autoaddressClient.PostRequest += PostRequest;
             }
             var request = new Autoaddress2_0.Model.PostcodeLookup.Request(postcode: postcode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -1079,6 +1092,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             if (log)
             {
                 autoaddressClient.PreRequest += PreRequest;
+                autoaddressClient.PostRequest += PostRequest;
             }
             var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
@@ -1118,6 +1132,7 @@ namespace Autoaddress.Autoaddress2_0.Test.Integration
             if (log)
             {
                 autoaddressClient.PreRequest += PreRequest;
+                autoaddressClient.PostRequest += PostRequest;
             }
             var request = new Autoaddress2_0.Model.AutoComplete.Request(address: eircode, language: Language.EN, country: Country.IE, limit: 20, geographicAddress: false, vanityMode: false, addressElements: false, addressProfileName: null);
 
